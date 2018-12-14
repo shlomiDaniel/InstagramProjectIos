@@ -173,10 +173,63 @@
                     <view key="view" contentMode="scaleToFill" id="E1B-3Y-0Im">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WTy-QN-GLz">
+                                <rect key="frame" x="0.0" y="64" width="375" height="100"/>
+                                <subviews>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ePj-5X-7wb">
+                                        <rect key="frame" x="96" y="10" width="271" height="80"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-picture-100" translatesAutoresizingMaskIntoConstraints="NO" id="gjF-Z6-7i5">
+                                        <rect key="frame" x="8" y="10" width="80" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="JKr-aT-mTb"/>
+                                            <constraint firstAttribute="height" constant="80" id="S4K-AJ-9Sb"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="ePj-5X-7wb" firstAttribute="top" secondItem="WTy-QN-GLz" secondAttribute="top" constant="10" id="Lhe-mi-oeT"/>
+                                    <constraint firstItem="gjF-Z6-7i5" firstAttribute="leading" secondItem="WTy-QN-GLz" secondAttribute="leading" constant="8" id="NTH-oK-Ihg"/>
+                                    <constraint firstItem="gjF-Z6-7i5" firstAttribute="top" secondItem="WTy-QN-GLz" secondAttribute="top" constant="10" id="UWC-z0-8Su"/>
+                                    <constraint firstAttribute="trailing" secondItem="ePj-5X-7wb" secondAttribute="trailing" constant="8" id="Xdm-qa-oOO"/>
+                                    <constraint firstItem="ePj-5X-7wb" firstAttribute="leading" secondItem="gjF-Z6-7i5" secondAttribute="trailing" constant="8" id="bdJ-Ll-3UB"/>
+                                    <constraint firstAttribute="bottom" secondItem="gjF-Z6-7i5" secondAttribute="bottom" constant="10" id="pfl-nA-x7W"/>
+                                    <constraint firstAttribute="bottom" secondItem="ePj-5X-7wb" secondAttribute="bottom" constant="10" id="wf8-8i-Y82"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j8w-nb-f2a">
+                                <rect key="frame" x="0.0" y="564" width="375" height="54"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" title="Share">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="titleShadowColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="shareButtonClick:" destination="r6v-yF-dad" eventType="touchUpInside" id="1Op-WB-zwo"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="WTy-QN-GLz" firstAttribute="leading" secondItem="Wma-d3-fFQ" secondAttribute="leading" id="P7c-g5-18W"/>
+                            <constraint firstItem="WTy-QN-GLz" firstAttribute="trailing" secondItem="Wma-d3-fFQ" secondAttribute="trailing" id="bPm-Mt-FXN"/>
+                            <constraint firstItem="WTy-QN-GLz" firstAttribute="top" secondItem="Wma-d3-fFQ" secondAttribute="top" id="gmV-Pf-A8P"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Wma-d3-fFQ"/>
                     </view>
                     <navigationItem key="navigationItem" title="Camera" id="GPE-uJ-6Jo"/>
+                    <connections>
+                        <outlet property="photo" destination="gjF-Z6-7i5" id="mAE-ad-voW"/>
+                        <outlet property="shareButoon" destination="j8w-nb-f2a" id="AzE-Q7-d43"/>
+                        <outlet property="textView" destination="ePj-5X-7wb" id="aPK-eY-irh"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="298-u9-WpF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -355,6 +408,7 @@
         <image name="icons8-home-page-filled-35" width="26.25" height="26.25"/>
         <image name="icons8-instagram-35" width="26.25" height="26.25"/>
         <image name="icons8-instagram-filled-35" width="26.25" height="26.25"/>
+        <image name="icons8-picture-100" width="75" height="75"/>
         <image name="icons8-search-35" width="26.25" height="26.25"/>
         <image name="icons8-user-35" width="26.25" height="26.25"/>
         <image name="icons8-user-filled-35" width="26.25" height="26.25"/>
