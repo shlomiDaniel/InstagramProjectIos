@@ -9,56 +9,38 @@
 import UIKit
 import Firebase
 import SVProgressHUD
+import FirebaseDatabase
 
 class RegisterViewController: UIViewController {
 
     //var firebaseDataBase : DatabaseReference!
-    var fireBaseDataBase = ModelFireBase()
-    
-    
-    @IBOutlet weak var placeHolderImage: UIImageView!
-    
+   var fireBaseDataBase = ModelFireBase()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
     
    
-    //    @IBAction func dismiss_button(_ sender: Any) {
-//        self.dismiss(animated: true, completion: nil
-//        )
-//    }
-    
-    
-    
+    @IBOutlet weak var profileimage: UIImageView!
     @IBOutlet weak var email_txt: UITextField!
     
     @IBOutlet weak var username_txt: UITextField!
     
     @IBOutlet weak var password_txt: UITextField!
     
-    @IBAction func dismiss(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+
+    
+    @IBAction func dismissPage(_ sender: Any) {
+         self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func register(_ sender: Any) {
         
         
-        fireBaseDataBase.regiser_new_user(mail: email_txt.text!, pass: password_txt.text!)
-//        Auth.auth().createUser(withEmail: email_txt.text!, password: password_txt.text!) { (user, error) in
-//
-//            if(error != nil)
-//            {
-//                print("errorrrr")
-//            }
-//            else{
-//                print("100XXX")
-//
-//            }
-//
-//        }
+       fireBaseDataBase.regiser_new_user(mail: email_txt.text!, pass: password_txt.text!)
+       
+       
     }
 
            

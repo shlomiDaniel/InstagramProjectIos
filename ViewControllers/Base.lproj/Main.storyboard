@@ -58,6 +58,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
+                                    <action selector="signInButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qIi-7a-vky"/>
                                     <segue destination="UeR-X0-0of" kind="presentation" id="P6E-Gu-Zhf"/>
                                 </connections>
                             </button>
@@ -66,8 +67,9 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="email_txt" destination="8bC-Xf-vdC" id="jEz-hL-zy8"/>
+                        <outlet property="emailtxt" destination="fFd-L1-2Lj" id="rWa-xX-Eqo"/>
                         <outlet property="password_txt" destination="cVO-Xx-cEd" id="GEi-h1-3zv"/>
+                        <outlet property="signInButton" destination="tBv-9l-jD3" id="kgt-P0-kPN"/>
                         <outlet property="sign_in_button" destination="tBv-9l-jD3" id="F28-pn-Tcb"/>
                     </connections>
                 </viewController>
@@ -91,6 +93,7 @@
                                 </state>
                                 <connections>
                                     <action selector="dismiss:" destination="hmb-vh-qzB" eventType="touchUpInside" id="Qu9-X3-aOK"/>
+                                    <action selector="dismissPage:" destination="JZs-Go-YYz" eventType="touchUpInside" id="sac-qz-4rG"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="12h-k7-aEQ">
@@ -136,8 +139,9 @@
                         <viewLayoutGuide key="safeArea" id="1Ma-Ys-7lw"/>
                     </view>
                     <connections>
-                        <outlet property="email_txt" destination="12h-k7-aEQ" id="2EW-fz-gXt"/>
+                        <outlet property="email_txt" destination="12h-k7-aEQ" id="25M-qX-rGc"/>
                         <outlet property="password_txt" destination="CU5-Wo-5js" id="nj8-hN-C9U"/>
+                        <outlet property="profileimage" destination="TcO-Ri-FYM" id="HON-ba-Wlh"/>
                         <outlet property="username_txt" destination="1f9-8Q-DGh" id="Aqr-H4-D50"/>
                     </connections>
                 </viewController>

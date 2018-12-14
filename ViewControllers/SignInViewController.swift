@@ -7,16 +7,26 @@
 //
 
 import UIKit
-
+import Firebase
 class SignInViewController: UIViewController {
 
-    @IBOutlet var email_txt: UIView!
+    var fireBaseDataBase = ModelFireBase()
+    
+    @IBOutlet weak var emailtxt: UITextField!
+   
+    @IBOutlet weak var signInButton: UIButton!
     @IBOutlet weak var password_txt: UITextField!
     @IBOutlet weak var sign_in_button: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    @IBAction func signInButtonAction(_ sender: Any) {
+        fireBaseDataBase.signInByEmailAndPass(email: emailtxt.text!, pass: password_txt.text!)
+       // fireBaseDataBase.signInByEmailAndPass(email:emailtxt.text! , pass: password_txt.text!)
+        //fireBaseDataBase.s
+       // fireBaseDataBase.signInByEmailAndPass(email:emailtxt.text!, pass: password_txt.text!)
     }
     
 

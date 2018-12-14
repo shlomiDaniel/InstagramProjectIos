@@ -32,15 +32,21 @@ class ModelFireBase{
         }
     }
     
-    func registerNewUser(){
+  
         
-        Auth.auth().createUser(withEmail: "shlomi.daniel@gmail.com", password: "123456") { (user, error) in
-            if error != nil{
-               	 print(error)
+        
+    
+    func signInByEmailAndPass(email : String, pass : String){
+        
+        Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
+            if(error != nil){
+                print("error to sign in,try again")
                 return
             }
-            print(user)
+            print("sign in succes")
         }
+       
+        
     }
     
     
