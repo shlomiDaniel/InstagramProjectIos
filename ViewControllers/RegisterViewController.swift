@@ -11,52 +11,80 @@ import Firebase
 import SVProgressHUD
 import FirebaseDatabase
 
-class RegisterViewController: UIViewController {
+class RegisterViewController: UIViewController,UIImagePickerControllerDelegate,UINavigationControllerDelegate {
 
+    @IBOutlet weak var myImageView: UIImageView!
+   
     //var firebaseDataBase : DatabaseReference!
-   var fireBaseDataBase = ModelFireBase()
+   //var fireBaseDataBase = ModelFireBase()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       imagePicker.delegate = self
+        
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        myImageView.isUserInteractionEnabled = true
+        myImageView.addGestureRecognizer(tapGestureRecognizer)
         
     }
+    let imagePicker = UIImagePickerController()
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImagew = tapGestureRecognizer.view as! UIImageView
+        print("aaaaaaaaaaaaaaaaaaaaaaaaa")
+        imagePicker.allowsEditing = false
+        imagePicker.sourceType = .photoLibrary
+        
+        present(imagePicker, animated: true, completion: nil)
+        // Your action
+    }
     
-   
-    @IBOutlet weak var profileimage: UIImageView!
+  
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        dismiss(animated: true, completion: nil)
+        //let originalImage: UIImagePickerController.InfoKey
+        if let image = info[.originalImage] as! UIImage?{
+            myImageView.image = image
+        }
+        //myImageView.image = infoPhoto
+    }
+    
+    
     @IBOutlet weak var email_txt: UITextField!
     
     @IBOutlet weak var username_txt: UITextField!
     
     @IBOutlet weak var password_txt: UITextField!
     
-
-    
-    @IBAction func dismissPage(_ sender: Any) {
-         self.dismiss(animated: true, completion: nil)
-    }
-    
     @IBAction func register(_ sender: Any) {
         
         
-       fireBaseDataBase.regiser_new_user(mail: email_txt.text!, pass: password_txt.text!)
-       
-       
+       // fireBaseDataBase.regiser_new_user(mail: email_txt.text!, pass: password_txt.text!)
+        
+        
     }
-
-           
-       // firebaseDataBase.registerNewUser()
+    
+    @IBAction func dismissPage(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+   
+    @IBAction func profileImageButton(_ sender: Any) {
+        
+       
+//
+//        if UIImagePickerController.availableMediaTypes(for: .photoLibrary) != nil {
+//            picker.allowsEditing = false
+//            picker.sourceType = UIImagePickerController.SourceType.photoLibrary
+//            present(picker, animated: true, completion: nil)
+//
+        
+//    }
+    
+    }
+    
   
     
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
