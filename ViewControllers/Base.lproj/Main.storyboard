@@ -59,7 +59,7 @@
                                 </state>
                                 <connections>
                                     <action selector="signInButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qIi-7a-vky"/>
-                                    <segue destination="UeR-X0-0of" kind="presentation" id="P6E-Gu-Zhf"/>
+                                    <segue destination="UeR-X0-0of" kind="presentation" identifier="" id="P6E-Gu-Zhf"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -120,7 +120,7 @@
                                 </state>
                                 <connections>
                                     <action selector="register:" destination="JZs-Go-YYz" eventType="touchUpInside" id="GaU-fR-59F"/>
-                                    <segue destination="UeR-X0-0of" kind="presentation" id="raF-c6-F69"/>
+                                    <segue destination="UeR-X0-0of" kind="presentation" identifier="registerToTabBar" id="raF-c6-F69"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1f9-8Q-DGh">

@@ -16,7 +16,7 @@ class RegisterViewController: UIViewController,UIImagePickerControllerDelegate,U
     @IBOutlet weak var myImageView: UIImageView!
    
     //var firebaseDataBase : DatabaseReference!
-   //var fireBaseDataBase = ModelFireBase()
+   var fireBaseDataBase = ModelFireBase()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +60,7 @@ class RegisterViewController: UIViewController,UIImagePickerControllerDelegate,U
     @IBAction func register(_ sender: Any) {
         
         
-       // fireBaseDataBase.regiser_new_user(mail: email_txt.text!, pass: password_txt.text!)
+        fireBaseDataBase.regiser_new_user(mail: email_txt.text!, pass: password_txt.text!,userName: username_txt.text!)
         
         
     }

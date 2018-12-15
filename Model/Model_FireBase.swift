@@ -20,7 +20,7 @@ class ModelFireBase{
         
     }
     
-    func regiser_new_user(mail : String  ,pass : String)
+    func regiser_new_user(mail : String  ,pass : String , userName : String)
     {
         
         Auth.auth().createUser(withEmail: mail, password: pass) { (user, error) in
@@ -29,6 +29,15 @@ class ModelFireBase{
                 return
             }
             print("100X")
+            print("sign in succes")
+            let userRef = self.ref.child("users")
+            //print(self.ref.description()) : https://instagramfirebase-6b380.firebaseio.com/users
+            //let uid = user?.Uid
+            let userID = Auth.auth().currentUser!.uid
+            let newUserRef = userRef.child(userID)
+            newUserRef.setValue(["userName": userName , "email" : mail])
+            print(newUserRef.description())
+            
         }
     }
     
@@ -44,6 +53,10 @@ class ModelFireBase{
                 return
             }
             print("sign in succes")
+            let userRef = self.ref.child("users")
+            print(self.ref.description())
+            
+            
         }
        
         

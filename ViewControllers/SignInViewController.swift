@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 class SignInViewController: UIViewController {
 
-    var fireBaseDataBase = ModelFireBase()
+    //var fireBaseDataBase = ModelFireBase()
     
     @IBOutlet weak var emailtxt: UITextField!
    
@@ -23,7 +23,7 @@ class SignInViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     @IBAction func signInButtonAction(_ sender: Any) {
-        fireBaseDataBase.signInByEmailAndPass(email: emailtxt.text!, pass: password_txt.text!)
+      //  fireBaseDataBase.signInByEmailAndPass(email: emailtxt.text!, pass: password_txt.text!)
        // fireBaseDataBase.signInByEmailAndPass(email:emailtxt.text! , pass: password_txt.text!)
         //fireBaseDataBase.s
        // fireBaseDataBase.signInByEmailAndPass(email:emailtxt.text!, pass: password_txt.text!)
