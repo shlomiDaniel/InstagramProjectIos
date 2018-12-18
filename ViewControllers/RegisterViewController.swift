@@ -76,22 +76,21 @@ class RegisterViewController: UIViewController,UIImagePickerControllerDelegate,U
                 print("errorrr")
                 return
             }
-            print("100X")
-            print("sign in succes")
-            let userRef = self.ref.child("users").childByAutoId()
+           
+            let userRef = Database.database().reference().child("users").childByAutoId()
             //print(self.ref.description()) : https://instagramfirebase-6b380.firebaseio.com/users
-            //let uid = user?.Uid
+           
             let userID = Auth.auth().currentUser!.uid
             let newUserRef = userRef.child(userID)
             //newUserRef.setValue(["userName": self.username_txt.text! , "email" : self.email_txt.text!])
-            print(newUserRef.description())
-            let pic_ref = self.ref.child("users").child("images")
+            //print(newUserRef.description())
+          //  let pic_ref = self.ref.child("users").child("images")
             //pic_ref.setValue(["image": "image" ])
             
-            let user = Auth.auth().currentUser!
-            let uid = user.uid
-            let storageRef = Storage.storage().reference(forURL: "gs://instagramfirebase-6b380.appspot.com").child("profile_image").child(uid)
-            newUserRef.setValue(["userName": self.username_txt.text! , "email" : self.email_txt.text!])
+           // let user = Auth.auth().currentUser!
+           // let uid = user.uid
+            let storageRef = Storage.storage().reference(forURL: "gs://instagramfirebase-6b380.appspot.com").child("profile_image").child(userID)
+            //newUserRef.setValue(["userName": self.username_txt.text! , "email" : self.email_txt.text!])
             
             if let profileImage =  self.image_selected!.jpegData(compressionQuality: 0.1){
                 storageRef.putData(profileImage, metadata: nil, completion: {
@@ -103,7 +102,7 @@ class RegisterViewController: UIViewController,UIImagePickerControllerDelegate,U
                             // success!
                             let image_url = url?.absoluteURL
                             print(image_url)
-                            
+                            newUserRef.setValue(["userName": self.username_txt.text! , "email" : self.email_txt.text!,"profile_image" : image_url?.absoluteString])
                             //let newuserref = Database.database().reference().child("users").child(
                             //newuserref.setValue([ "profile_pic" :  image_url ])
                         }
