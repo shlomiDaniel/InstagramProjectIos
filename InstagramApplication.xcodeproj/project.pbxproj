@@ -13,6 +13,7 @@
 		09058F4421BF20D5001DE7E6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 09058F4221BF20D5001DE7E6 /* LaunchScreen.storyboard */; };
 		09058F4C21BF240E001DE7E6 /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09058F4B21BF240E001DE7E6 /* SignInViewController.swift */; };
 		09058F4E21BF2421001DE7E6 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09058F4D21BF2421001DE7E6 /* RegisterViewController.swift */; };
+		090F3A9521C85AA200CD4D2C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090F3A9421C85AA200CD4D2C /* Post.swift */; };
 		09153D3D21BF36DB00D68B86 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09153D3821BF36DB00D68B86 /* DiscoverViewController.swift */; };
 		09153D3E21BF36DB00D68B86 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09153D3921BF36DB00D68B86 /* CameraViewController.swift */; };
 		09153D3F21BF36DB00D68B86 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09153D3A21BF36DB00D68B86 /* ActivityViewController.swift */; };
@@ -33,6 +34,7 @@
 		09058F4521BF20D5001DE7E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		09058F4B21BF240E001DE7E6 /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		09058F4D21BF2421001DE7E6 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
+		090F3A9421C85AA200CD4D2C /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		09153D3821BF36DB00D68B86 /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		09153D3921BF36DB00D68B86 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		09153D3A21BF36DB00D68B86 /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
@@ -107,6 +109,7 @@
 			isa = PBXGroup;
 			children = (
 				09153D4821BF534E00D68B86 /* Model_FireBase.swift */,
+				090F3A9421C85AA200CD4D2C /* Post.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -207,14 +210,22 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-InstagramApplication/Pods-InstagramApplication-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/ChameleonFramework/ChameleonFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
 			);
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ChameleonFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -260,6 +271,7 @@
 				09153D4021BF36DB00D68B86 /* HomeViewController.swift in Sources */,
 				09153D4121BF36DB00D68B86 /* ProfileViewController.swift in Sources */,
 				09058F4E21BF2421001DE7E6 /* RegisterViewController.swift in Sources */,
+				090F3A9521C85AA200CD4D2C /* Post.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
