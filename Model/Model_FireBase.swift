@@ -12,16 +12,25 @@ import FirebaseAuth
 
 class ModelFireBase{
     
-    //var ref : DatabaseReference!
+    var ref : DatabaseReference!
     init(){
-    //    FirebaseApp.configure()
-    //    ref = Database.database().reference()
+       FirebaseApp.configure()
+       ref = Database.database().reference()
         
         
     }
     
     func regiser_new_user(mail : String  ,pass : String , userName : String)
     {
+        
+        
+        Auth.auth().createUser(withEmail: mail, password: pass) { (user, error) in
+            if error != nil{
+                print("errorrr")
+                return
+            }
+        }
+        
         
 //        Auth.auth().createUser(withEmail: mail, password: pass) { (user, error) in
 //            if error != nil{
@@ -69,3 +78,4 @@ class ModelFireBase{
 
     
 }
+

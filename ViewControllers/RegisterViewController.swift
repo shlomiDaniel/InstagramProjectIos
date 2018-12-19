@@ -17,9 +17,9 @@ class RegisterViewController: UIViewController,UIImagePickerControllerDelegate,U
     
     var image_selected : UIImage?
     //var firebaseDataBase : DatabaseReference!
-    var fireBaseDataBase = ModelFireBase()
+   var fireBaseDataBase = ModelFireBase()
     
-    var ref : DatabaseReference!
+    //var ref : DatabaseReference!
     
     //FirebaseApp.configure()
     
@@ -29,7 +29,7 @@ class RegisterViewController: UIViewController,UIImagePickerControllerDelegate,U
     override func viewDidLoad() {
         super.viewDidLoad()
         imagePicker.delegate = self
-        ref = Database.database().reference()
+        //ref = Database.database().reference()
         //var image_selected : UIImage
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
@@ -69,29 +69,22 @@ class RegisterViewController: UIViewController,UIImagePickerControllerDelegate,U
     @IBOutlet weak var password_txt: UITextField!
     
     @IBAction func register(_ sender: Any) {
-        //fireBaseDataBase.regiser_new_user(mail: email_txt.text!, pass: password_txt.text!,userName: username_txt.text!)
+        fireBaseDataBase.regiser_new_user(mail: email_txt.text!, pass: password_txt.text!,userName: username_txt.text!)
         
-        Auth.auth().createUser(withEmail: email_txt.text!, password: password_txt.text!) { (user, error) in
-            if error != nil{
-                print("errorrr")
-                return
-            }
-            print("100X")
-            print("sign in succes")
-            let userRef = self.ref.child("users").childByAutoId()
+       
+    
+
+            let userRef = Database.database().reference().child("users").childByAutoId()
             //print(self.ref.description()) : https://instagramfirebase-6b380.firebaseio.com/users
-            //let uid = user?.Uid
-            let userID = Auth.auth().currentUser!.uid
-            let newUserRef = userRef.child(userID)
-            //newUserRef.setValue(["userName": self.username_txt.text! , "email" : self.email_txt.text!])
-            print(newUserRef.description())
-            let pic_ref = self.ref.child("users").child("images")
-            //pic_ref.setValue(["image": "image" ])
-            
             let user = Auth.auth().currentUser!
-            let uid = user.uid
-            let storageRef = Storage.storage().reference(forURL: "gs://instagramfirebase-6b380.appspot.com").child("profile_image").child(uid)
-            newUserRef.setValue(["userName": self.username_txt.text! , "email" : self.email_txt.text!])
+            let userID = user.uid
+            let newUserRef = userRef.child(userID)
+        
+            
+            
+           
+            let storageRef = Storage.storage().reference(forURL: "gs://instagramfirebase-6b380.appspot.com").child("profile_image").child(userID)
+          //  newUserRef.setValue(["userName": self.username_txt.text! , "email" : self.email_txt.text!])
             
             if let profileImage =  self.image_selected!.jpegData(compressionQuality: 0.1){
                 storageRef.putData(profileImage, metadata: nil, completion: {
@@ -103,7 +96,7 @@ class RegisterViewController: UIViewController,UIImagePickerControllerDelegate,U
                             // success!
                             let image_url = url?.absoluteURL
                             print(image_url)
-                            
+                            newUserRef.setValue(["userName": self.username_txt.text! , "email" : self.email_txt.text!,"profile_image_url" : image_url?.absoluteString])
                             //let newuserref = Database.database().reference().child("users").child(
                             //newuserref.setValue([ "profile_pic" :  image_url ])
                         }
@@ -132,7 +125,7 @@ class RegisterViewController: UIViewController,UIImagePickerControllerDelegate,U
             //
             
             
-        }}}
+    }}
 
 
 
