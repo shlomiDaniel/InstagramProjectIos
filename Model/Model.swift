@@ -5,28 +5,90 @@
 //  Created by admin on 20/12/2018.
 //  Copyright © 2018 SHLOMI. All rights reserved.
 //
-
+import UIKit
 import Foundation
-class Model{
+class ModelNotification{
     
-    static let instance : Model = Model()
+    static let usersListNotification = MyNotification<[User]>("app.InstagramApplication.userlist")
+   // static let studentsListNotification = MyNotification<[Student]>("com.menachi.studentlist")
     
-    var modelSql : ModelSql?
+    class MyNotification<T>{
+        let name:String
+        var count = 0;
+        
+        init(_ _name:String) {
+            name = _name
+        }
+        func observe(cb:@escaping (T)->Void)-> NSObjectProtocol{
+            count += 1
+            return NotificationCenter.default.addObserver(forName: NSNotification.Name(name),
+                                                          object: nil, queue: nil) { (data) in
+                                                            if let data = data.userInfo?["data"] as? T {
+                                                                cb(data)
+                                                            }
+            }
+        }
+        
+        func notify(data:T){
+            NotificationCenter.default.post(name: NSNotification.Name(name),
+                                            object: self,
+                                            userInfo: ["data":data])
+        }
+        
+        func remove(observer: NSObjectProtocol){
+            count -= 1
+            NotificationCenter.default.removeObserver(observer, name: nil, object: nil)
+        }
+        
+        
+    }
+    
+}
+
+
+class Model {
+    static let instance:Model = Model()
+    
+    
+    //var modelSql:ModelSql?
+    var modelFirebase = ModelFireBase();
     
     private init(){
-        modelSql = ModelSql()
+        //modelSql = ModelSql()
     }
-    func getAllUsers()->[User]{
-        return User.getAllUsers(database: modelSql?.database)
-        
-        
+    
+    
+    
+    func getAllUsers() {
+        modelFirebase.getAllUsers(callback: {(data:[User]) in
+            ModelNotification.usersListNotification.notify(data: data)
+            
+        })
     }
-    func addNewUser(user : User){
-        User.addNew(database: modelSql!.database, user: user)
-        
+    
+    func getAllUsers(callback:@escaping ([User])->Void){
+        modelFirebase.getAllUsers(callback: callback);
+        //return Student.getAll(database: modelSql!.database);
     }
-    func getUser(byId : String)->User?{
-      return  User.get(database: modelSql!.database, byId: byId)
+    
+    func addNewStudent(user : User){
+        modelFirebase.addNewUser(user: user)
+        //Student.addNew(database: modelSql!.database, student: student)
+    }
+    
+    func getStudent(byId:String)->User?{
+        return modelFirebase.getUser(byId: byId)
+        //return Student.get(database: modelSql!.database, byId: byId);
+    }
+    
+    
+    
+    func saveImage(image : UIImage, name:(String),callback:@escaping (String?)->Void){
+        modelFirebase.saveImage(image: image, name: name, callback: callback)
+    }
+    
+    func getImage(url:String, callback:@escaping (UIImage?)->Void){
+        modelFirebase.getImage(url: url, callback: callback)
     }
     
 }

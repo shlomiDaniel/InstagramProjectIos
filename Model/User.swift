@@ -15,7 +15,7 @@ class User{
     let url : String
     let userName : String
     let Password : String
-    init ( _id : String , _name : String , _phone : String , _url : String , _userName : String , _password : String){
+    init ( _id : String , _name : String , _phone : String = "1234567" , _url : String = "" , _userName : String , _password : String){
         self.id = _id
         self.name = _name
         self.phone = _phone
