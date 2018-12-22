@@ -44,11 +44,11 @@ class SignInViewController: UIViewController {
                 return false
             }
             
+            // Async operation
             Model.instance.modelFirebase.signInByEmailAndPass(email: emailtxt.text!, pass: password_txt.text!) { (success) in
                 if(success!){
                     self.performSegue(withIdentifier: "signInToTabBar", sender: self)
                 }else{
-                    
                     let alert = UIAlertController(title: "Error Login", message: "User email or password are incorrect", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
                     self.present(alert, animated: true, completion: nil)
@@ -56,7 +56,6 @@ class SignInViewController: UIViewController {
             }
         }
         
-        // by default, transition
         return false
     }
 }
