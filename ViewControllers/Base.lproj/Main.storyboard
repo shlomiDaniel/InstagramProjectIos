@@ -13,7 +13,7 @@
         <!--Sign In View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="SignInViewController" customModule="InstagramApplication" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SignInView" id="BYZ-38-t0r" customClass="SignInViewController" customModule="InstagramApplication" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -25,7 +25,8 @@
                                     <color key="titleColor" red="0.93725490570000003" green="0.93725490570000003" blue="0.95686274770000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                                 <connections>
-                                    <segue destination="JZs-Go-YYz" kind="show" id="LGy-xP-c4K"/>
+                                    <action selector="showRegisterWindow:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mGS-SI-7rx"/>
+                                    <segue destination="JZs-Go-YYz" kind="presentation" identifier="signInToRegister" id="U5r-JX-QWd"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Instagram" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oxK-HV-4Co">
@@ -58,8 +59,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="signInButtonAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qIi-7a-vky"/>
-                                    <segue destination="UeR-X0-0of" kind="presentation" identifier="" id="P6E-Gu-Zhf"/>
+                                    <segue destination="UeR-X0-0of" kind="show" identifier="signInToTabBar" id="kOW-1r-Sl1"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -69,8 +69,6 @@
                     <connections>
                         <outlet property="emailtxt" destination="fFd-L1-2Lj" id="rWa-xX-Eqo"/>
                         <outlet property="password_txt" destination="cVO-Xx-cEd" id="GEi-h1-3zv"/>
-                        <outlet property="signInButton" destination="tBv-9l-jD3" id="kgt-P0-kPN"/>
-                        <outlet property="sign_in_button" destination="tBv-9l-jD3" id="F28-pn-Tcb"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -93,7 +91,7 @@
                                 </state>
                                 <connections>
                                     <action selector="dismiss:" destination="hmb-vh-qzB" eventType="touchUpInside" id="Qu9-X3-aOK"/>
-                                    <action selector="dismissPage:" destination="JZs-Go-YYz" eventType="touchUpInside" id="sac-qz-4rG"/>
+                                    <action selector="dismmis:" destination="JZs-Go-YYz" eventType="touchUpInside" id="fCa-0I-Lwv"/>
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="12h-k7-aEQ">
@@ -277,11 +275,114 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="Pgw-oZ-CGx"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Home" id="Eea-fW-8nJ"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Home" id="Eea-fW-8nJ">
+                        <barButtonItem key="rightBarButtonItem" title="Sign out" id="GMq-dy-aJl">
+                            <connections>
+                                <action selector="log_out_button_action:" destination="qCK-pn-87L" id="hOF-q4-7jo"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="logOut_button" destination="GMq-dy-aJl" id="1bc-lz-NoQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wTW-te-Seg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1207.2" y="-407.0464767616192"/>
+        </scene>
+        <!--User Details View Controller-->
+        <scene sceneID="Qv1-6v-Jdp">
+            <objects>
+                <viewController id="jdu-mz-yai" customClass="UserDetailsViewController" customModule="InstagramApplication" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4en-Qs-M6n">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d0a-Sj-L5W">
+                                <rect key="frame" x="96" y="133" width="136" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="z6M-yQ-ovg"/>
+                    </view>
+                    <connections>
+                        <outlet property="nameLabel" destination="d0a-Sj-L5W" id="fwO-MS-a2f"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GUE-Bv-ut4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2494" y="-665"/>
+        </scene>
+        <!--New User View Controller-->
+        <scene sceneID="INR-ul-363">
+            <objects>
+                <viewController id="41I-lb-2sq" customClass="NewUserViewController" customModule="InstagramApplication" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xuM-je-oer">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="BB5-z9-Sth">
+                                <rect key="frame" x="49" y="74" width="305" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hOp-U4-A5c">
+                                <rect key="frame" x="22" y="348" width="332" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="PaV-Bu-GMq">
+                                <rect key="frame" x="22" y="406" width="332" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gy6-Sp-zpo">
+                                <rect key="frame" x="22" y="289" width="332" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="UserName" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wPY-MK-coa">
+                                <rect key="frame" x="22" y="237" width="338" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tmy-pM-fmz">
+                                <rect key="frame" x="149" y="481" width="58" height="47"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="29"/>
+                                <state key="normal" title="save"/>
+                                <connections>
+                                    <action selector="saveButtonTxt:" destination="41I-lb-2sq" eventType="touchUpInside" id="IBb-rP-Nup"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="V1v-gx-FsS"/>
+                    </view>
+                    <connections>
+                        <outlet property="emailTxt" destination="gy6-Sp-zpo" id="820-Vl-zCy"/>
+                        <outlet property="idTxt" destination="hOp-U4-A5c" id="G6S-wf-ZMV"/>
+                        <outlet property="nametxt" destination="hOp-U4-A5c" id="pWi-rY-p1L"/>
+                        <outlet property="passwordTxt" destination="PaV-Bu-GMq" id="n3B-QF-391"/>
+                        <outlet property="userNameTxt" destination="wPY-MK-coa" id="qEl-l2-Iwz"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q2R-Kd-xPS" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2485.5999999999999" y="21.139430284857571"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="FXp-J0-TTW">
@@ -414,6 +515,6 @@
         <image name="icons8-user-filled-35" width="26.25" height="26.25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="raF-c6-F69"/>
+        <segue reference="kOW-1r-Sl1"/>
     </inferredMetricsTieBreakers>
 </document>

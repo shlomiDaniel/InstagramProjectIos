@@ -12,60 +12,124 @@ import FirebaseAuth
 
 class ModelFireBase{
     
-    //var ref : DatabaseReference!
+    var ref : DatabaseReference!
+    var flag = false
     init(){
-    //    FirebaseApp.configure()
-    //    ref = Database.database().reference()
-        
+        FirebaseApp.configure()
+       ref = Database.database().reference()
+        //flag : Bool = false
+         //FirebaseApp.configure()
         
     }
     
-    func regiser_new_user(mail : String  ,pass : String , userName : String)
+    func regiser_new_user(mail : String  ,pass : String , userName : String )
     {
         
-//        Auth.auth().createUser(withEmail: mail, password: pass) { (user, error) in
-//            if error != nil{
-//                print("errorrr")
-//                return
-//            }
-//            print("100X")
-//            print("sign in succes")
-//            let userRef = self.ref.child("users").childByAutoId()
-//            //print(self.ref.description()) : https://instagramfirebase-6b380.firebaseio.com/users
-//            //let uid = user?.Uid
-//            let userID = Auth.auth().currentUser!.uid
-//            let newUserRef = userRef.child(userID)
-//            newUserRef.setValue(["userName": userName , "email" : mail])
-//            print(newUserRef.description())
-//            let pic_ref = self.ref.child("users").child("images")
-//            pic_ref.setValue(["image": "image" ])
-            ///////////////////////////////////////////////////////
-            
-            
-            
-       
+        Auth.auth().createUser(withEmail: mail, password: pass) { (user, error) in
+            if error != nil{
+               print("error in create user")
+                self.flag = false
+            }else{
+                print("create user succes")
+               self.flag = true
+            }
+        }
+        
+        
     }
     
   
+    func getAllUsers(callback:@escaping ([User])->Void){
+        ref.child("users").observe(.value, with:
+            {
+            (snapshot) in
+                var data = [User]()
+                let value = snapshot.value as! [String : Any]
+                for(_ , json) in value {
+                    data.append(User(jason: json as! [String : Any]))
+                }
+            callback(data)
+            })
         
+    }
+    
+    
+    func addNewUser(user : User){
+        
+        ref.child("users").child(user.id).setValue(user.toJson())
+        
+    }
+    func getUser(byId : String)->User?{
+        return nil
+    }
+    
+    
+    lazy var storageRef = Storage.storage().reference(forURL: "gs://instagramfirebase-6b380.appspot.com")
+    
+    func saveImage(image : UIImage , name : (String),callback : @escaping(String?)->Void)->String{
+        let data = image.jpegData(compressionQuality: 0.8)
+        let imageRef = storageRef.child(name)
+        
+        let metaData = StorageMetadata()
+      metaData.contentType = "image/jpeg"
+        var the_url = ""
+        imageRef.putData(data!, metadata: metaData) { (metadata, error) in
+            imageRef.downloadURL(completion: { (url, error) in
+                guard let downloadURL = url else {
+                    
+                    print("errrorrrr image download url")
+                    return
+                }
+                print("url:\(downloadURL)")
+                callback(downloadURL.absoluteString)
+                 the_url = downloadURL.absoluteString
+                
+            })
+            
+        }
+        
+        return the_url
+    }
+    
+    func getImage(url : String , callback :@escaping (UIImage?)->Void){
+        let ref = Storage.storage().reference(forURL: url)
+        ref.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
+            if error != nil{
+                callback(nil)
+            }else{
+                let image = UIImage(data : data!)
+                callback(image)
+            }
+        }
+        
+        
+        
+    }
         
     
-//    func signInByEmailAndPass(email : String, pass : String){
-//
-//        Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
-//            if(error != nil){
-//                print("error to sign in,try again")
-//                return
-//            }
-//            print("sign in succes")
-//            let userRef = self.ref.child("users")
-//            print(self.ref.description())
-//
-//
-//        }
-//
-//
-//    }
+    func signInByEmailAndPass(email : String, pass : String, callback : @escaping (Bool?)->Void){
 
+        Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
+            if(error != nil){
+                callback(false)
+            }
+            callback(true)
+        }
+
+
+    }
+    func checkIfSignIn()->Bool{
+        
+        return (Auth.auth().currentUser != nil)
+    }
     
+    func sign_Out() -> Bool{
+        do{
+            try Auth.auth().signOut()
+            return true
+        }catch let error{
+            return false
+        }
+    }
 }
+
