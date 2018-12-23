@@ -117,7 +117,6 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
-                                    <action selector="register:" destination="JZs-Go-YYz" eventType="touchUpInside" id="GaU-fR-59F"/>
                                     <segue destination="UeR-X0-0of" kind="presentation" identifier="registerToTabBar" id="raF-c6-F69"/>
                                 </connections>
                             </button>
@@ -515,6 +514,6 @@
         <image name="icons8-user-filled-35" width="26.25" height="26.25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="kOW-1r-Sl1"/>
+        <segue reference="raF-c6-F69"/>
     </inferredMetricsTieBreakers>
 </document>

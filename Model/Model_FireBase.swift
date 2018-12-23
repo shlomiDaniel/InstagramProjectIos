@@ -22,20 +22,16 @@ class ModelFireBase{
         
     }
     
-    func regiser_new_user(mail : String  ,pass : String , userName : String )
+    func regiser_new_user(mail : String  ,pass : String , userName : String, callback : @escaping (Bool?)->Void)
     {
-        
         Auth.auth().createUser(withEmail: mail, password: pass) { (user, error) in
             if error != nil{
-               print("error in create user")
-                self.flag = false
+               print(error)
+               callback(false)
             }else{
-                print("create user succes")
-               self.flag = true
+               callback(true)
             }
         }
-        
-        
     }
     
   
@@ -55,10 +51,8 @@ class ModelFireBase{
     
     
     func addNewUser(user : User){
-        
         ref.child("users").child(user.id).setValue(user.toJson())
         print("")
-        
     }
     func getUser(byId : String)->User?{
         return nil
@@ -102,25 +96,19 @@ class ModelFireBase{
                 callback(image)
             }
         }
-        
-        
-        
     }
         
     
     func signInByEmailAndPass(email : String, pass : String, callback : @escaping (Bool?)->Void){
-
         Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
             if(error != nil){
                 callback(false)
             }
             callback(true)
         }
-
-
     }
+    
     func checkIfSignIn()->Bool{
-        
         return (Auth.auth().currentUser != nil)
     }
     
