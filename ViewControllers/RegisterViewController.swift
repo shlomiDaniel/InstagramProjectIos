@@ -85,6 +85,7 @@ class RegisterViewController: UIViewController,UIImagePickerControllerDelegate,U
 //            let userID = user.uid
 //            let newUserRef = userRef.child(userID)
         
+
             
             
            

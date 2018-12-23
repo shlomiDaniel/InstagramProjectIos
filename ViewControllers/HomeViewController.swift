@@ -12,8 +12,21 @@ class HomeViewController: UIViewController {
     var data = [User]()
     var selectedId : String?
     
+
+    @IBAction func log_out_button_action(_ sender: Any) {
+        if (Model.instance.modelFirebase.sign_Out()){
+            let story_board = UIStoryboard(name: "Main" , bundle : nil)
+            let sign_in_vc =  story_board.instantiateViewController(withIdentifier: "SignInView")
+            
+            self.present(sign_in_vc, animated: true, completion: nil)
+        }else{
+            print("error signing out the user")
+        }
+    }
+    
+    
    
-   
+    @IBOutlet weak var logOut_button: UIBarButtonItem!
     
 //    
 //    override func viewDidLoad() {

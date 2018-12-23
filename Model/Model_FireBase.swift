@@ -13,9 +13,11 @@ import FirebaseAuth
 class ModelFireBase{
     
     var ref : DatabaseReference!
+    var flag = false
     init(){
         FirebaseApp.configure()
        ref = Database.database().reference()
+        //flag : Bool = false
          //FirebaseApp.configure()
         
     }
@@ -26,8 +28,10 @@ class ModelFireBase{
         Auth.auth().createUser(withEmail: mail, password: pass) { (user, error) in
             if error != nil{
                print("error in create user")
+                self.flag = false
             }else{
                 print("create user succes")
+               self.flag = true
             }
         }
         
@@ -104,18 +108,13 @@ class ModelFireBase{
     }
         
     
-    func signInByEmailAndPass(email : String, pass : String){
+    func signInByEmailAndPass(email : String, pass : String, callback : @escaping (Bool?)->Void){
 
         Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
             if(error != nil){
-                print("error to sign in,try again")
-                return
+                callback(false)
             }
-            print("sign in succes")
-            //let userRef = self.ref.child("users")
-            //print(self.ref.description())
-
-
+            callback(true)
         }
 
 
@@ -125,6 +124,13 @@ class ModelFireBase{
         return (Auth.auth().currentUser != nil)
     }
     
-    
+    func sign_Out() -> Bool{
+        do{
+            try Auth.auth().signOut()
+            return true
+        }catch let error{
+            return false
+        }
+    }
 }
 

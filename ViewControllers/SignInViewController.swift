@@ -10,42 +10,82 @@ import UIKit
 
 class SignInViewController: UIViewController {
 
- //    var model = Model.instance.modelFireBase
+    var isLogin : Bool = false
+    //var model = Model.instance.modelFireBase
     
     @IBOutlet weak var emailtxt: UITextField!
    
     @IBOutlet weak var password_txt: UITextField!
+    
+    @IBAction func showRegisterWindow(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "signInToRegister", sender: self)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
     }
-    @IBAction func sign_In_Button(_ sender: Any) {
-        
-        Model.instance.modelFirebase.signInByEmailAndPass(email: emailtxt.text!, pass: password_txt.text!)
-       
-        
-        //        fireBaseDataBase.signInByEmailAndPass(email: emailtxt.text!, pass: password_txt.text!)
-        // fireBaseDataBase.signInByEmailAndPass(email:emailtxt.text! , pass: password_txt.text!)
-        //fireBaseDataBase.s
-        // fireBaseDataBase.signInByEmailAndPass(email:emailtxt.text!, pass: password_txt.text!)
-        //        fireBaseDataBase.signInByEmailAndPass(email: emailtxt.text!, pass: password_txt.text!)
-        
-        
-    }
-   
     
-
-    
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    override func viewDidAppear(_ animated: Bool) {
+        if Model.instance.modelFirebase.checkIfSignIn() == true{
+            self.performSegue(withIdentifier: "signInToTabBar", sender: self)
+        }
     }
-    */
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        if identifier == "signInToTabBar" {
+            if emailtxt.text! == "" || password_txt.text! == ""{
+                let alert = UIAlertController(title: "Error Login", message: "User or Password are missing", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
+                    NSLog("Missing user credentials")
+                }))
+                self.present(alert, animated: true, completion: nil)
+                return false
+            }
+            
+            // Async operation
+            Model.instance.modelFirebase.signInByEmailAndPass(email: emailtxt.text!, pass: password_txt.text!) { (success) in
+                if(success!){
+                    self.performSegue(withIdentifier: "signInToTabBar", sender: self)
+                }else{
+                    let alert = UIAlertController(title: "Error Login", message: "User email or password are incorrect", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+        }
+        
+        return false
+    }
+}
 
+
+extension UIViewController {
+    
+    
+    func displayMsg(title : String?, msg : String,
+                    style: UIAlertController.Style = .alert,
+                    dontRemindKey : String? = nil) {
+        if dontRemindKey != nil,
+            UserDefaults.standard.bool(forKey: dontRemindKey!) == true {
+            return
+        }
+
+        let ac = UIAlertController.init(title: title,
+                                        message: msg, preferredStyle: style)
+        ac.addAction(UIAlertAction.init(title: "OK",
+                                        style: .default, handler: nil))
+
+        if dontRemindKey != nil {
+            ac.addAction(UIAlertAction.init(title: "Don't Remind",
+                                            style: .default, handler: { (aa) in
+                                                UserDefaults.standard.set(true, forKey: dontRemindKey!)
+                                                UserDefaults.standard.synchronize()
+            }))
+        }
+        DispatchQueue.main.async {
+            self.present(ac, animated: true, completion: nil)
+        }
+    }
 }
