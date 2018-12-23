@@ -75,13 +75,7 @@ class Model {
         modelFirebase.addNewUser(user: user)
         //Student.addNew(database: modelSql!.database, student: student)
     }
-    
-    func getStudent(byId:String)->User?{
-        return modelFirebase.getUser(byId: byId)
-        //return Student.get(database: modelSql!.database, byId: byId);
-    }
-    
-    
+       
     
     func saveImage(image : UIImage, name:(String),callback:@escaping (String?)->Void){
         modelFirebase.saveImage(image: image, name: name, callback: callback)

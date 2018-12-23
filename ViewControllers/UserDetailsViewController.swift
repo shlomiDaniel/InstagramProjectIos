@@ -19,8 +19,8 @@ class UserDetailsViewController: UIViewController {
         super.viewDidLoad()
 
         if userId != nil{
-            user = Model.instance.modelFirebase.getUser(byId: userId!)
-            nameLabel.text = user?.name
+            //user = Model.instance.modelFirebase.getUser(byId: userId!)
+            //nameLabel.text = user?.name
         }
         
         // Do any additional setup after loading the view.

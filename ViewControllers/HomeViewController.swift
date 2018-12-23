@@ -23,6 +23,16 @@ class HomeViewController: UIViewController {
         }
     }
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        let name = Model.instance.modelFirebase.getUserName()
+        if name != nil{
+            let alert = UIAlertController(title: "Welcome", message: "Welcome " + name!, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
+            self.present(alert, animated: true, completion: nil)
+        }
+   }
     
    
     @IBOutlet weak var logOut_button: UIBarButtonItem!

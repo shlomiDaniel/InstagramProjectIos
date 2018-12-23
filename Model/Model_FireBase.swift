@@ -45,7 +45,19 @@ class ModelFireBase{
                 }
             callback(data)
             })
-        
+    }
+    
+    func getUserInfo(userId:String, callback:@escaping ([User])->Void){
+        ref.child("users").observe(.value, with:
+            {
+                (snapshot) in
+                var data = [User]()
+                let value = snapshot.value as! [String : Any]
+                for(_ , json) in value {
+                    data.append(User(jason: json as! [String : Any]))
+                }
+                callback(data)
+        })
     }
     
     
@@ -53,8 +65,19 @@ class ModelFireBase{
         ref.child("users").child(user.id).setValue(user.toJson())
         print("")
     }
-    func getUser(byId : String)->User?{
-        return nil
+    
+    func getUserId()->String{
+        return Auth.auth().currentUser!.uid
+    }
+    
+    func getUserName()->String?{
+        return Auth.auth().currentUser?.email
+    }
+    
+    func getUser(byId : String)->Void{
+        getUserInfo(userId: byId, callback: { (data) in
+            print(data)
+        })
     }
     
     
