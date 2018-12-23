@@ -22,11 +22,10 @@ class ModelFireBase{
         
     }
     
-    func regiser_new_user(mail : String  ,pass : String , userName : String, callback : @escaping (Bool?)->Void)
+    func regiser_new_user(mail : String  ,pass : String, callback : @escaping (Bool?)->Void)
     {
         Auth.auth().createUser(withEmail: mail, password: pass) { (user, error) in
             if error != nil{
-               print(error)
                callback(false)
             }else{
                callback(true)

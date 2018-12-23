@@ -17,7 +17,6 @@ class HomeViewController: UIViewController {
         if (Model.instance.modelFirebase.sign_Out()){
             let story_board = UIStoryboard(name: "Main" , bundle : nil)
             let sign_in_vc =  story_board.instantiateViewController(withIdentifier: "SignInView")
-            
             self.present(sign_in_vc, animated: true, completion: nil)
         }else{
             print("error signing out the user")

@@ -56,15 +56,15 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
         if identifier == "registerToTabBar" {
-            if email_txt.text! == "" || password_txt.text! == "" ||  username_txt.text! == "" {
-                let alert = UIAlertController(title: "Error Registering", message: "User or Password or Email are missing", preferredStyle: .alert)
+            if email_txt.text! == "" || password_txt.text! == "" {
+                let alert = UIAlertController(title: "Error Registering", message: "Password or Email are missing", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
                 
                 self.present(alert, animated: true, completion: nil)
                 return false
             }
             
-            model.regiser_new_user(mail: email_txt.text!, pass: password_txt.text!,userName: username_txt.text!) { (success) in
+            model.regiser_new_user(mail: email_txt.text!, pass: password_txt.text!) { (success) in
                 if (success!){
                     self.performSegue(withIdentifier: "registerToTabBar", sender: self)
                     //        model.saveImage(image : image_selected!, name: name) { (name) in
