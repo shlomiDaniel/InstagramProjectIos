@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class HomeViewController: UIViewController {
     var data = [User]()
@@ -14,12 +15,16 @@ class HomeViewController: UIViewController {
     
 
     @IBAction func log_out_button_action(_ sender: Any) {
+        SVProgressHUD.show(withStatus: "just a moment")
         if (Model.instance.modelFirebase.sign_Out()){
+            SVProgressHUD.showSuccess(withStatus: "signing out success")
+            
             let story_board = UIStoryboard(name: "Main" , bundle : nil)
             let sign_in_vc =  story_board.instantiateViewController(withIdentifier: "SignInView")
             self.present(sign_in_vc, animated: true, completion: nil)
         }else{
             print("error signing out the user")
+            SVProgressHUD.showError(withStatus: "error in signing out")
         }
     }
     

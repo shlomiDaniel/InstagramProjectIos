@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class SignInViewController: UIViewController {
 
@@ -39,14 +40,17 @@ class SignInViewController: UIViewController {
                 let alert = UIAlertController(title: "Error Login", message: "User or Password are missing", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default, handler: { _ in
                     NSLog("Missing user credentials")
+                    SVProgressHUD.showSuccess(withStatus: "error")
                 }))
                 self.present(alert, animated: true, completion: nil)
                 return false
             }
             
             // Async operation
+             SVProgressHUD.show(withStatus: "waiting..")
             Model.instance.modelFirebase.signInByEmailAndPass(email: emailtxt.text!, pass: password_txt.text!) { (success) in
                 if(success!){
+                   SVProgressHUD.showSuccess(withStatus: "success")
                     self.performSegue(withIdentifier: "signInToTabBar", sender: self)
                 }else{
                     let alert = UIAlertController(title: "Error Login", message: "User email or password are incorrect", preferredStyle: .alert)

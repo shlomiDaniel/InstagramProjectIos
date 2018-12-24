@@ -14,11 +14,12 @@ class ModelFireBase{
     
     var ref : DatabaseReference!
     var flag = false
+    
     init(){
         FirebaseApp.configure()
-       ref = Database.database().reference()
+        ref = Database.database().reference()
         //flag : Bool = false
-         //FirebaseApp.configure()
+        //FirebaseApp.configure()
         
     }
     
@@ -26,25 +27,25 @@ class ModelFireBase{
     {
         Auth.auth().createUser(withEmail: mail, password: pass) { (user, error) in
             if error != nil{
-               callback(false)
+                callback(false)
             }else{
-               callback(true)
+                callback(true)
             }
         }
     }
     
-  
+    
     func getAllUsers(callback:@escaping ([User])->Void){
         ref.child("users").observe(.value, with:
             {
-            (snapshot) in
+                (snapshot) in
                 var data = [User]()
                 let value = snapshot.value as! [String : Any]
                 for(_ , json) in value {
                     data.append(User(jason: json as! [String : Any]))
                 }
-            callback(data)
-            })
+                callback(data)
+        })
     }
     
     func getUserInfo(userId:String, callback:@escaping ([User])->Void){
@@ -61,9 +62,14 @@ class ModelFireBase{
     }
     
     
+    
     func addNewUser(user : User){
         ref.child("users").child(user.id).setValue(user.toJson())
         print("")
+    }
+    func add_new_user(email : String , pass : String , userName : String , url : String){
+        var id = getUserId()
+        ref.child("users").child(id).setValue(["email" : email , "pass" : pass , "userName" : userName , "url_profile_image" : url])
     }
     
     func getUserId()->String{
@@ -88,7 +94,7 @@ class ModelFireBase{
         let imageRef = storageRef.child(name)
         
         let metaData = StorageMetadata()
-      metaData.contentType = "image/jpeg"
+        metaData.contentType = "image/jpeg"
         var the_url = ""
         imageRef.putData(data!, metadata: metaData) { (metadata, error) in
             imageRef.downloadURL(completion: { (url, error) in
@@ -99,7 +105,7 @@ class ModelFireBase{
                 }
                 print("url:\(downloadURL)")
                 callback(downloadURL.absoluteString)
-                 the_url = downloadURL.absoluteString
+                the_url = downloadURL.absoluteString
                 
             })
             
@@ -119,7 +125,7 @@ class ModelFireBase{
             }
         }
     }
-        
+    
     
     func signInByEmailAndPass(email : String, pass : String, callback : @escaping (Bool?)->Void){
         Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
