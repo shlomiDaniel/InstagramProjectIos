@@ -59,21 +59,23 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
             if email_txt.text! == "" || password_txt.text! == "" {
                 let alert = UIAlertController(title: "Error Registering", message: "Password or Email are missing", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
-                
+                SVProgressHUD.showError(withStatus: "Error Registering")
                 self.present(alert, animated: true, completion: nil)
                 return false
             }
             
             model.regiser_new_user(mail: email_txt.text!, pass: password_txt.text!) { (success) in
                 if (success!){
+                    
                     self.performSegue(withIdentifier: "registerToTabBar", sender: self)
-                    var img_url = self.model.saveImage(image: self.image_selected!, name: "profile_image", callback: { (url) in
+                    SVProgressHUD.show(withStatus: "just a momment")
+                    var img_url = self.model.saveImage(image: self.image_selected!, name: "profile_image", child: "profile_image", text: "", callback: { (url) in
                       
                     })
                    
                     
                     self.model.add_new_user(email: self.email_txt.text!, pass:  self.password_txt.text!, userName: self.username_txt.text!, url: img_url)
-                
+                SVProgressHUD.showSuccess(withStatus: "Register success")
                     
              
                 }else{

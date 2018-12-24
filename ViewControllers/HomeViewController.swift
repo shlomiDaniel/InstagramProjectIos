@@ -13,7 +13,9 @@ class HomeViewController: UIViewController {
     var data = [User]()
     var selectedId : String?
     
+    
 
+    @IBOutlet weak var table_view: UITableView!
     @IBAction func log_out_button_action(_ sender: Any) {
         SVProgressHUD.show(withStatus: "just a moment")
         if (Model.instance.modelFirebase.sign_Out()){
@@ -91,3 +93,17 @@ class HomeViewController: UIViewController {
 //    */
 
 }
+
+//extension HomeViewController : UITableViewDataSource {
+//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+//        <#code#>
+//    }
+//
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        <#code#>
+//    }
+//
+
+    
+    
+//}

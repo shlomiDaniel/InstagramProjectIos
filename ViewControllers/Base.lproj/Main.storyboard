@@ -177,11 +177,10 @@
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ePj-5X-7wb">
                                         <rect key="frame" x="96" y="10" width="271" height="80"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                     </textView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-picture-100" translatesAutoresizingMaskIntoConstraints="NO" id="gjF-Z6-7i5">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icons8-picture-100" translatesAutoresizingMaskIntoConstraints="NO" id="gjF-Z6-7i5">
                                         <rect key="frame" x="8" y="10" width="80" height="80"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="80" id="JKr-aT-mTb"/>
@@ -221,9 +220,16 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Wma-d3-fFQ"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Camera" id="GPE-uJ-6Jo"/>
+                    <navigationItem key="navigationItem" title="Camera" id="GPE-uJ-6Jo">
+                        <barButtonItem key="leftBarButtonItem" title="Remove" id="C20-ZJ-NHA">
+                            <connections>
+                                <action selector="remove_post:" destination="r6v-yF-dad" id="2gk-cG-jUS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="photo" destination="gjF-Z6-7i5" id="mAE-ad-voW"/>
+                        <outlet property="remove_button" destination="C20-ZJ-NHA" id="ZaC-Wd-kRB"/>
                         <outlet property="shareButoon" destination="j8w-nb-f2a" id="AzE-Q7-d43"/>
                         <outlet property="textView" destination="ePj-5X-7wb" id="aPK-eY-irh"/>
                     </connections>
@@ -271,7 +277,33 @@
                     <view key="view" contentMode="scaleToFill" id="adA-rw-GXv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ysf-i8-rU9">
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="H8f-8D-JgQ">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="H8f-8D-JgQ" id="Mhe-Qa-h9Y">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ysf-i8-rU9" firstAttribute="leading" secondItem="Pgw-oZ-CGx" secondAttribute="leading" id="4IX-op-mL2"/>
+                            <constraint firstItem="Ysf-i8-rU9" firstAttribute="top" secondItem="Pgw-oZ-CGx" secondAttribute="top" id="MoQ-fl-V0s"/>
+                            <constraint firstAttribute="bottom" secondItem="Ysf-i8-rU9" secondAttribute="bottom" id="Ovc-xk-1BR"/>
+                            <constraint firstItem="Ysf-i8-rU9" firstAttribute="trailing" secondItem="Pgw-oZ-CGx" secondAttribute="trailing" id="QIc-Um-NKZ"/>
+                            <constraint firstItem="Ysf-i8-rU9" firstAttribute="leading" secondItem="Pgw-oZ-CGx" secondAttribute="leading" id="YGn-L6-2gH"/>
+                            <constraint firstItem="Ysf-i8-rU9" firstAttribute="trailing" secondItem="Pgw-oZ-CGx" secondAttribute="trailing" id="i1u-O2-Iw7"/>
+                            <constraint firstAttribute="bottom" secondItem="Ysf-i8-rU9" secondAttribute="bottom" id="k9W-d4-3wG"/>
+                            <constraint firstItem="Ysf-i8-rU9" firstAttribute="top" secondItem="adA-rw-GXv" secondAttribute="top" id="zEu-55-XMw"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Pgw-oZ-CGx"/>
                     </view>
                     <toolbarItems/>
@@ -285,6 +317,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="logOut_button" destination="GMq-dy-aJl" id="1bc-lz-NoQ"/>
+                        <outlet property="table_view" destination="Ysf-i8-rU9" id="wQW-7e-lR6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wTW-te-Seg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -514,6 +547,6 @@
         <image name="icons8-user-filled-35" width="26.25" height="26.25"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="raF-c6-F69"/>
+        <segue reference="kOW-1r-Sl1"/>
     </inferredMetricsTieBreakers>
 </document>

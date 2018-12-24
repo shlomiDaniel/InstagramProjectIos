@@ -77,8 +77,8 @@ class Model {
     }
        
     
-    func saveImage(image : UIImage, name:(String),callback:@escaping (String?)->Void){
-        modelFirebase.saveImage(image: image, name: name, callback: callback)
+    func saveImage(image : UIImage, name:(String),child:(String),text:(String),callback:@escaping (String?)->Void){
+        modelFirebase.saveImage(image: image, name: name,child: child,text: text, callback: callback)
     }
     
     func getImage(url:String, callback:@escaping (UIImage?)->Void){

@@ -9,6 +9,7 @@
 import Foundation
 import Firebase
 import FirebaseAuth
+import SVProgressHUD
 
 class ModelFireBase{
     
@@ -89,10 +90,10 @@ class ModelFireBase{
     
     lazy var storageRef = Storage.storage().reference(forURL: "gs://instagramfirebase-6b380.appspot.com")
     
-    func saveImage(image : UIImage , name : (String),callback : @escaping(String?)->Void)->String{
+    func saveImage(image : UIImage , name : (String),child : String,text : String,callback : @escaping(String?)->Void)->String{
         let data = image.jpegData(compressionQuality: 0.8)
-        let imageRef = storageRef.child(name)
-        
+        let imageRef = storageRef.child(child).child(name)
+        //let image_storage_posts = storageRef.child(child).child(name)
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpeg"
         var the_url = ""
@@ -101,18 +102,31 @@ class ModelFireBase{
                 guard let downloadURL = url else {
                     
                     print("errrorrrr image download url")
+                    SVProgressHUD.showError(withStatus: error?.localizedDescription)
                     return
                 }
                 print("url:\(downloadURL)")
                 callback(downloadURL.absoluteString)
                 the_url = downloadURL.absoluteString
+                if child == "profile_image"{
+                   self.sendDataToDataBase(photo_url: the_url)
+                }
+                if child == "posts"{
+                    
+                    self.sendDataToDataBase_posts_image_and_text(photo_url: the_url,text : text)
+                }
+                
                 
             })
             
         }
         
+        
+        
         return the_url
     }
+    
+   
     
     func getImage(url : String , callback :@escaping (UIImage?)->Void){
         let ref = Storage.storage().reference(forURL: url)
@@ -126,6 +140,47 @@ class ModelFireBase{
         }
     }
     
+    func childs(childs_aar : [String] , indx : Int){
+        
+    }
+    
+    func sendDataToDataBase_posts_image_and_text(photo_url : String, text : String) {
+        let post_ref = ref.child("posts")
+        let new_post_id  = post_ref.childByAutoId().key
+        let new_post_ref = post_ref.child(new_post_id!)
+        // let post
+        new_post_ref.setValue(["photo_url": photo_url,"text_share" : text]) { (error, ref) in
+            if error != nil
+            {
+                SVProgressHUD.showError(withStatus: error?.localizedDescription)
+                return
+            }else{
+                SVProgressHUD.showSuccess(withStatus: "shared succes")
+            }
+            // ref.child("posts").child(id).setValue(["email" : email , "pass" : pass , "userName" : userName , "url_profile_image" : url])
+        }
+        
+        
+        
+    }
+    
+    
+    func sendDataToDataBase(photo_url : String){
+        let post_ref = ref.child("posts")
+        let new_post_id  = post_ref.childByAutoId().key
+        let new_post_ref = post_ref.child(new_post_id!)
+       // let post
+        new_post_ref.setValue(["photo_url": photo_url]) { (error, ref) in
+            if error != nil
+            {
+                SVProgressHUD.showError(withStatus: error?.localizedDescription)
+                return
+            }else{
+                SVProgressHUD.showSuccess(withStatus: "shared succes")
+            }
+      // ref.child("posts").child(id).setValue(["email" : email , "pass" : pass , "userName" : userName , "url_profile_image" : url])
+    }
+    }
     
     func signInByEmailAndPass(email : String, pass : String, callback : @escaping (Bool?)->Void){
         Auth.auth().signIn(withEmail: email, password: pass) { (user, error) in
