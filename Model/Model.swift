@@ -53,6 +53,8 @@ class Model {
     //var modelSql:ModelSql?
     var modelFirebase = ModelFireBase();
     
+ 
+    
     private init(){
         //modelSql = ModelSql()
     }

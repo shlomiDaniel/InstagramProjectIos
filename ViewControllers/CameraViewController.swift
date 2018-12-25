@@ -71,7 +71,9 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate , 
     }
 //////////////////////////////////////
     @IBAction func shareButtonClick(_ sender: Any) {
-        SVProgressHUD.show(withStatus: "sharing...")
+         SVProgressHUD.show(withStatus: "waiting..")
+        
+       
         let photo_id_string = NSUUID().uuidString
         Model.instance.saveImage(image: selectedImage!, name: "post", child: "posts", text: textView.text!) { (url) in
             

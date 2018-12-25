@@ -8,14 +8,16 @@
 
 import UIKit
 import SVProgressHUD
+import SDWebImage
 
 class HomeViewController: UIViewController {
+    
+    @IBOutlet weak var table_view: UITableView!
     var data = [User]()
     var selectedId : String?
     
     
 
-    @IBOutlet weak var table_view: UITableView!
     @IBAction func log_out_button_action(_ sender: Any) {
         SVProgressHUD.show(withStatus: "just a moment")
         if (Model.instance.modelFirebase.sign_Out()){
@@ -32,12 +34,20 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+         table_view.dataSource = self
         let name = Model.instance.modelFirebase.getUserName()
         if name != nil{
             let alert = UIAlertController(title: "Welcome", message: "Welcome " + name!, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
             self.present(alert, animated: true, completion: nil)
+            Model.instance.modelFirebase.loadPost(table_view: table_view)
+           // table_view.rowHeight = 450
+            //table_view.estimatedRowHeight = 520
+            
+            
+            //cell.text_post_label.numberOfLines = 0
+            
+            
         }
    }
     
@@ -94,16 +104,41 @@ class HomeViewController: UIViewController {
 
 }
 
-//extension HomeViewController : UITableViewDataSource {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        <#code#>
-//    }
-//
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        <#code#>
-//    }
-//
+extension HomeViewController : UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Model.instance.modelFirebase.posts.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        //UITableViewCell c =
+        var cell = table_view.dequeueReusableCell(withIdentifier: "post_cell", for: indexPath) as! HomeTableViewCell
+        //cell.backgroundColor = UIColor.red
+        //cell.textLabel?.text = Model.instance.modelFirebase.posts[indexPath.row].text_share
+        let post = Model.instance.modelFirebase.posts[indexPath.row]
+        cell.text_post_label.text = post.text_share
+        //cell.post_image.image = UIImage(named: <#T##String#>)
+        cell.profile_image.image = UIImage(named: "ZEUS.jpeg")
+        cell.name_label.text = "zeus"
+        cell.post_image.image = UIImage(named: "ZEUS.jpeg")
+       
+        table_view.rowHeight = 450
+         cell.text_post_label.numberOfLines = 0
+        if let photo_url_string = post.image_url
+        {
+            let photo_url = URL(string: photo_url_string)
+            cell.post_image.sd_setImage(with : photo_url)
+
+        }
+        
+        
+      //  tableView.rowHeight = UITableView.automaticDimension
+        //tableView.estimatedRowHeight = 600
+        
+//        table_view.h
+        return cell
+    }
+
 
     
     
-//}
+}

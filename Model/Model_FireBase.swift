@@ -15,10 +15,11 @@ class ModelFireBase{
     
     var ref : DatabaseReference!
     var flag = false
-    
+    var posts = [Post]()
     init(){
         FirebaseApp.configure()
         ref = Database.database().reference()
+        // posts =  [Post]()
         //flag : Bool = false
         //FirebaseApp.configure()
         
@@ -201,6 +202,21 @@ class ModelFireBase{
             return true
         }catch let error{
             return false
+        }
+    }
+    
+    func loadPost(table_view: UITableView) {
+       
+        ref.child("posts").observe(.childAdded) { (snapshot) in
+            if let dictionary = snapshot.value as? [String : Any]{
+                var post = Post.transformPostPhoto(dictionary: dictionary)
+                //let post = Post.transformPostPhoto(dictionary: dictionary)
+            //post.transformPost(dictionary: dictionary)
+                
+                    self.posts.append(post)
+                    table_view.reloadData()
+                
+            }
         }
     }
 }

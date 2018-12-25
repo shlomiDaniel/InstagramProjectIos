@@ -12,40 +12,32 @@ import FirebaseStorage
 
 class Post{
     
-    let my_image : UIImage
+    var text_share : String?
     var image_url : String?
-    let uid = Auth.auth().currentUser?.uid
+    //var videoUrl : String?
     
-    init(my_image : UIImage,url : String){
-        self.my_image = my_image
-        self.image_url = url
-        
-       
+    init(){
+        self.image_url = nil
+        self.text_share = nil
+        //self.videoUrl = nil
     }
     
-    func uploadImage(){
-//        let new_post_ref = Database.database().reference().child("profile_images").childByAutoId()
-//        let new_post_key = new_post_ref.key
-//        let image_data = self.my_image.jpegData(compressionQuality: 0.3)
-//        let image_storage_ref = Storage.storage().reference().child("images")
-//        let new_image_ref = image_storage_ref.child(new_post_ref.key ?? "key")
-//        new_image_ref.putData(image_data!).observe(.success) { (snapshot) in
-//         snapshot.reference.downloadURL(completion: { (url, error) in
-//            snapshot.metadata?.storageReference?.downloadURL(completion: { (url, error) in
-//                self.image_url = url?.absoluteString
-//            })
-//            })
-//        }
-//         //var data = data
-//        image_storage_ref.getMetadata { (metadata, error) in
-//            metadata?.storageReference?.downloadURL(completion: { (url, error) in
-//                self.image_url = url?.absoluteString
-//            })
-   
-        }
 
         
     
+}
     
-    
+
+extension Post{
+     static func transformPostPhoto(dictionary : [String : Any]) -> Post {
+        let post = Post()
+        post.image_url = dictionary["photo_url"] as? String
+        post.text_share = dictionary["text_share"] as? String
+        return post
+        
+    }
+     func transformPostVideo(){
+       
+        
+    }
 }

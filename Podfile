@@ -17,6 +17,7 @@ pod 'Firebase/Database'
 pod 'SVProgressHUD'
 pod 'ChameleonFramework'
 pod 'Firebase/Storage'
+pod 'SDWebImage'
 
 
 end
