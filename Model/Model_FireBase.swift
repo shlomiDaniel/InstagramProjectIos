@@ -110,7 +110,8 @@ class ModelFireBase{
                 callback(downloadURL.absoluteString)
                 the_url = downloadURL.absoluteString
                 if child == "profile_image"{
-                   self.sendDataToDataBase(photo_url: the_url)
+                   //self.sendDataToDataBase(photo_url: the_url)
+                    self.sendImageProfie(photo_url: the_url)
                 }
                 if child == "posts"{
                     
@@ -121,7 +122,6 @@ class ModelFireBase{
             })
             
         }
-        
         
         
         return the_url
@@ -165,12 +165,50 @@ class ModelFireBase{
         
         
     }
+    /////
+    func updatePhoto_profile(text: String) {
+        
+        
+       // let userReference = firebased.database().reference.child("users/(uid)")
+        let user_info = Database.database().reference().child("users").child(Auth.auth().currentUser?.uid ?? "")
+        
+        
+        let values = ["url_profile_image": text]
+        
+        // Update the "email" value in the database for the logged in user
+        user_info.updateChildValues(values, withCompletionBlock: { (error, ref) in
+            if error != nil {
+                print(error?.localizedDescription)
+                return
+            }
+            ///////
+            print("Successfully saved user to database.")
+            //self.dismiss(animated: true, completion: nil)
+        })
+    }
+    
+    func sendImageProfie(photo_url : String){
+        
+//        var user_id = Auth.auth().currentUser?.uid
+//        let profile_image_ref = ref.child("users").child(user_id!)
+//        let new_image_id = profile_image_ref.childByAutoId().key
+//        let new_image_ref = profile_image_ref.child(new_image_id!)
+        
+        updatePhoto_profile(text : photo_url)
+        //new_image_ref.updateChildValues(["url_profile_image" : photo_url])
+        //new_image_ref.setValue(["profile_image" : photo_url])
+        
+    }
     
     
     func sendDataToDataBase(photo_url : String){
         let post_ref = ref.child("posts")
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
+        ////
+        
+        
+        ////
        // let post
         new_post_ref.setValue(["photo_url": photo_url]) { (error, ref) in
             if error != nil

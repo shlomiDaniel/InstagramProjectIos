@@ -69,20 +69,16 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                     
                     self.performSegue(withIdentifier: "registerToTabBar", sender: self)
                     SVProgressHUD.show(withStatus: "just a momment")
-//                    var img_url = self.model.saveImage(image: self.image_selected!, name: "profile_image", child: "profile_image", text: "", callback: { (url) in
-//
-//                    })
+                
+                    //var uid = Auth.auth().currentUser?.uid
                     
-//                    var img_url = model.saveImage(image: self.image_selected!, name: "profile_image", child: "image", text: "") { (url) in
-//
-//                    }
-                    //print(img_url + "this is the urllllllll")
-//                    Model.instance.saveImage(image: selectedImage!, name: "post", child: "posts", text: textView.text!) { (url) in
-//
-//                    }
-                    //String  a = ""
-                    //a = (String)(image_url)
-                    var image_url = self.model.saveImage(image: self.image_selected!, name: "profile_image", child: "image", text: "", callback: { (url) in
+                    //let strorage = Storage.storage().reference(forURL: "gs://instagramfirebase-6b380.appspot.com").child("profile_image").child(uid!)
+                    
+                    
+                    
+                    
+                    
+                    var image_url = self.model.saveImage(image: self.image_selected!, name: "image", child: "profile_image", text: "", callback: { (url) in
                         
                         })
                     self.model.add_new_user(email: self.email_txt.text!, pass:  self.password_txt.text!, userName: self.username_txt.text!, url: image_url)

@@ -82,7 +82,7 @@ extension User{
     static func transformUserInfo(dict : [String:Any])->User{
         let user = User()
         user.email = dict["email"] as! String
-        user.profile_image_url = dict["profile_image_url"] as? String
+        user.profile_image_url = dict["url_profile_image"] as? String
         user.userName = dict["userName"] as! String
         return user
         }
