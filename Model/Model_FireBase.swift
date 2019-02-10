@@ -149,8 +149,9 @@ class ModelFireBase{
         let post_ref = ref.child("posts")
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
+        let uid = getUserId()
         // let post
-        new_post_ref.setValue(["photo_url": photo_url,"text_share" : text]) { (error, ref) in
+        new_post_ref.setValue(["uid": uid,"photo_url": photo_url,"text_share" : text]) { (error, ref) in
             if error != nil
             {
                 SVProgressHUD.showError(withStatus: error?.localizedDescription)

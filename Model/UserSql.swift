@@ -52,7 +52,7 @@ extension User{
             let name = user.name.cString(using: .utf8)
             let phone = user.phone.cString(using: .utf8)
             let url = user.url.cString(using: .utf8)
-            let user_name = user.userName.cString(using: .utf8)
+            let user_name = user.userName?.cString(using: .utf8)
             let password = user.Password.cString(using: .utf8)
             
               sqlite3_bind_text(sqlite3_stmt, 1, user_id, -1, nil)

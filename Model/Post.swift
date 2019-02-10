@@ -14,6 +14,7 @@ class Post{
     
     var text_share : String?
     var image_url : String?
+    var uid : String?
     //var videoUrl : String?
     
     init(){
@@ -33,6 +34,7 @@ extension Post{
         let post = Post()
         post.image_url = dictionary["photo_url"] as? String
         post.text_share = dictionary["text_share"] as? String
+        post.uid = dictionary["uid"] as? String
         return post
         
     }

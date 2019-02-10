@@ -35,6 +35,8 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
          table_view.dataSource = self
+        table_view.estimatedRowHeight = 521
+        table_view.rowHeight = UITableView.automaticDimension
         let name = Model.instance.modelFirebase.getUserName()
         if name != nil{
             let alert = UIAlertController(title: "Welcome", message: "Welcome " + name!, preferredStyle: .alert)
@@ -110,25 +112,26 @@ extension HomeViewController : UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //UITableViewCell c =
-        var cell = table_view.dequeueReusableCell(withIdentifier: "post_cell", for: indexPath) as! HomeTableViewCell
-        //cell.backgroundColor = UIColor.red
-        //cell.textLabel?.text = Model.instance.modelFirebase.posts[indexPath.row].text_share
-        let post = Model.instance.modelFirebase.posts[indexPath.row]
-        cell.text_post_label.text = post.text_share
-        //cell.post_image.image = UIImage(named: <#T##String#>)
-        cell.profile_image.image = UIImage(named: "ZEUS.jpeg")
-        cell.name_label.text = "zeus"
-        cell.post_image.image = UIImage(named: "ZEUS.jpeg")
        
+        var cell = table_view.dequeueReusableCell(withIdentifier: "post_cell", for: indexPath) as! HomeTableViewCell
+        
+        let post = Model.instance.modelFirebase.posts[indexPath.row]
         table_view.rowHeight = 450
-         cell.text_post_label.numberOfLines = 0
-        if let photo_url_string = post.image_url
-        {
-            let photo_url = URL(string: photo_url_string)
-            cell.post_image.sd_setImage(with : photo_url)
-
-        }
+        cell.text_post_label.numberOfLines = 0
+        cell.post = post
+//        cell.profile_image.image = UIImage(named: "ZEUS.jpeg")
+//
+//        cell.post_image.image = UIImage(named: "ZEUS.jpeg")
+//
+//
+//        cell.name_label.text = "zeus"
+//        cell.text_post_label.text = post.text_share
+//        if let photo_url_string = post.image_url
+//        {
+//            let photo_url = URL(string: photo_url_string)
+//            cell.post_image.sd_setImage(with : photo_url)
+//
+//        }
         
         
       //  tableView.rowHeight = UITableView.automaticDimension

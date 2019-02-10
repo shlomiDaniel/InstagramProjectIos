@@ -13,9 +13,26 @@ class User{
     let name : String
     let phone : String
     let url : String
-    let userName : String
+    var userName : String?
     let Password : String
-    init ( _id : String , _name : String , _phone : String = "1234567" , _url : String = "" , _userName : String , _password : String){
+    var profile_image_url : String?
+    var email : String?
+    // userName : String?
+    
+    init ( _id : String , _name : String , _phone : String = "1234567" , _url : String = "" , _userName : String , _password : String,_email : String ,profile_image_url : String
+        ){
+        self.id = _id
+        self.name = _name
+        self.phone = _phone
+        self.url = _url
+        self.userName = _userName
+        self.Password = _password
+        self.email = _email
+        self.profile_image_url = profile_image_url
+
+    }
+    init ( _id : String , _name : String , _phone : String = "1234567" , _url : String = "" , _userName : String , _password : String
+        ){
         self.id = _id
         self.name = _name
         self.phone = _phone
@@ -23,6 +40,17 @@ class User{
         self.userName = _userName
         self.Password = _password
         
+        
+    }
+    init(){
+        self.id = ""
+        self.name = ""
+        self.phone = ""
+        self.url = ""
+        self.userName = ""
+        self.Password = ""
+        self.email = ""
+        //self.profile_image_url = ""
     }
     //from jason
     init ( jason : [String : Any]){
@@ -32,7 +60,8 @@ class User{
         self.url = jason["url"] as! String
         self.userName =  jason["userName"] as! String
         self.Password = jason["password"] as! String
-        
+        self.email = jason["email"] as! String
+        self.profile_image_url = jason["profile_image_url"] as! String
     }
     //to jason
     
@@ -47,9 +76,15 @@ class User{
         return jason
     }
     
+}
+extension User{
     
-    
-    
-    
+    static func transformUserInfo(dict : [String:Any])->User{
+        let user = User()
+        user.email = dict["email"] as! String
+        user.profile_image_url = dict["profile_image_url"] as? String
+        user.userName = dict["userName"] as! String
+        return user
+        }
     
 }

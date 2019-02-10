@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseDatabase
 
 class HomeTableViewCell: UITableViewCell {
 
@@ -20,6 +21,51 @@ class HomeTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+    
+    var post : Post?{
+        didSet{
+            updateView()
+        }
+    }
+    
+    func updateView(){
+       // profile_image.image = UIImage(named: "ZEUS.jpeg")
+       //
+       // post_image.image = UIImage(named: "ZEUS.jpeg")
+        
+        
+    //name_label.text = "zeus"
+    text_post_label.text = post?.text_share
+        if let photo_url_string = post?.image_url
+        {
+            let photo_url = URL(string: photo_url_string)
+        post_image.sd_setImage(with : photo_url)
+            
+        }
+        setUserInfo()
+        
+    }
+    func setUserInfo(){
+        if let uid = post?.uid{
+            Model.instance.modelFirebase.ref.child("users").child(uid).observeSingleEvent(of: DataEventType.value, with: {
+                snapshot in
+                if let dictionary = snapshot.value as? [String : Any]{
+                    var user = User.transformUserInfo(dict: dictionary)
+                    self.name_label.text = user.userName
+                    if let photo_url_string = user.profile_image_url
+                    {
+                        let photo_url = URL(string: photo_url_string)
+                        self.profile_image.sd_setImage(with : photo_url)
+                        
+                    }
+                    
+                    
+                    
+                    
+                }
+            })
+        }
     }
     @IBOutlet weak var share_image: UIImageView!
     
