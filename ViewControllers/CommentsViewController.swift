@@ -18,11 +18,15 @@ class CommentsViewController: UIViewController {
     @IBOutlet weak var comment_text: UITextField!
     let post_id = ""
     
+    
     var commets = [Comment]()
     var users = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        table_view.dataSource = self
+        table_view.estimatedRowHeight = 80
+        
         
       send_button_iboutlet.isEnabled = false
         empty()
@@ -39,20 +43,14 @@ class CommentsViewController: UIViewController {
                         snapshot_comment in
                         print(snapshot_comment.value)
                         
-                        
                             if let dictionary = snapshot_comment.value as? [String : Any]{
                                 var new_comment = Comment.transformCommet(dictionary: dictionary)
                                 Model.instance.modelFirebase.fetchUser(uid: new_comment.uid!)
-                                
-                               
-                                
+                                Model.instance.modelFirebase.comments.append(new_comment)
+                                self.table_view.reloadData()
                                 
                             }
-                        
-                        
-                        
                     })
-            
         })
     }
     func hadle_text_filed(){
@@ -83,8 +81,6 @@ class CommentsViewController: UIViewController {
                 SVProgressHUD.showError(withStatus: error?.localizedDescription)
                 return
             }
-           // let post_id =
-           // let post_comment_ref = ref.child("post_comments").child(post_id)
             self.empty()
         }
     }
@@ -111,4 +107,30 @@ class CommentsViewController: UIViewController {
     }
     */
 
+}
+
+
+extension CommentsViewController : UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return Model.instance.modelFirebase.comments.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        var cell = table_view.dequeueReusableCell(withIdentifier: "post_cell", for: indexPath) as! commentsTableViewCell
+        
+        let comment = Model.instance.modelFirebase.comments[indexPath.row]
+        let user = Model.instance.modelFirebase.users[indexPath.row]
+        table_view.rowHeight = 450
+       
+        cell.user = user
+        cell.comment = comment
+        
+       
+        return cell
+    }
+    
+    
+    
+    
 }

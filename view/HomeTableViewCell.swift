@@ -20,9 +20,7 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var text_post_label: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-        //name_label.text = ""
-        //text_post_label.text = ""
-        // Initialization code
+        
     }
     
     var post : Post?{
@@ -31,24 +29,22 @@ class HomeTableViewCell: UITableViewCell {
         }
     }
     
+    var user : User?{
+        didSet {
+            setUserInfo()
+        }
+    }
+    
     func updateView(){
-       // profile_image.image = UIImage(named: "ZEUS.jpeg")
-       //
-       // post_image.image = UIImage(named: "ZEUS.jpeg")
-        
-        
-    //name_label.text = "zeus"
+       
     text_post_label.text = post?.text_share
-        //profile_image.image =
+       
         if let photo_url_string = post?.image_url
         {
             let photo_url = URL(string: photo_url_string)
-             //post_image.sd_setImage(with : photo_url)
-            //post_image.sd_setImage(with : photo_url)
-            //self.profile_image.sd_setImage(with : photo_url)
+          
             self.post_image.sd_setImage(with: photo_url, placeholderImage: UIImage())
         }
-        setUserInfo()
         
     }
     func setUserInfo(){
@@ -58,20 +54,15 @@ class HomeTableViewCell: UITableViewCell {
                 if let dictionary = snapshot.value as? [String : Any]{
                     var user = User.transformUserInfo(dict: dictionary)
                     self.name_label.text = user.userName
-                    //var photo_url_string = user.profile_image_url
+                    
                      print("im here")
-                    //let photo_url = URL(string: user.profile_image_url)
-                   // self.profile_image.sd_setImage(with : photo_url)
+                    
                     if let photo_url_string = user.profile_image_url
                     {
                         let photo_url = URL(string: photo_url_string)
-                        //self.profile_image.sd_setImage(with : photo_url)
-                       // print("im here")
+                        
                         self.profile_image.sd_setImage(with: photo_url, placeholderImage: UIImage())
                    }
-                    
-                    
-                    
                     
                 }
             })
@@ -82,7 +73,6 @@ class HomeTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
     override func prepareForReuse() {

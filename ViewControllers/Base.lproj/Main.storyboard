@@ -426,9 +426,11 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="comment_label" destination="jbf-VV-an0" id="sY0-fo-TyQ"/>
                                             <outlet property="comment_labeltxt" destination="jbf-VV-an0" id="WgG-xb-JLA"/>
-                                            <outlet property="profile_image_view" destination="iLn-GN-YqI" id="XRS-u5-lxD"/>
+                                            <outlet property="profile_image_view" destination="iLn-GN-YqI" id="hpY-gq-dja"/>
                                             <outlet property="user_name_label" destination="1qu-lU-VB9" id="YVV-lV-Afs"/>
+                                            <outlet property="username_label" destination="1qu-lU-VB9" id="V4X-WT-UyH"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

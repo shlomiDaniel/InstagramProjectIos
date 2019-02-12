@@ -129,7 +129,6 @@
 				09153D3921BF36DB00D68B86 /* CameraViewController.swift */,
 				09058F3D21BF20D4001DE7E6 /* Main.storyboard */,
 				09FC0869221112430064AA80 /* CommentsViewController.swift */,
-				09FC086B221112810064AA80 /* commentsTableViewCell.swift */,
 				849B3AE721CBC64900E7C94C /* UserDetailsViewController.swift */,
 				09153D3821BF36DB00D68B86 /* DiscoverViewController.swift */,
 				09153D3B21BF36DB00D68B86 /* HomeViewController.swift */,
@@ -160,6 +159,7 @@
 		09631DAA21D19C07008DA929 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				09FC086B221112810064AA80 /* commentsTableViewCell.swift */,
 				09631DAB21D19C52008DA929 /* HomeTableViewCell.swift */,
 			);
 			path = view;

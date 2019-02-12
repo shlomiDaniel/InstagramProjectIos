@@ -17,12 +17,11 @@ class ModelFireBase{
     var flag = false
     var posts = [Post]()
     var users = [User]()
+    var comments = [Comment]()
+    
     init(){
         FirebaseApp.configure()
         ref = Database.database().reference()
-        // posts =  [Post]()
-        //flag : Bool = false
-        //FirebaseApp.configure()
         
     }
     
@@ -128,8 +127,6 @@ class ModelFireBase{
         return the_url
     }
     
-   
-    
     func getImage(url : String , callback :@escaping (UIImage?)->Void){
         let ref = Storage.storage().reference(forURL: url)
         ref.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
@@ -145,13 +142,11 @@ class ModelFireBase{
     func childs(childs_aar : [String] , indx : Int){
         
     }
-    
-    func sendDataToDataBase_posts_image_and_text(photo_url : String, text : String) {
+        func sendDataToDataBase_posts_image_and_text(photo_url : String, text : String) {
         let post_ref = ref.child("posts")
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
         let uid = getUserId()
-        // let post
         new_post_ref.setValue(["uid": uid,"photo_url": photo_url,"text_share" : text]) { (error, ref) in
             if error != nil
             {
@@ -160,44 +155,25 @@ class ModelFireBase{
             }else{
                 SVProgressHUD.showSuccess(withStatus: "shared succes")
             }
-            // ref.child("posts").child(id).setValue(["email" : email , "pass" : pass , "userName" : userName , "url_profile_image" : url])
         }
-        
-        
         
     }
     /////
     func updatePhoto_profile(text: String) {
-        
-        
-       // let userReference = firebased.database().reference.child("users/(uid)")
         let user_info = Database.database().reference().child("users").child(Auth.auth().currentUser?.uid ?? "")
-        
-        
         let values = ["url_profile_image": text]
-        
-        // Update the "email" value in the database for the logged in user
         user_info.updateChildValues(values, withCompletionBlock: { (error, ref) in
             if error != nil {
                 print(error?.localizedDescription)
                 return
             }
-            ///////
             print("Successfully saved user to database.")
-            //self.dismiss(animated: true, completion: nil)
         })
     }
     
     func sendImageProfie(photo_url : String){
-        
-//        var user_id = Auth.auth().currentUser?.uid
-//        let profile_image_ref = ref.child("users").child(user_id!)
-//        let new_image_id = profile_image_ref.childByAutoId().key
-//        let new_image_ref = profile_image_ref.child(new_image_id!)
-        
+       
         updatePhoto_profile(text : photo_url)
-        //new_image_ref.updateChildValues(["url_profile_image" : photo_url])
-        //new_image_ref.setValue(["profile_image" : photo_url])
         
     }
     
@@ -206,11 +182,7 @@ class ModelFireBase{
         let post_ref = ref.child("posts")
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
-        ////
-        
-        
-        ////
-       // let post
+   
         new_post_ref.setValue(["photo_url": photo_url]) { (error, ref) in
             if error != nil
             {
@@ -219,7 +191,6 @@ class ModelFireBase{
             }else{
                 SVProgressHUD.showSuccess(withStatus: "shared succes")
             }
-      // ref.child("posts").child(id).setValue(["email" : email , "pass" : pass , "userName" : userName , "url_profile_image" : url])
     }
     }
     
