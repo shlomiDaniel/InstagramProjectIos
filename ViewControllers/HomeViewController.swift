@@ -52,6 +52,10 @@ class HomeViewController: UIViewController {
             
         }
    }
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.tabBarController?.tabBar.isHidden = false
+    }
     
    
     @IBOutlet weak var logOut_button: UIBarButtonItem!

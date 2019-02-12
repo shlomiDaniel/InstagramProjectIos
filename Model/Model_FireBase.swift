@@ -16,6 +16,7 @@ class ModelFireBase{
     var ref : DatabaseReference!
     var flag = false
     var posts = [Post]()
+    var users = [User]()
     init(){
         FirebaseApp.configure()
         ref = Database.database().reference()
@@ -251,12 +252,31 @@ class ModelFireBase{
                 var post = Post.transformPostPhoto(dictionary: dictionary)
                 //let post = Post.transformPostPhoto(dictionary: dictionary)
             //post.transformPost(dictionary: dictionary)
-                
+                self.fetchUser(uid : post.uid!)
                     self.posts.append(post)
                     table_view.reloadData()
-                
+                //check fetch
             }
         }
+    }
+    func fetchUser(uid : String, completed : @escaping()->Void){
+        Database.database().reference().child("users").child(uid).observeSingleEvent(of: Firebase.DataEventType.value, with: {
+            snapshot in
+            if let dict = snapshot.value as? [String:Any]{
+                let user = User.transformUserInfo(dict: dict)
+                self.users.append(user)
+                completed()
+                //self.users
+            }
+        })
+        
+        
+    }
+    
+    func fetchUser(uid : String){
+     
+        
+        
     }
 }
 
