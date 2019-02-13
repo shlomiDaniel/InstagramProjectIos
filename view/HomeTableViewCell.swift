@@ -54,14 +54,15 @@ class HomeTableViewCell: UITableViewCell {
                 if let dictionary = snapshot.value as? [String : Any]{
                     var user = User.transformUserInfo(dict: dictionary)
                     self.name_label.text = user.userName
-                    
+
                      print("im here")
-                    
+        
+                    self.name_label.text = user.userName
                     if let photo_url_string = user.profile_image_url
                     {
                         let photo_url = URL(string: photo_url_string)
                         
-                        self.profile_image.sd_setImage(with: photo_url, placeholderImage: UIImage())
+                        self.profile_image.sd_setImage(with: photo_url, placeholderImage: UIImage(named: "download"))
                    }
                     
                 }

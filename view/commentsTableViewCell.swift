@@ -10,35 +10,31 @@ import UIKit
 
 class commentsTableViewCell: UITableViewCell {
 
-    var post : Post?{
-        didSet{
-           // updateView()
-        }
-    }
+
     
     var user : User?{
         didSet {
-            //setUserInfo()
+            setUserInfo()
         }
     }
     var comment : Comment?{
         didSet {
-            //setUserInfo()
+            updateView()
         }
     }
     
     
     @IBOutlet weak var profile_image_view: UIImageView!
     
-    @IBOutlet weak var username_label: UILabel!
     
+    @IBOutlet weak var username_label: UILabel!
     
     @IBOutlet weak var comment_label: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        username_label.text = ""
-        comment_label.text = ""
+       // username_label.text = ""
+        //comment_label.text = ""
         // Initialization code
     }
 
@@ -55,11 +51,12 @@ class commentsTableViewCell: UITableViewCell {
         
     }
     func setUserInfo(){
+        username_label.text = user?.userName
         if let photo_url_string = user?.profile_image_url
         {
             let photo_url = URL(string: photo_url_string)
             
-            self.profile_image_view.sd_setImage(with: photo_url, placeholderImage: UIImage())
+            self.profile_image_view.sd_setImage(with: photo_url, placeholderImage: UIImage(named: "download"))
         }
     }
 

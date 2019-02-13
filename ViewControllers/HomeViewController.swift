@@ -12,12 +12,17 @@ import SDWebImage
 
 class HomeViewController: UIViewController {
     
+
     @IBOutlet weak var table_view: UITableView!
     var data = [User]()
     var selectedId : String?
     
+    @IBAction func but(_ sender: Any) {
+        self.performSegue(withIdentifier: "toComments", sender: nil)
+    }
     
 
+    
     @IBAction func log_out_button_action(_ sender: Any) {
         SVProgressHUD.show(withStatus: "just a moment")
         if (Model.instance.modelFirebase.sign_Out()){
@@ -43,12 +48,7 @@ class HomeViewController: UIViewController {
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
             self.present(alert, animated: true, completion: nil)
             Model.instance.modelFirebase.loadPost(table_view: table_view)
-           // table_view.rowHeight = 450
-            //table_view.estimatedRowHeight = 520
-            
-            
-            //cell.text_post_label.numberOfLines = 0
-            
+          
             
         }
    }
@@ -60,53 +60,6 @@ class HomeViewController: UIViewController {
    
     @IBOutlet weak var logOut_button: UIBarButtonItem!
     
-//    
-//    override func viewDidLoad() {
-//        super.viewDidLoad()
-//
-//        // Do any additional setup after loading the view.
-//    }
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        //data = Model.instance.modelFirebase.getAllUsers(callback: <#([User]) -> Void#>)
-//      // self.tableView.reloadData()
-//    }
-//    override func didReceiveMemoryWarning() {
-//        super.didReceiveMemoryWarning()
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return data.count
-//    }
-//    
-//    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100
-//    }
-//    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell : UserTableViewCell =
-//            tableView.dequeueReusableCell(withIdentifier: "UserCell" , for : indexPath) as! UserTableViewCell
-//        
-//           let us = data[indexPath.row]
-//         cell.userNameLabel.text = us.userName
-//        return cell
-//    }
-//
-//    
-//    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        NSLog("user select row at \(indexPath.row)")
-//        selectedId = data[indexPath.row].id
-//        self.performSegue(withIdentifier: "UserDetailsView", sender: self)
-//        
-//    }
-//    /*
-//    // MARK: - Navigation
-//
-//    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        // Get the new view controller using segue.destination.
-//        // Pass the selected object to the new view controller.
-//    }
-//    */
 
 }
 
@@ -123,25 +76,7 @@ extension HomeViewController : UITableViewDataSource {
         table_view.rowHeight = 450
         cell.text_post_label.numberOfLines = 0
         cell.post = post
-//        cell.profile_image.image = UIImage(named: "ZEUS.jpeg")
-//
-//        cell.post_image.image = UIImage(named: "ZEUS.jpeg")
-//
-//
-//        cell.name_label.text = "zeus"
-//        cell.text_post_label.text = post.text_share
-//        if let photo_url_string = post.image_url
-//        {
-//            let photo_url = URL(string: photo_url_string)
-//            cell.post_image.sd_setImage(with : photo_url)
-//
-//        }
-        
-        
-      //  tableView.rowHeight = UITableView.automaticDimension
-        //tableView.estimatedRowHeight = 600
-        
-//        table_view.h
+
         return cell
     }
 

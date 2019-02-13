@@ -340,12 +340,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ara-iD-uun">
-                                                    <rect key="frame" x="177" y="249" width="46" height="30"/>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LdS-i4-xoZ">
+                                                    <rect key="frame" x="267" y="262" width="46" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <state key="normal" title="Button"/>
                                                     <connections>
-                                                        <segue destination="kMh-Qx-lcx" kind="show" id="Zf2-qx-8cK"/>
+                                                        <action selector="but:" destination="qCK-pn-87L" eventType="touchUpInside" id="CgI-4n-rrM"/>
+                                                        <segue destination="kMh-Qx-lcx" kind="show" identifier="toComments" id="I12-IR-Y3X"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -379,7 +380,6 @@
                     <connections>
                         <outlet property="logOut_button" destination="GMq-dy-aJl" id="1bc-lz-NoQ"/>
                         <outlet property="table_view" destination="Ysf-i8-rU9" id="wQW-7e-lR6"/>
-                        <segue destination="kMh-Qx-lcx" kind="show" identifier="segueHomeToComment" id="wzq-CT-zj3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wTW-te-Seg" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -394,43 +394,41 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="95" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tkc-v4-n6o">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="101" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="tkc-v4-n6o">
                                 <rect key="frame" x="0.0" y="64" width="375" height="542"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="189" id="rRP-Av-Kkq" customClass="commentsTableViewCell" customModule="InstagramApplication" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="189"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="commentCell" rowHeight="101" id="rRP-Av-Kkq" customClass="commentsTableViewCell" customModule="InstagramApplication" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="101"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rRP-Av-Kkq" id="Pnl-XT-GJL">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="188.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="100.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qu-lU-VB9">
-                                                    <rect key="frame" x="75" y="19" width="103" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="comment" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jbf-VV-an0">
-                                                    <rect key="frame" x="75" y="48" width="285" height="21"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iLn-GN-YqI">
-                                                    <rect key="frame" x="13" y="8" width="54" height="43"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ViD-3j-m6W">
+                                                    <rect key="frame" x="15" y="11" width="46" height="40"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CHh-41-glT">
+                                                    <rect key="frame" x="88" y="21" width="153" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="comment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VEj-Sj-MfL">
+                                                    <rect key="frame" x="88" y="59" width="252" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="comment_label" destination="jbf-VV-an0" id="sY0-fo-TyQ"/>
-                                            <outlet property="comment_labeltxt" destination="jbf-VV-an0" id="WgG-xb-JLA"/>
-                                            <outlet property="profile_image_view" destination="iLn-GN-YqI" id="hpY-gq-dja"/>
-                                            <outlet property="user_name_label" destination="1qu-lU-VB9" id="YVV-lV-Afs"/>
-                                            <outlet property="username_label" destination="1qu-lU-VB9" id="V4X-WT-UyH"/>
+                                            <outlet property="comment_label" destination="VEj-Sj-MfL" id="1Ul-FS-UtC"/>
+                                            <outlet property="profile_image_view" destination="ViD-3j-m6W" id="ci6-9k-WUp"/>
+                                            <outlet property="username_label" destination="CHh-41-glT" id="cIj-gH-pj6"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -689,21 +687,20 @@
     </scenes>
     <resources>
         <image name="download" width="225" height="225"/>
-        <image name="icons8-forward-arrow-35" width="26.25" height="26.25"/>
-        <image name="icons8-heart-outline-35" width="26.25" height="26.25"/>
-        <image name="icons8-heart-outline-filled-35" width="26.25" height="26.25"/>
-        <image name="icons8-home-page-35 (1)" width="26.25" height="26.25"/>
-        <image name="icons8-home-page-filled-35" width="26.25" height="26.25"/>
-        <image name="icons8-instagram-35" width="26.25" height="26.25"/>
-        <image name="icons8-instagram-filled-35" width="26.25" height="26.25"/>
-        <image name="icons8-picture-100" width="75" height="75"/>
-        <image name="icons8-search-35" width="26.25" height="26.25"/>
-        <image name="icons8-speech-bubble-35" width="26.25" height="26.25"/>
-        <image name="icons8-user-35" width="26.25" height="26.25"/>
-        <image name="icons8-user-filled-35" width="26.25" height="26.25"/>
+        <image name="icons8-forward-arrow-35" width="35" height="35"/>
+        <image name="icons8-heart-outline-35" width="35" height="35"/>
+        <image name="icons8-heart-outline-filled-35" width="35" height="35"/>
+        <image name="icons8-home-page-35 (1)" width="35" height="35"/>
+        <image name="icons8-home-page-filled-35" width="35" height="35"/>
+        <image name="icons8-instagram-35" width="35" height="35"/>
+        <image name="icons8-instagram-filled-35" width="35" height="35"/>
+        <image name="icons8-picture-100" width="100" height="100"/>
+        <image name="icons8-search-35" width="35" height="35"/>
+        <image name="icons8-speech-bubble-35" width="35" height="35"/>
+        <image name="icons8-user-35" width="35" height="35"/>
+        <image name="icons8-user-filled-35" width="35" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="kOW-1r-Sl1"/>
-        <segue reference="wzq-CT-zj3"/>
     </inferredMetricsTieBreakers>
 </document>

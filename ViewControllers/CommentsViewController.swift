@@ -13,10 +13,11 @@ import FirebaseAuth
 
 class CommentsViewController: UIViewController {
 
+//    @IBOutlet weak var user_namelabel: UILabel!
     @IBOutlet weak var table_view: UITableView!
     @IBOutlet weak var send_button_iboutlet: UIButton!
     @IBOutlet weak var comment_text: UITextField!
-    let post_id = ""
+    let post_id = "LYaKnJ85tzmQgmKpZfN"
     
     
     var commets = [Comment]()
@@ -26,11 +27,12 @@ class CommentsViewController: UIViewController {
         super.viewDidLoad()
         table_view.dataSource = self
         table_view.estimatedRowHeight = 80
-        
+        table_view.rowHeight = UITableView.automaticDimension
         
       send_button_iboutlet.isEnabled = false
         empty()
         hadle_text_filed()
+        loadComments()
         
     }
     
@@ -45,10 +47,30 @@ class CommentsViewController: UIViewController {
                         
                             if let dictionary = snapshot_comment.value as? [String : Any]{
                                 var new_comment = Comment.transformCommet(dictionary: dictionary)
-                                Model.instance.modelFirebase.fetchUser(uid: new_comment.uid!)
-                                Model.instance.modelFirebase.comments.append(new_comment)
-                                self.table_view.reloadData()
                                 
+                              
+//                                    print("this is count")
+                                  print(new_comment.uid)
+                                if(new_comment.uid != nil){
+                                    
+                                    self.fetchUser(uid: new_comment.uid!,completed:{
+                                        self.commets.append(new_comment)
+                                        
+                                        self.table_view.reloadData()
+                                        
+                                    })
+                                    
+                                    
+                               }
+                                
+                                    
+                              
+                             //   self.commets.append(new_comment)
+                               // self.table_view.reloadData()
+                             //  print(self.commets.count)
+                                
+                              
+                               
                             }
                     })
         })
@@ -68,19 +90,56 @@ class CommentsViewController: UIViewController {
 
     }
     
+    
+    
+    func fetchUser(uid : String, completed : @escaping()->Void){
+        Database.database().reference().child("users").child(uid).observeSingleEvent(of: Firebase.DataEventType.value, with: {
+            snapshot in
+            if let dict = snapshot.value as? [String:Any]{
+                let user = User.transformUserInfo(dict: dict)
+                self.users.append(user)
+                print(uid)
+                print(user.userName)
+                completed()
+                //self.users
+            }
+        })
+        
+        
+    }
+    
+    
+    
+    
     @IBAction func sendButton(_ sender: Any) {
         let ref = Database.database().reference()
-        let comment_ref = ref.child("posts")
+        let comment_ref = ref.child("comments")
         let new_commet_id  = comment_ref.childByAutoId().key
         let new_comment_ref = comment_ref.child(new_commet_id!)
         var uid  = Auth.auth().currentUser?.uid
         
-        new_comment_ref.setValue(["uid" : uid,"commentText" : comment_text.text! ]) { (error, ref) in
+        new_comment_ref.setValue(["uid" : uid,"comment_text" : comment_text.text! ]) { (error, ref) in
             if error != nil
             {
                 SVProgressHUD.showError(withStatus: error?.localizedDescription)
                 return
             }
+            let post_id = "LYaKnJ85tzmQgmKpZfN"
+            let post_comment_ref = Database.database().reference().child("post_comments").child(post_id).child(new_commet_id!)
+            //
+//            post_comment_ref.setValue(true,complition:{(error,ref) in
+//                if error != nil{
+//
+//                }
+//
+//            })
+            post_comment_ref.setValue(true, withCompletionBlock: { (error, ref) in
+                if error != nil{
+                    SVProgressHUD.showError(withStatus: error?.localizedDescription)
+                }
+            })
+            //check
+            
             self.empty()
         }
     }
@@ -112,17 +171,21 @@ class CommentsViewController: UIViewController {
 
 extension CommentsViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return Model.instance.modelFirebase.comments.count
+        print(commets.count)
+        return commets.count
+       // return commets.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        var cell = table_view.dequeueReusableCell(withIdentifier: "post_cell", for: indexPath) as! commentsTableViewCell
-        
-        let comment = Model.instance.modelFirebase.comments[indexPath.row]
-        let user = Model.instance.modelFirebase.users[indexPath.row]
-        table_view.rowHeight = 450
-       
+        //commentCell
+        var cell = table_view.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as! commentsTableViewCell
+      //  let comment = Model.instance.modelFirebase.comments[indexPath.row]
+     //   let user = Model.instance.modelFirebase.users[indexPath.row]
+        let comment = commets[indexPath.row]
+        let user = users[indexPath.row]
+        table_view.rowHeight = 80
+        //table_view.rowHeight = 450
+        cell.comment_label.numberOfLines = 0
         cell.user = user
         cell.comment = comment
         
