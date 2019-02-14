@@ -12,16 +12,12 @@ import SDWebImage
 
 class HomeViewController: UIViewController {
     
-
+    @IBOutlet weak var logOut_button: UIBarButtonItem!
     @IBOutlet weak var table_view: UITableView!
     var data = [User]()
     var selectedId : String?
     
-    @IBAction func but(_ sender: Any) {
-        self.performSegue(withIdentifier: "toComments", sender: nil)
-    }
-    
-
+  
     
     @IBAction func log_out_button_action(_ sender: Any) {
         SVProgressHUD.show(withStatus: "just a moment")
@@ -52,14 +48,18 @@ class HomeViewController: UIViewController {
             
         }
    }
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-        self.tabBarController?.tabBar.isHidden = false
-    }
+
     
    
-    @IBOutlet weak var logOut_button: UIBarButtonItem!
-    
+   
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "commentSegue"
+        {
+            let comment_vc = segue.destination as! CommentsViewController
+            let post_id = sender as! String
+            comment_vc.post_id = post_id
+        }
+    }
 
 }
 
@@ -73,9 +73,12 @@ extension HomeViewController : UITableViewDataSource {
         var cell = table_view.dequeueReusableCell(withIdentifier: "post_cell", for: indexPath) as! HomeTableViewCell
         
         let post = Model.instance.modelFirebase.posts[indexPath.row]
+        let user = Model.instance.modelFirebase.users[indexPath.row]
         table_view.rowHeight = 450
         cell.text_post_label.numberOfLines = 0
+        cell.user = user
         cell.post = post
+        cell.homeVc = self
 
         return cell
     }

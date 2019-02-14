@@ -340,24 +340,15 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LdS-i4-xoZ">
-                                                    <rect key="frame" x="267" y="262" width="46" height="30"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <state key="normal" title="Button"/>
-                                                    <connections>
-                                                        <action selector="but:" destination="qCK-pn-87L" eventType="touchUpInside" id="CgI-4n-rrM"/>
-                                                        <segue destination="kMh-Qx-lcx" kind="show" identifier="toComments" id="I12-IR-Y3X"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="comment_image" destination="V5C-pT-Htx" id="Kde-1h-r1h"/>
                                             <outlet property="like_button" destination="DuE-jX-sZI" id="TNy-56-G4E"/>
                                             <outlet property="like_image" destination="buk-pK-MF6" id="GxX-5R-D6G"/>
-                                            <outlet property="name_label" destination="YNK-ad-Eso" id="0nf-tq-aZT"/>
+                                            <outlet property="name_label" destination="YNK-ad-Eso" id="dRV-tv-baT"/>
                                             <outlet property="post_image" destination="RpO-1i-mGd" id="qxd-Ff-Obm"/>
-                                            <outlet property="profile_image" destination="OOQ-CQ-2ae" id="Fs2-Dt-iHi"/>
+                                            <outlet property="profile_image" destination="OOQ-CQ-2ae" id="L52-Cn-gIs"/>
                                             <outlet property="share_image" destination="wca-ST-EtU" id="RYX-va-hSq"/>
                                             <outlet property="text_post_label" destination="mVw-vD-sK9" id="0hL-RA-bqy"/>
                                         </connections>
@@ -380,6 +371,7 @@
                     <connections>
                         <outlet property="logOut_button" destination="GMq-dy-aJl" id="1bc-lz-NoQ"/>
                         <outlet property="table_view" destination="Ysf-i8-rU9" id="wQW-7e-lR6"/>
+                        <segue destination="kMh-Qx-lcx" kind="show" identifier="commentSegue" id="8cW-rD-C4h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wTW-te-Seg" userLabel="First Responder" sceneMemberID="firstResponder"/>

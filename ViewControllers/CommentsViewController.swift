@@ -17,7 +17,7 @@ class CommentsViewController: UIViewController {
     @IBOutlet weak var table_view: UITableView!
     @IBOutlet weak var send_button_iboutlet: UIButton!
     @IBOutlet weak var comment_text: UITextField!
-    let post_id = "LYaKnJ85tzmQgmKpZfN"
+    var post_id : String!
     
     
     var commets = [Comment]()
@@ -25,6 +25,7 @@ class CommentsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        title = "Comments"
         table_view.dataSource = self
         table_view.estimatedRowHeight = 80
         table_view.rowHeight = UITableView.automaticDimension
@@ -47,11 +48,9 @@ class CommentsViewController: UIViewController {
                         
                             if let dictionary = snapshot_comment.value as? [String : Any]{
                                 var new_comment = Comment.transformCommet(dictionary: dictionary)
-                                
-                              
-//                                    print("this is count")
+           
                                   print(new_comment.uid)
-                                if(new_comment.uid != nil){
+                               // if(new_comment.uid != nil){
                                     
                                     self.fetchUser(uid: new_comment.uid!,completed:{
                                         self.commets.append(new_comment)
@@ -60,15 +59,7 @@ class CommentsViewController: UIViewController {
                                         
                                     })
                                     
-                                    
-                               }
-                                
-                                    
-                              
-                             //   self.commets.append(new_comment)
-                               // self.table_view.reloadData()
-                             //  print(self.commets.count)
-                                
+                        
                               
                                
                             }
@@ -124,22 +115,15 @@ class CommentsViewController: UIViewController {
                 SVProgressHUD.showError(withStatus: error?.localizedDescription)
                 return
             }
-            let post_id = "LYaKnJ85tzmQgmKpZfN"
-            let post_comment_ref = Database.database().reference().child("post_comments").child(post_id).child(new_commet_id!)
-            //
-//            post_comment_ref.setValue(true,complition:{(error,ref) in
-//                if error != nil{
-//
-//                }
-//
-//            })
+         
+            let post_comment_ref = Database.database().reference().child("post_comments").child(self.post_id).child(new_commet_id!)
+        
             post_comment_ref.setValue(true, withCompletionBlock: { (error, ref) in
                 if error != nil{
                     SVProgressHUD.showError(withStatus: error?.localizedDescription)
                 }
             })
-            //check
-            
+           
             self.empty()
         }
     }
@@ -156,15 +140,6 @@ class CommentsViewController: UIViewController {
     }
     
 
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 

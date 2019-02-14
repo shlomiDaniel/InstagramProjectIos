@@ -15,7 +15,7 @@ class Post{
     var text_share : String?
     var image_url : String?
     var uid : String?
-    //var videoUrl : String?
+    var id : String?
     
     init(){
         self.image_url = nil
@@ -30,8 +30,9 @@ class Post{
     
 
 extension Post{
-     static func transformPostPhoto(dictionary : [String : Any]) -> Post {
+    static func transformPostPhoto(dictionary : [String : Any], key : String) -> Post {
         let post = Post()
+        post.id = key
         post.image_url = dictionary["photo_url"] as? String
         post.text_share = dictionary["text_share"] as? String
         post.uid = dictionary["uid"] as? String

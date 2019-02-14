@@ -220,18 +220,24 @@ class ModelFireBase{
        
         ref.child("posts").observe(.childAdded) { (snapshot) in
             if let dictionary = snapshot.value as? [String : Any]{
-                var post = Post.transformPostPhoto(dictionary: dictionary)
+                var post = Post.transformPostPhoto(dictionary: dictionary , key : snapshot.key)
                 //let post = Post.transformPostPhoto(dictionary: dictionary)
             //post.transformPost(dictionary: dictionary)
-                self.fetchUser(uid : post.uid!)
+                self.fetchUser(uid : post.uid! , completed :{
+                    
                     self.posts.append(post)
                     table_view.reloadData()
+                })
+                
                 //check fetch
             }
         }
     }
     func fetchUser(uid : String, completed : @escaping()->Void){
-        Database.database().reference().child("users").child(uid).observeSingleEvent(of: Firebase.DataEventType.value, with: {
+        Database.database().reference().child("users").child(uid).observeSingleEvent(of:
+            //DataEventType.value
+            
+            DataEventType.value, with: {
             snapshot in
             if let dict = snapshot.value as? [String:Any]{
                 let user = User.transformUserInfo(dict: dict)

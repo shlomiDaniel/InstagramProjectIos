@@ -11,17 +11,16 @@ import FirebaseDatabase
 
 class HomeTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var post_image: UIImageView!
-    @IBOutlet weak var profile_image: UIImageView!
     @IBOutlet weak var name_label: UILabel!
+    @IBOutlet weak var profile_image: UIImageView!
+    @IBOutlet weak var post_image: UIImageView!
+    //@IBOutlet weak var profile_image: UIImageView!
+    //@IBOutlet weak var name_label: UILabel!
     @IBOutlet weak var like_image: UIImageView!
     @IBOutlet weak var comment_image: UIImageView!
     @IBOutlet weak var like_button: UIButton!
     @IBOutlet weak var text_post_label: UILabel!
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-    }
+    var homeVc : HomeViewController?
     
     var post : Post?{
         didSet{
@@ -33,6 +32,26 @@ class HomeTableViewCell: UITableViewCell {
         didSet {
             setUserInfo()
         }
+    }
+    
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        name_label.text = ""
+        text_post_label.text = ""
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.commentImageView_Tocuch))
+        comment_image.isUserInteractionEnabled = true
+        comment_image.addGestureRecognizer(tapGestureRecognizer)
+
+    }
+    
+    @objc func commentImageView_Tocuch(){
+        print("helloworld")
+        if let id = post?.id{
+            homeVc?.performSegue(withIdentifier: "commentSegue", sender: id)
+
+        }
+        
     }
     
     func updateView(){
@@ -48,6 +67,7 @@ class HomeTableViewCell: UITableViewCell {
         
     }
     func setUserInfo(){
+        self.name_label.text = user?.userName
         if let uid = post?.uid{
             Model.instance.modelFirebase.ref.child("users").child(uid).observeSingleEvent(of: DataEventType.value, with: {
                 snapshot in
@@ -56,18 +76,21 @@ class HomeTableViewCell: UITableViewCell {
                     self.name_label.text = user.userName
 
                      print("im here")
-        
-                    self.name_label.text = user.userName
+                     print(self.name_label.text)
+                   // self.name_label.text = user.userName
                     if let photo_url_string = user.profile_image_url
                     {
                         let photo_url = URL(string: photo_url_string)
-                        
-                        self.profile_image.sd_setImage(with: photo_url, placeholderImage: UIImage(named: "download"))
+
+                        self.profile_image.sd_setImage(with: photo_url)
                    }
-                    
+                  
                 }
             })
         }
+
+        
+        
     }
     @IBOutlet weak var share_image: UIImageView!
     
