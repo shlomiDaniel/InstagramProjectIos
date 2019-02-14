@@ -218,34 +218,27 @@ class ModelFireBase{
     
     func loadPost(table_view: UITableView) {
        
-        ref.child("posts").observe(.childAdded) { (snapshot) in
-            if let dictionary = snapshot.value as? [String : Any]{
-                var post = Post.transformPostPhoto(dictionary: dictionary , key : snapshot.key)
-                //let post = Post.transformPostPhoto(dictionary: dictionary)
-            //post.transformPost(dictionary: dictionary)
-                self.fetchUser(uid : post.uid! , completed :{
-                    
-                    self.posts.append(post)
-                    table_view.reloadData()
-                })
-                
-                //check fetch
+        PostApi().observePosts { (post) in
+            guard let post_id = post.uid else {
+                return
             }
+            self.fetchUser(uid : post.uid!, completed :{
+                
+                self.posts.append(post)
+                table_view.reloadData()
+            })
         }
+
     }
     func fetchUser(uid : String, completed : @escaping()->Void){
-        Database.database().reference().child("users").child(uid).observeSingleEvent(of:
-            //DataEventType.value
-            
-            DataEventType.value, with: {
-            snapshot in
-            if let dict = snapshot.value as? [String:Any]{
-                let user = User.transformUserInfo(dict: dict)
-                self.users.append(user)
-                completed()
-                //self.users
-            }
+        
+        UserApi().observeUser(withId: uid, complition: {
+            user in
+            self.users.append(user)
+            completed()
         })
+        
+
         
         
     }

@@ -328,7 +328,7 @@
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DuE-jX-sZI">
-                                                    <rect key="frame" x="10" y="401" width="30" height="28"/>
+                                                    <rect key="frame" x="10" y="401" width="171" height="28"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <state key="normal" title="like"/>
@@ -347,6 +347,7 @@
                                             <outlet property="like_button" destination="DuE-jX-sZI" id="TNy-56-G4E"/>
                                             <outlet property="like_image" destination="buk-pK-MF6" id="GxX-5R-D6G"/>
                                             <outlet property="name_label" destination="YNK-ad-Eso" id="dRV-tv-baT"/>
+                                            <outlet property="num_of_likes_label" destination="mVw-vD-sK9" id="4H4-rq-GbE"/>
                                             <outlet property="post_image" destination="RpO-1i-mGd" id="qxd-Ff-Obm"/>
                                             <outlet property="profile_image" destination="OOQ-CQ-2ae" id="L52-Cn-gIs"/>
                                             <outlet property="share_image" destination="wca-ST-EtU" id="RYX-va-hSq"/>

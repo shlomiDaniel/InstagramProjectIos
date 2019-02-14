@@ -38,34 +38,24 @@ class CommentsViewController: UIViewController {
     }
     
     func loadComments(){
-        let post_comments_ref = Database.database().reference().child("post_comments").child(self.post_id)
-        post_comments_ref.observe(.childAdded, with: {
+        Api.post_Comments.REF_Post_Comments.child(self.post_id)
+        .observe(.childAdded, with: {
             snapshot in
-                Database.database().reference().child("comments").child(snapshot.key)
-                    .observeSingleEvent(of: .value, with: {
-                        snapshot_comment in
-                        print(snapshot_comment.value)
-                        
-                            if let dictionary = snapshot_comment.value as? [String : Any]{
-                                var new_comment = Comment.transformCommet(dictionary: dictionary)
-           
-                                  print(new_comment.uid)
-                               // if(new_comment.uid != nil){
-                                    
-                                    self.fetchUser(uid: new_comment.uid!,completed:{
-                                        self.commets.append(new_comment)
-                                        
-                                        self.table_view.reloadData()
-                                        
-                                    })
-                                    
-                        
-                              
-                               
-                            }
-                    })
+            
+            Api.Comment.observeComments(withPostId: snapshot.key, complition: {
+                comment in
+                self.fetchUser(uid: comment.uid!,completed:{
+                    self.commets.append(comment)
+                    
+                    self.table_view.reloadData()
+                    
+                })
+                
+            })
         })
+    
     }
+        
     func hadle_text_filed(){
         comment_text.addTarget(self, action: #selector(self.textfiled_did_changed), for: UIControl.Event.editingChanged)
     }
@@ -84,16 +74,10 @@ class CommentsViewController: UIViewController {
     
     
     func fetchUser(uid : String, completed : @escaping()->Void){
-        Database.database().reference().child("users").child(uid).observeSingleEvent(of: Firebase.DataEventType.value, with: {
-            snapshot in
-            if let dict = snapshot.value as? [String:Any]{
-                let user = User.transformUserInfo(dict: dict)
-                self.users.append(user)
-                print(uid)
-                print(user.userName)
-                completed()
-                //self.users
-            }
+        UserApi().observeUser(withId: uid, complition: {
+            user in
+            self.users.append(user)
+            completed()
         })
         
         
@@ -103,8 +87,9 @@ class CommentsViewController: UIViewController {
     
     
     @IBAction func sendButton(_ sender: Any) {
-        let ref = Database.database().reference()
-        let comment_ref = ref.child("comments")
+        
+        //let ref = Database.database().reference()
+        let comment_ref = Api.Comment.REF_COMMENT
         let new_commet_id  = comment_ref.childByAutoId().key
         let new_comment_ref = comment_ref.child(new_commet_id!)
         var uid  = Auth.auth().currentUser?.uid
@@ -116,9 +101,8 @@ class CommentsViewController: UIViewController {
                 return
             }
          
-            let post_comment_ref = Database.database().reference().child("post_comments").child(self.post_id).child(new_commet_id!)
-        
-            post_comment_ref.setValue(true, withCompletionBlock: { (error, ref) in
+            let post_comment_ref = Api.post_Comments.REF_Post_Comments.child(self.post_id).child(new_commet_id!)
+                post_comment_ref.setValue(true, withCompletionBlock: { (error, ref) in
                 if error != nil{
                     SVProgressHUD.showError(withStatus: error?.localizedDescription)
                 }

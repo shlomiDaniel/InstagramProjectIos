@@ -25,6 +25,11 @@
 		09FC086A221112430064AA80 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC0869221112430064AA80 /* CommentsViewController.swift */; };
 		09FC086C221112810064AA80 /* commentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC086B221112810064AA80 /* commentsTableViewCell.swift */; };
 		09FC0870221241690064AA80 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC086F221241680064AA80 /* Comment.swift */; };
+		8416EFC62215903C0057F53D /* PostApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416EFC52215903C0057F53D /* PostApi.swift */; };
+		8416EFC8221592EB0057F53D /* UserApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416EFC7221592EB0057F53D /* UserApi.swift */; };
+		8416EFCB221596390057F53D /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416EFCA221596390057F53D /* Api.swift */; };
+		8416EFCD2215969C0057F53D /* CommentApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416EFCC2215969C0057F53D /* CommentApi.swift */; };
+		8416EFCF22159AA90057F53D /* Post_Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416EFCE22159AA90057F53D /* Post_Comments.swift */; };
 		849B3AE421CBA14A00E7C94C /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B3AE321CBA14A00E7C94C /* UserTableViewController.swift */; };
 		849B3AE621CBAB9E00E7C94C /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B3AE521CBAB9E00E7C94C /* UserTableViewCell.swift */; };
 		849B3AE821CBC64900E7C94C /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B3AE721CBC64900E7C94C /* UserDetailsViewController.swift */; };
@@ -60,6 +65,11 @@
 		09FC086B221112810064AA80 /* commentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = commentsTableViewCell.swift; sourceTree = "<group>"; };
 		09FC086F221241680064AA80 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
 		52363D6E742BFA0D295E3535 /* Pods-InstagramApplication.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstagramApplication.release.xcconfig"; path = "Pods/Target Support Files/Pods-InstagramApplication/Pods-InstagramApplication.release.xcconfig"; sourceTree = "<group>"; };
+		8416EFC52215903C0057F53D /* PostApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostApi.swift; sourceTree = "<group>"; };
+		8416EFC7221592EB0057F53D /* UserApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserApi.swift; sourceTree = "<group>"; };
+		8416EFCA221596390057F53D /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
+		8416EFCC2215969C0057F53D /* CommentApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentApi.swift; sourceTree = "<group>"; };
+		8416EFCE22159AA90057F53D /* Post_Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post_Comments.swift; sourceTree = "<group>"; };
 		849B3AE321CBA14A00E7C94C /* UserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
 		849B3AE521CBAB9E00E7C94C /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		849B3AE721CBC64900E7C94C /* UserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
@@ -90,6 +100,7 @@
 		09058F2D21BF20D3001DE7E6 = {
 			isa = PBXGroup;
 			children = (
+				8416EFC9221593440057F53D /* Api */,
 				09631DAA21D19C07008DA929 /* view */,
 				09153D4721BF531900D68B86 /* Model */,
 				09153D4521BF51AB00D68B86 /* ViewControllers */,
@@ -181,6 +192,18 @@
 				52363D6E742BFA0D295E3535 /* Pods-InstagramApplication.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		8416EFC9221593440057F53D /* Api */ = {
+			isa = PBXGroup;
+			children = (
+				8416EFC7221592EB0057F53D /* UserApi.swift */,
+				8416EFC52215903C0057F53D /* PostApi.swift */,
+				8416EFCA221596390057F53D /* Api.swift */,
+				8416EFCC2215969C0057F53D /* CommentApi.swift */,
+				8416EFCE22159AA90057F53D /* Post_Comments.swift */,
+			);
+			path = Api;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -324,11 +347,14 @@
 				09FC086C221112810064AA80 /* commentsTableViewCell.swift in Sources */,
 				849B3AE621CBAB9E00E7C94C /* UserTableViewCell.swift in Sources */,
 				09153D3E21BF36DB00D68B86 /* CameraViewController.swift in Sources */,
+				8416EFCF22159AA90057F53D /* Post_Comments.swift in Sources */,
 				09631DAC21D19C52008DA929 /* HomeTableViewCell.swift in Sources */,
 				09153D3D21BF36DB00D68B86 /* DiscoverViewController.swift in Sources */,
+				8416EFC8221592EB0057F53D /* UserApi.swift in Sources */,
 				09FC0870221241690064AA80 /* Comment.swift in Sources */,
 				09FC086A221112430064AA80 /* CommentsViewController.swift in Sources */,
 				09153D4921BF534E00D68B86 /* Model_FireBase.swift in Sources */,
+				8416EFCB221596390057F53D /* Api.swift in Sources */,
 				09058F4C21BF240E001DE7E6 /* SignInViewController.swift in Sources */,
 				09153D4021BF36DB00D68B86 /* HomeViewController.swift in Sources */,
 				849B3AE821CBC64900E7C94C /* UserDetailsViewController.swift in Sources */,
@@ -338,7 +364,9 @@
 				09058F4E21BF2421001DE7E6 /* RegisterViewController.swift in Sources */,
 				090F3A9521C85AA200CD4D2C /* Post.swift in Sources */,
 				849B3AEA21CBC69900E7C94C /* NewUserViewController.swift in Sources */,
+				8416EFCD2215969C0057F53D /* CommentApi.swift in Sources */,
 				84B82F1621CAE3B300712E19 /* User.swift in Sources */,
+				8416EFC62215903C0057F53D /* PostApi.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

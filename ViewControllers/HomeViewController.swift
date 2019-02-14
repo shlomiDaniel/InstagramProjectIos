@@ -38,6 +38,7 @@ class HomeViewController: UIViewController {
          table_view.dataSource = self
         table_view.estimatedRowHeight = 521
         table_view.rowHeight = UITableView.automaticDimension
+        
         let name = Model.instance.modelFirebase.getUserName()
         if name != nil{
             let alert = UIAlertController(title: "Welcome", message: "Welcome " + name!, preferredStyle: .alert)

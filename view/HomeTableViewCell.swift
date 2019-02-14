@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseAuth
 
 class HomeTableViewCell: UITableViewCell {
 
@@ -20,6 +21,9 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var comment_image: UIImageView!
     @IBOutlet weak var like_button: UIButton!
     @IBOutlet weak var text_post_label: UILabel!
+    //check
+    @IBOutlet weak var num_of_likes_label: UILabel!
+    var postRef : DatabaseReference? = nil
     var homeVc : HomeViewController?
     
     var post : Post?{
@@ -42,7 +46,11 @@ class HomeTableViewCell: UITableViewCell {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.commentImageView_Tocuch))
         comment_image.isUserInteractionEnabled = true
         comment_image.addGestureRecognizer(tapGestureRecognizer)
-
+        
+        let tapGestureLike = UITapGestureRecognizer(target: self, action: #selector(self.likeImageViewTouch))
+        like_image.isUserInteractionEnabled = true
+        like_image.addGestureRecognizer(tapGestureLike)
+       
     }
     
     @objc func commentImageView_Tocuch(){
@@ -50,6 +58,50 @@ class HomeTableViewCell: UITableViewCell {
         if let id = post?.id{
             homeVc?.performSegue(withIdentifier: "commentSegue", sender: id)
 
+        }
+        
+    }
+    @objc func likeImageViewTouch(){
+       postRef = Api.post.REF_POSTS.child(post!.id!)
+        increasmentLikes(forRef : postRef!)
+        
+    }
+    
+    func increasmentLikes(forRef  ref:DatabaseReference){
+        ref.runTransactionBlock({ (currentData: MutableData) -> TransactionResult in
+            if var post = currentData.value as? [String : AnyObject], let uid = Auth.auth().currentUser?.uid {
+                print("post 1:\(post)")
+                var likes: Dictionary<String, Bool>
+                likes = post["likes"] as? [String : Bool] ?? [:]
+                var likeCount = post["likeCount"] as? Int ?? 0
+                if let _ = likes[uid] {
+                    // Unstar the post and remove self from stars
+                    likeCount -= 1
+                    likes.removeValue(forKey: uid)
+                } else {
+                    // Star the post and add self to stars
+                    likeCount += 1
+                    likes[uid] = true
+                }
+                post["likeCount"] = likeCount as AnyObject?
+                post["likes"] = likes as AnyObject?
+                
+                // Set value and report transaction success
+                currentData.value = post
+                
+                return TransactionResult.success(withValue: currentData)
+            }
+            return TransactionResult.success(withValue: currentData)
+        }) { (error, committed, snapshot) in
+            if let error = error {
+                print(error.localizedDescription)
+            }
+            
+            if let dict = snapshot?.value as? [String : Any]{
+                let post = Post.transformPostPhoto(dictionary: dict, key: snapshot!.key)
+                self.updateLike(post: post)
+            }
+            
         }
         
     }
@@ -65,7 +117,26 @@ class HomeTableViewCell: UITableViewCell {
             self.post_image.sd_setImage(with: photo_url, placeholderImage: UIImage())
         }
         
+     updateLike(post : post!)
+        
     }
+    
+    func updateLike(post : Post){
+       let image_name = post.likes == nil || !post.isLike! ? "icons8-heart-outline-35" : "icons8-heart-outline-3S5"
+
+           like_image.image = UIImage(named: image_name)
+        if let count  = post.numberOfLikes , count != 0{
+            print("like")
+            like_button.setTitle("\(count) likes", for: UIControl.State.normal)
+            
+        }else if post.numberOfLikes == 0{
+            print("not like")
+            like_button.setTitle("be first to like", for: UIControl.State.normal)
+        }
+        
+        
+    }
+    
     func setUserInfo(){
         self.name_label.text = user?.userName
         if let uid = post?.uid{
@@ -88,7 +159,7 @@ class HomeTableViewCell: UITableViewCell {
                 }
             })
         }
-
+      
         
         
     }
