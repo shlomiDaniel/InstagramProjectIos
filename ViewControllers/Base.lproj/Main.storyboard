@@ -328,7 +328,7 @@
                                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 </view>
                                                 <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DuE-jX-sZI">
-                                                    <rect key="frame" x="10" y="401" width="171" height="28"/>
+                                                    <rect key="frame" x="10" y="401" width="274" height="28"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <state key="normal" title="like"/>
@@ -680,18 +680,18 @@
     </scenes>
     <resources>
         <image name="download" width="225" height="225"/>
-        <image name="icons8-forward-arrow-35" width="35" height="35"/>
-        <image name="icons8-heart-outline-35" width="35" height="35"/>
-        <image name="icons8-heart-outline-filled-35" width="35" height="35"/>
-        <image name="icons8-home-page-35 (1)" width="35" height="35"/>
-        <image name="icons8-home-page-filled-35" width="35" height="35"/>
-        <image name="icons8-instagram-35" width="35" height="35"/>
-        <image name="icons8-instagram-filled-35" width="35" height="35"/>
-        <image name="icons8-picture-100" width="100" height="100"/>
-        <image name="icons8-search-35" width="35" height="35"/>
-        <image name="icons8-speech-bubble-35" width="35" height="35"/>
-        <image name="icons8-user-35" width="35" height="35"/>
-        <image name="icons8-user-filled-35" width="35" height="35"/>
+        <image name="icons8-forward-arrow-35" width="26.25" height="26.25"/>
+        <image name="icons8-heart-outline-35" width="26.25" height="26.25"/>
+        <image name="icons8-heart-outline-filled-35" width="26.25" height="26.25"/>
+        <image name="icons8-home-page-35 (1)" width="26.25" height="26.25"/>
+        <image name="icons8-home-page-filled-35" width="26.25" height="26.25"/>
+        <image name="icons8-instagram-35" width="26.25" height="26.25"/>
+        <image name="icons8-instagram-filled-35" width="26.25" height="26.25"/>
+        <image name="icons8-picture-100" width="75" height="75"/>
+        <image name="icons8-search-35" width="26.25" height="26.25"/>
+        <image name="icons8-speech-bubble-35" width="26.25" height="26.25"/>
+        <image name="icons8-user-35" width="26.25" height="26.25"/>
+        <image name="icons8-user-filled-35" width="26.25" height="26.25"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="kOW-1r-Sl1"/>

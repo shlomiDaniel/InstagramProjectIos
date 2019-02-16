@@ -23,7 +23,7 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var text_post_label: UILabel!
     //check
     @IBOutlet weak var num_of_likes_label: UILabel!
-    var postRef : DatabaseReference? = nil
+    var postRef : DatabaseReference!
     var homeVc : HomeViewController?
     
     var post : Post?{
@@ -116,21 +116,36 @@ class HomeTableViewCell: UITableViewCell {
           
             self.post_image.sd_setImage(with: photo_url, placeholderImage: UIImage())
         }
-        
-     updateLike(post : post!)
+        Api.post.REF_POSTS.child(post!.id!).observeSingleEvent(of: .childChanged) { (snapshot) in
+            if let dict = snapshot.value as? [String:Any]{
+                let post = Post.transformPostPhoto(dictionary: dict, key: snapshot.key)
+            }
+        }
+     //updateLike(post : post!)
+        Api.post.REF_POSTS.child(post!.id!).observeSingleEvent(of: .childChanged) { (snapshot) in
+            if let value = snapshot.value as? Int{
+                self.like_button.setTitle("\(value) likes", for: UIControl.State.normal)
+            }
+            
+        }
         
     }
     
     func updateLike(post : Post){
+        //post.numberOfLikes = 1
        let image_name = post.likes == nil || !post.isLike! ? "icons8-heart-outline-35" : "icons8-heart-outline-3S5"
 
            like_image.image = UIImage(named: image_name)
+        print(post.numberOfLikes)
         if let count  = post.numberOfLikes , count != 0{
             print("like")
+            print(count)
             like_button.setTitle("\(count) likes", for: UIControl.State.normal)
             
         }else if post.numberOfLikes == 0{
             print("not like")
+            
+           // print(count)
             like_button.setTitle("be first to like", for: UIControl.State.normal)
         }
         

@@ -41,7 +41,7 @@ extension Post{
         post.image_url = dictionary["photo_url"] as? String
         post.text_share = dictionary["text_share"] as? String
         post.uid = dictionary["uid"] as? String
-        post.numberOfLikes = dictionary["numberOfLikes"] as? Int
+        post.numberOfLikes = dictionary["likeCount"] as? Int
         post.likes = dictionary["likes"] as? Dictionary<String,Any>
         var uid = Auth.auth().currentUser?.uid
         if let currentUserId = Auth.auth().currentUser?.uid{
