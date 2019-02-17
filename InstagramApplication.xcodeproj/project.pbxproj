@@ -22,6 +22,7 @@
 		09153D4321BF450E00D68B86 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09153D4221BF450E00D68B86 /* GoogleService-Info.plist */; };
 		09153D4921BF534E00D68B86 /* Model_FireBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09153D4821BF534E00D68B86 /* Model_FireBase.swift */; };
 		09631DAC21D19C52008DA929 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09631DAB21D19C52008DA929 /* HomeTableViewCell.swift */; };
+		097875642218D88400CBE43B /* headerProfileCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097875632218D88400CBE43B /* headerProfileCollectionReusableView.swift */; };
 		09FC086A221112430064AA80 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC0869221112430064AA80 /* CommentsViewController.swift */; };
 		09FC086C221112810064AA80 /* commentsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC086B221112810064AA80 /* commentsTableViewCell.swift */; };
 		09FC0870221241690064AA80 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC086F221241680064AA80 /* Comment.swift */; };
@@ -61,6 +62,7 @@
 		09153D4221BF450E00D68B86 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		09153D4821BF534E00D68B86 /* Model_FireBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model_FireBase.swift; sourceTree = "<group>"; };
 		09631DAB21D19C52008DA929 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
+		097875632218D88400CBE43B /* headerProfileCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = headerProfileCollectionReusableView.swift; sourceTree = "<group>"; };
 		09FC0869221112430064AA80 /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		09FC086B221112810064AA80 /* commentsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = commentsTableViewCell.swift; sourceTree = "<group>"; };
 		09FC086F221241680064AA80 /* Comment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
@@ -122,7 +124,6 @@
 		09058F3821BF20D3001DE7E6 /* InstagramApplication */ = {
 			isa = PBXGroup;
 			children = (
-				09153D3C21BF36DB00D68B86 /* ProfileViewController.swift */,
 				09058F4021BF20D5001DE7E6 /* Assets.xcassets */,
 				09153D4221BF450E00D68B86 /* GoogleService-Info.plist */,
 				09058F4221BF20D5001DE7E6 /* LaunchScreen.storyboard */,
@@ -134,6 +135,7 @@
 		09153D4521BF51AB00D68B86 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				09153D3C21BF36DB00D68B86 /* ProfileViewController.swift */,
 				09058F4B21BF240E001DE7E6 /* SignInViewController.swift */,
 				09058F4D21BF2421001DE7E6 /* RegisterViewController.swift */,
 				09153D3A21BF36DB00D68B86 /* ActivityViewController.swift */,
@@ -170,6 +172,7 @@
 		09631DAA21D19C07008DA929 /* view */ = {
 			isa = PBXGroup;
 			children = (
+				097875632218D88400CBE43B /* headerProfileCollectionReusableView.swift */,
 				09FC086B221112810064AA80 /* commentsTableViewCell.swift */,
 				09631DAB21D19C52008DA929 /* HomeTableViewCell.swift */,
 			);
@@ -344,6 +347,7 @@
 				09058F3A21BF20D3001DE7E6 /* AppDelegate.swift in Sources */,
 				84B82F2121CAEEE600712E19 /* ModelSql.swift in Sources */,
 				09153D3F21BF36DB00D68B86 /* ActivityViewController.swift in Sources */,
+				097875642218D88400CBE43B /* headerProfileCollectionReusableView.swift in Sources */,
 				09FC086C221112810064AA80 /* commentsTableViewCell.swift in Sources */,
 				849B3AE621CBAB9E00E7C94C /* UserTableViewCell.swift in Sources */,
 				09153D3E21BF36DB00D68B86 /* CameraViewController.swift in Sources */,
