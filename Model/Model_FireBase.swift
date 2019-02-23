@@ -155,8 +155,15 @@ class ModelFireBase{
             }else{
                 SVProgressHUD.showSuccess(withStatus: "shared succes")
             }
-        }
-        
+            let my_post_ref = Api.my_posts.REF_POSTS.child(self.getUserId()).child(new_post_id!)
+            my_post_ref.setValue(true, withCompletionBlock: { (error, ref) in
+                if error != nil{
+                    SVProgressHUD.showError(withStatus: error?.localizedDescription)
+                }
+            
+            
+        })
+      }      
     }
     /////
     func updatePhoto_profile(text: String) {

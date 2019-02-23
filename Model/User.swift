@@ -9,7 +9,7 @@
 import Foundation
 class User{
     //members
-    let id : String
+    var id : String
     let name : String
     let phone : String
     let url : String
@@ -17,6 +17,7 @@ class User{
     let Password : String
     var profile_image_url : String?
     var email : String?
+    var is_following : Bool? = false
     // userName : String?
     
     init ( _id : String , _name : String , _phone : String = "1234567" , _url : String = "" , _userName : String , _password : String,_email : String ,profile_image_url : String
@@ -79,12 +80,12 @@ class User{
 }
 extension User{
     
-    static func transformUserInfo(dict : [String:Any])->User{
+    static func transformUserInfo(dict : [String:Any],key: String)->User{
         let user = User()
         user.email = dict["email"] as? String
         user.profile_image_url = dict["url_profile_image"] as? String
         user.userName = dict["userName"] as? String
-        
+        user.id = key
         return user
         }
     

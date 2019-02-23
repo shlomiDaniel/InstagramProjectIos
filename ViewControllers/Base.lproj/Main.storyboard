@@ -272,19 +272,28 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="IC5-hs-DBw">
-                                    <size key="itemSize" width="91" height="89"/>
+                                    <size key="itemSize" width="119" height="129"/>
                                     <size key="headerReferenceSize" width="50" height="146"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
                                     <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="PhotoCell" id="wKH-PL-gOy">
-                                        <rect key="frame" x="0.0" y="146" width="91" height="89"/>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photo_CollectionViewCell" id="wKH-PL-gOy" customClass="photo_CollectionViewCell" customModule="InstagramApplication" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="146" width="119" height="129"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
-                                            <rect key="frame" x="0.0" y="0.0" width="91" height="89"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="119" height="129"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rKl-qq-YmV">
+                                                    <rect key="frame" x="0.0" y="0.0" width="134" height="144"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
                                         </view>
+                                        <connections>
+                                            <outlet property="photo" destination="rKl-qq-YmV" id="Fnq-x6-uHZ"/>
+                                        </connections>
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="headerProfileCollectionReusableView" id="Abj-Vt-tgZ" customClass="headerProfileCollectionReusableView" customModule="InstagramApplication" customModuleProvider="target">
@@ -380,7 +389,14 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="sq5-b8-FgB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Profile" id="rDH-RQ-3PO"/>
+                    <navigationItem key="navigationItem" title="Profile" id="rDH-RQ-3PO">
+                        <barButtonItem key="leftBarButtonItem" image="icons8-user-filled-35" id="SXv-I4-QVs">
+                            <connections>
+                                <action selector="discover:" destination="J2a-mY-UJx" id="0mF-8M-IvW"/>
+                                <segue destination="X2f-EN-mBW" kind="show" identifier="to_discover" id="e9m-tg-aus"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="collection_view" destination="OEO-Uc-hRx" id="Gt8-zH-0hH"/>
                     </connections>
@@ -393,6 +409,68 @@
                 </collectionReusableView>
             </objects>
             <point key="canvasLocation" x="1196" y="2389.6551724137935"/>
+        </scene>
+        <!--People View Controller-->
+        <scene sceneID="VBP-wj-b2b">
+            <objects>
+                <viewController id="X2f-EN-mBW" customClass="PeopleViewController" customModule="InstagramApplication" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ZEk-nt-s35">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="EaT-Eb-k5v">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="pepole_TableViewCell" rowHeight="76" id="uJj-D9-cpA" customClass="pepole_TableViewCell" customModule="InstagramApplication" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="76"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="uJj-D9-cpA" id="pAQ-Os-IOS">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="75.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wU4-Ik-iZm">
+                                                    <rect key="frame" x="15" y="5" width="62" height="62"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VQo-Dp-cFM">
+                                                    <rect key="frame" x="85" y="23" width="169" height="26"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEI-Iu-vI4">
+                                                    <rect key="frame" x="262" y="11" width="98" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <state key="normal" title="follow"/>
+                                                </button>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="follow_button" destination="sEI-Iu-vI4" id="oo1-pi-s9K"/>
+                                            <outlet property="name_label" destination="VQo-Dp-cFM" id="hxR-lH-GWq"/>
+                                            <outlet property="profile_image" destination="wU4-Ik-iZm" id="tz1-ef-6dl"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="X2f-EN-mBW" id="3k4-xc-PvU"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="euy-62-ef8"/>
+                    </view>
+                    <connections>
+                        <outlet property="table_view" destination="EaT-Eb-k5v" id="Jby-j8-3fR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="h1k-FA-f8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1980" y="2381.5592203898054"/>
         </scene>
         <!--Home-->
         <scene sceneID="zIY-Tj-niC">

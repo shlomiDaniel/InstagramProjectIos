@@ -158,7 +158,7 @@ class HomeTableViewCell: UITableViewCell {
             Model.instance.modelFirebase.ref.child("users").child(uid).observeSingleEvent(of: DataEventType.value, with: {
                 snapshot in
                 if let dictionary = snapshot.value as? [String : Any]{
-                    var user = User.transformUserInfo(dict: dictionary)
+                    var user = User.transformUserInfo(dict: dictionary,key: snapshot.key)
                     self.name_label.text = user.userName
 
                      print("im here")
