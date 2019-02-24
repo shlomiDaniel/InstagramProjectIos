@@ -163,7 +163,8 @@ class ModelFireBase{
             
             
         })
-      }      
+      }
+            ref.child("feed").child(Api.User.current_user!.uid).child(new_post_id!).setValue(true)
     }
     /////
     func updatePhoto_profile(text: String) {
@@ -224,16 +225,24 @@ class ModelFireBase{
     }
     
     func loadPost(table_view: UITableView) {
-       
-        PostApi().observePosts { (post) in
-            guard let post_id = post.uid else {
-                return
+        Api.feed.observeFeed(withid: Model.instance.modelFirebase.getUserId()) { (post) in
+                        guard let post_id = post.uid else {
+                            return
+                        }
+            self.fetchUser(uid : post_id, completed :{
+            
+                            self.posts.append(post)
+                            table_view.reloadData()
+                        })
+            
             }
-            self.fetchUser(uid : post.uid!, completed :{
-                
-                self.posts.append(post)
-                table_view.reloadData()
-            })
+        Api.feed.observe_feed_removed(withid: Model.instance.modelFirebase.getUserId()) { (post) in
+            
+
+            self.posts = self.posts.filter{$0.id != post.id}
+            self.users = self.users.filter{$0.id != post.uid}
+            
+            table_view.reloadData()
         }
 
     }

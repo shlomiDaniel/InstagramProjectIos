@@ -26,6 +26,8 @@
 		09587381221DF6380065C90D /* PeopleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09587380221DF6380065C90D /* PeopleViewController.swift */; };
 		09587383221DF6A00065C90D /* pepole_TableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09587382221DF6A00065C90D /* pepole_TableViewCell.swift */; };
 		09587385221E14720065C90D /* FollowApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09587384221E14720065C90D /* FollowApi.swift */; };
+		09587387222211A10065C90D /* feed_api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09587386222211A10065C90D /* feed_api.swift */; };
+		09587389222227770065C90D /* searchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09587388222227770065C90D /* searchViewController.swift */; };
 		09631DAC21D19C52008DA929 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09631DAB21D19C52008DA929 /* HomeTableViewCell.swift */; };
 		097875642218D88400CBE43B /* headerProfileCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 097875632218D88400CBE43B /* headerProfileCollectionReusableView.swift */; };
 		09FC086A221112430064AA80 /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09FC0869221112430064AA80 /* CommentsViewController.swift */; };
@@ -71,6 +73,8 @@
 		09587380221DF6380065C90D /* PeopleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PeopleViewController.swift; sourceTree = "<group>"; };
 		09587382221DF6A00065C90D /* pepole_TableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pepole_TableViewCell.swift; sourceTree = "<group>"; };
 		09587384221E14720065C90D /* FollowApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowApi.swift; sourceTree = "<group>"; };
+		09587386222211A10065C90D /* feed_api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = feed_api.swift; sourceTree = "<group>"; };
+		09587388222227770065C90D /* searchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = searchViewController.swift; sourceTree = "<group>"; };
 		09631DAB21D19C52008DA929 /* HomeTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeTableViewCell.swift; sourceTree = "<group>"; };
 		097875632218D88400CBE43B /* headerProfileCollectionReusableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = headerProfileCollectionReusableView.swift; sourceTree = "<group>"; };
 		09FC0869221112430064AA80 /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
@@ -159,6 +163,7 @@
 				849B3AE321CBA14A00E7C94C /* UserTableViewController.swift */,
 				849B3AE921CBC69900E7C94C /* NewUserViewController.swift */,
 				09587380221DF6380065C90D /* PeopleViewController.swift */,
+				09587388222227770065C90D /* searchViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -220,6 +225,7 @@
 				8416EFCC2215969C0057F53D /* CommentApi.swift */,
 				8416EFCE22159AA90057F53D /* Post_Comments.swift */,
 				0958737C221DD7590065C90D /* UserPostApi.swift */,
+				09587386222211A10065C90D /* feed_api.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -358,6 +364,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				09587387222211A10065C90D /* feed_api.swift in Sources */,
 				84B82F2321CB057E00712E19 /* Model.swift in Sources */,
 				09058F3A21BF20D3001DE7E6 /* AppDelegate.swift in Sources */,
 				0958737D221DD7590065C90D /* UserPostApi.swift in Sources */,
@@ -378,6 +385,7 @@
 				09587385221E14720065C90D /* FollowApi.swift in Sources */,
 				8416EFCB221596390057F53D /* Api.swift in Sources */,
 				09058F4C21BF240E001DE7E6 /* SignInViewController.swift in Sources */,
+				09587389222227770065C90D /* searchViewController.swift in Sources */,
 				09153D4021BF36DB00D68B86 /* HomeViewController.swift in Sources */,
 				849B3AE821CBC64900E7C94C /* UserDetailsViewController.swift in Sources */,
 				84B82F1821CAE7FD00712E19 /* UserSql.swift in Sources */,

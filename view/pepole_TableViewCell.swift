@@ -68,7 +68,17 @@ class pepole_TableViewCell: UITableViewCell {
                 self.configure_follow_button()
                 self.user?.is_following = false
             }
+            
         }
+        
+//        if self.user?.is_following == true{
+//            self.configure_unfollow_button()
+//             self.user?.is_following = true
+//
+//        }else{
+//            self.configure_follow_button()
+//            self.user?.is_following = false
+//        }
     
 
         
