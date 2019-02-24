@@ -215,14 +215,14 @@
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="X2f-EN-mBW" id="7gM-D8-6ft"/>
-                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="yS7-S9-LN3"/>
                     </view>
+                    <connections>
+                        <outlet property="table_view" destination="XqR-en-H0q" id="HvT-8q-MZl"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H5J-WH-MSl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

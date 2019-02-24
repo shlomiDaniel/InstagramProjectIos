@@ -22,7 +22,13 @@ class PeopleViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     override func viewDidAppear(_ animated: Bool) {
+        Model.instance.modelFirebase.users.removeAll()
+        
+        table_view.clearsContextBeforeDrawing = true
+        // self.table_view.reloadData()
+        
           loadUsers()
+        table_view.reloadData()
     }
     
     func loadUsers(){
@@ -37,6 +43,7 @@ class PeopleViewController: UIViewController {
             
 //
         }
+        
         
     }
     func is_following(user_id : String,completed : @escaping (Bool)->Void){        

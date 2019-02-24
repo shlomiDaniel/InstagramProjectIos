@@ -13,6 +13,7 @@ import FirebaseAuth
 class UserApi{
     
     var REF_USER = Database.database().reference().child("users")
+    var current_user = Auth.auth().currentUser
     //REF_USER.child("").
     // func observeUser
    // var chrrent_user = Auth.auth().currentUser?.uid
@@ -65,6 +66,16 @@ class UserApi{
    
 }
     
-    var current_user = Auth.auth().currentUser
+    func query_users(withtext text : String ,complition : @escaping(User)->Void){
+        REF_USER.queryOrdered(byChild: "user_name_lower_case").queryStarting(atValue: text).queryEnding(atValue: text+"\u{f8ff}").observeSingleEvent(of: .value) { (snapshot) in
+            snapshot.children.forEach({ (s) in
+                let child = s as! DataSnapshot
+                if let dict = child.value as? [String : Any]{
+                    let user = User.transformUserInfo(dict: dict,key: snapshot.key)
+                    complition(user)
+                }
+            })
+        }
+    }
     
 }
