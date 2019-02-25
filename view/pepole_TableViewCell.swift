@@ -62,37 +62,36 @@ class pepole_TableViewCell: UITableViewCell {
         
         Api.follow.is_following(user_id: user!.id) { (value) in
             if (value){
-                self.user?.is_following = true
                 self.configure_unfollow_button()
             }else{
                 self.configure_follow_button()
-                self.user?.is_following = false
             }
             
         }
-        
-//        if self.user?.is_following == true{
-//            self.configure_unfollow_button()
-//             self.user?.is_following = true
-//
-//        }else{
-//            self.configure_follow_button()
-//            self.user?.is_following = false
-//        }
-    
-
         
     }
 
     
     @objc func follow_presset(){
-       Api.follow.follow_action(with_user: user!.id)
-        configure_unfollow_button()
+        if user!.is_following == false{
+            Api.follow.follow_action(with_user: user!.id)
+            configure_unfollow_button()
+            user!.is_following = true
+        }
+        //Api.follow.follow_action(with_user: user!.id)
+ //user!.is_following = true
         
     }
     @objc func unfollow_presset(){
-        Api.follow.unfollow_action(with_user: user!.id)
-        configure_follow_button()
+        if user!.is_following == true{
+            Api.follow.unfollow_action(with_user: user!.id)
+            configure_follow_button()
+            user!.is_following = false
+
+        }
+      //  user!.is_following == false
+              //     Api.follow.unfollow_action(with_user: user!.id)
+
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

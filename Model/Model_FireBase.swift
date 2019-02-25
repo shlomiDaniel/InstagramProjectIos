@@ -147,7 +147,7 @@ class ModelFireBase{
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
         let uid = getUserId()
-        new_post_ref.setValue(["uid": uid,"photo_url": photo_url,"text_share" : text]) { (error, ref) in
+            new_post_ref.setValue(["uid": uid,"photo_url": photo_url,"text_share" : text,"likeCount" : 0]) { (error, ref) in
             if error != nil
             {
                 SVProgressHUD.showError(withStatus: error?.localizedDescription)
@@ -155,6 +155,8 @@ class ModelFireBase{
             }else{
                 SVProgressHUD.showSuccess(withStatus: "shared succes")
             }
+            //ref.child("feed").child(Api.User.current_user!.uid).child(new_post_id!).setValue(true)
+            Api.feed.ref_feed.child(Api.User.current_user!.uid).child(new_post_id!).setValue(true)
             let my_post_ref = Api.my_posts.REF_POSTS.child(self.getUserId()).child(new_post_id!)
             my_post_ref.setValue(true, withCompletionBlock: { (error, ref) in
                 if error != nil{
@@ -164,7 +166,6 @@ class ModelFireBase{
             
         })
       }
-            ref.child("feed").child(Api.User.current_user!.uid).child(new_post_id!).setValue(true)
     }
     /////
     func updatePhoto_profile(text: String) {
@@ -225,7 +226,7 @@ class ModelFireBase{
     }
     
     func loadPost(table_view: UITableView) {
-        Api.feed.observeFeed(withid: Model.instance.modelFirebase.getUserId()) { (post) in
+        Api.feed.observeFeed(withid: Api.User.current_user!.uid) { (post) in
                         guard let post_id = post.uid else {
                             return
                         }
@@ -239,8 +240,8 @@ class ModelFireBase{
         Api.feed.observe_feed_removed(withid: Model.instance.modelFirebase.getUserId()) { (post) in
             
 
-            self.posts = self.posts.filter{$0.id != post.id}
-            self.users = self.users.filter{$0.id != post.uid}
+           self.posts = self.posts.filter{$0.id != post.id}
+           self.users = self.users.filter{$0.id != post.uid}
             
             table_view.reloadData()
         }

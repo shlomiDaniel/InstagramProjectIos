@@ -121,13 +121,8 @@ class HomeTableViewCell: UITableViewCell {
                 let post = Post.transformPostPhoto(dictionary: dict, key: snapshot.key)
             }
         }
-     //updateLike(post : post!)
-        Api.post.REF_POSTS.child(post!.id!).observeSingleEvent(of: .childChanged) { (snapshot) in
-            if let value = snapshot.value as? Int{
-                self.like_button.setTitle("\(value) likes", for: UIControl.State.normal)
-            }
-            
-        }
+        self.updateLike(post: post!)
+ 
         
     }
     

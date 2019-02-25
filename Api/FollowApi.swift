@@ -22,9 +22,9 @@ class FollowApi{
                 }
             }
         }
-       ref_following.child(id).child(Model.instance.modelFirebase.getUserId()).setValue(true)
+       ref_followers.child(id).child(Model.instance.modelFirebase.getUserId()).setValue(true)
         
-        ref_followers.child(Model.instance.modelFirebase.getUserId()).child(id).setValue(true)
+        ref_following.child(Model.instance.modelFirebase.getUserId()).child(id).setValue(true)
     }
     func unfollow_action(with_user id : String){
         
