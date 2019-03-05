@@ -10,6 +10,11 @@ import UIKit
 import FirebaseDatabase
 import FirebaseAuth
 
+protocol HomeTableViewCellDelegate {
+    func go_to_comment_vc(post_id : String)
+    func to_profile_user_vc(userid :String)
+}
+
 class HomeTableViewCell: UITableViewCell {
 
     @IBOutlet weak var name_label: UILabel!
@@ -23,6 +28,7 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var text_post_label: UILabel!
     //check
     @IBOutlet weak var num_of_likes_label: UILabel!
+    var delegate : HomeTableViewCellDelegate?
     var postRef : DatabaseReference!
     var homeVc : HomeViewController?
     
@@ -50,14 +56,30 @@ class HomeTableViewCell: UITableViewCell {
         let tapGestureLike = UITapGestureRecognizer(target: self, action: #selector(self.likeImageViewTouch))
         like_image.isUserInteractionEnabled = true
         like_image.addGestureRecognizer(tapGestureLike)
+     
+        let tap_gesture_name = UITapGestureRecognizer(target: self, action: #selector(self.profile_user_Touch))
+        name_label.addGestureRecognizer(tap_gesture_name)
+        name_label.isUserInteractionEnabled = true
        
     }
     
     @objc func commentImageView_Tocuch(){
         print("helloworld")
         if let id = post?.id{
-            homeVc?.performSegue(withIdentifier: "commentSegue", sender: id)
-
+           delegate?.go_to_comment_vc(post_id: id)
+          //]
+            
+            //homeVc?.performSegue(withIdentifier: "commentSegue", sender: id)
+            //performSegue(withIdentifier: "commentSegue", sender: id)
+        }
+        
+    }
+    
+    @objc func profile_user_Touch(){
+        print("helloworld")
+        if let user_id = user?.id{
+        //homeVc?.performSegue(withIdentifier: "home_to_profile_segue", sender: user_id)
+            delegate?.to_profile_user_vc(userid: user_id)
         }
         
     }

@@ -11,15 +11,13 @@ import UIKit
 class PeopleViewController: UIViewController {
 
     @IBOutlet weak var table_view: UITableView!
+    
     var users : [User] = []
+    //var delegate : pepole_TableViewCellDelegate?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        //table_view.dataSource = nil
-       
-     
-         //table_view.dataSource = nil
-       // table_view.delegate = self
-        // Do any additional setup after loading the view.
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         Model.instance.modelFirebase.users.removeAll()
@@ -62,18 +60,36 @@ extension PeopleViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         var cell = table_view.dequeueReusableCell(withIdentifier: "pepole_TableViewCell", for: indexPath) as! pepole_TableViewCell
-        
-        //let post = Model.instance.modelFirebase.posts[indexPath.row]
         let user = Model.instance.modelFirebase.users[indexPath.row]
-        //table_view.rowHeight = 450
+        cell.delegate = self
+       
+        
+        
         cell.user = user
-       // cell.text_post_label.numberOfLines = 0
-        //
-       // tableView.register(UINib(nibName: String(describing: pepole_TableViewCell.self), bundle: nil), forCellReuseIdentifier: "pepole_TableViewCell")
+      
 
         return cell
     }
     
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ProfileSegue"
+        {
+            let peopleVC = segue.destination as! ProfileUserViewController
+            let user_id = sender as! String
+            
+            peopleVC.user_id = user_id
+        }
+    }
+    
+    
+    
+    
+}
+extension PeopleViewController : pepole_TableViewCellDelegate{
+    func go_to_profile_user_vc(user_id: String) {
+        performSegue(withIdentifier: "ProfileSegue", sender: user_id)
+    }
     
     
     

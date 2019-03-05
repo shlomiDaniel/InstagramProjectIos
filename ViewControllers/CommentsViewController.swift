@@ -31,13 +31,26 @@ class CommentsViewController: UIViewController {
         table_view.rowHeight = UITableView.automaticDimension
         
       send_button_iboutlet.isEnabled = false
+        loadComments()
         empty()
         hadle_text_filed()
-        loadComments()
+        
         
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "commentSegue"
+        {
+            let comment_vc = segue.destination as! CommentsViewController
+            let user_id = sender as! String
+            comment_vc.post_id = user_id
+        }
+
+    
+}
+    
     func loadComments(){
+        print(print("tryenewcomment"))
         Api.post_Comments.REF_Post_Comments.child(self.post_id)
         .observe(.childAdded, with: {
             snapshot in
@@ -46,7 +59,7 @@ class CommentsViewController: UIViewController {
                 comment in
                 self.fetchUser(uid: comment.uid!,completed:{
                     self.commets.append(comment)
-                    
+                    print("newcomment")
                     self.table_view.reloadData()
                     
                 })
@@ -132,26 +145,34 @@ extension CommentsViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(commets.count)
         return commets.count
-       // return commets.count
+       
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //commentCell
-        var cell = table_view.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as! commentsTableViewCell
-      //  let comment = Model.instance.modelFirebase.comments[indexPath.row]
-     //   let user = Model.instance.modelFirebase.users[indexPath.row]
+        
+        let cell = table_view.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as! commentsTableViewCell
+      
         let comment = commets[indexPath.row]
         let user = users[indexPath.row]
         table_view.rowHeight = 80
-        //table_view.rowHeight = 450
         cell.comment_label.numberOfLines = 0
         cell.user = user
+        
+        cell.delegate = self
         cell.comment = comment
         
        
         return cell
     }
     
+    
+    
+    
+}
+extension CommentsViewController : commentsTableViewCellDelegate{
+    func to_profile_user_vc(userid: String) {
+    performSegue(withIdentifier: "commentSegue", sender: userid)
+    }
     
     
     

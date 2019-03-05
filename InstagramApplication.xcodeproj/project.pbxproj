@@ -42,6 +42,7 @@
 		849B3AE621CBAB9E00E7C94C /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B3AE521CBAB9E00E7C94C /* UserTableViewCell.swift */; };
 		849B3AE821CBC64900E7C94C /* UserDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B3AE721CBC64900E7C94C /* UserDetailsViewController.swift */; };
 		849B3AEA21CBC69900E7C94C /* NewUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B3AE921CBC69900E7C94C /* NewUserViewController.swift */; };
+		84B78EE4222D60FE007B5667 /* ProfileUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B78EE3222D60FE007B5667 /* ProfileUserViewController.swift */; };
 		84B82F1621CAE3B300712E19 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B82F1521CAE3B300712E19 /* User.swift */; };
 		84B82F1821CAE7FD00712E19 /* UserSql.swift in Sources */ = {isa = PBXBuildFile; fileRef = 84B82F1721CAE7FD00712E19 /* UserSql.swift */; };
 		84B82F1A21CAEAFB00712E19 /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84B82F1921CAEAFB00712E19 /* libsqlite3.0.tbd */; };
@@ -90,6 +91,7 @@
 		849B3AE521CBAB9E00E7C94C /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
 		849B3AE721CBC64900E7C94C /* UserDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDetailsViewController.swift; sourceTree = "<group>"; };
 		849B3AE921CBC69900E7C94C /* NewUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewUserViewController.swift; sourceTree = "<group>"; };
+		84B78EE3222D60FE007B5667 /* ProfileUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileUserViewController.swift; sourceTree = "<group>"; };
 		84B82F1521CAE3B300712E19 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		84B82F1721CAE7FD00712E19 /* UserSql.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSql.swift; sourceTree = "<group>"; };
 		84B82F1921CAEAFB00712E19 /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
@@ -164,6 +166,7 @@
 				849B3AE921CBC69900E7C94C /* NewUserViewController.swift */,
 				09587380221DF6380065C90D /* PeopleViewController.swift */,
 				09587388222227770065C90D /* searchViewController.swift */,
+				84B78EE3222D60FE007B5667 /* ProfileUserViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -373,6 +376,7 @@
 				097875642218D88400CBE43B /* headerProfileCollectionReusableView.swift in Sources */,
 				09FC086C221112810064AA80 /* commentsTableViewCell.swift in Sources */,
 				0958737F221DE2BB0065C90D /* photo_CollectionViewCell.swift in Sources */,
+				84B78EE4222D60FE007B5667 /* ProfileUserViewController.swift in Sources */,
 				849B3AE621CBAB9E00E7C94C /* UserTableViewCell.swift in Sources */,
 				09153D3E21BF36DB00D68B86 /* CameraViewController.swift in Sources */,
 				8416EFCF22159AA90057F53D /* Post_Comments.swift in Sources */,

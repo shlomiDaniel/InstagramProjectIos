@@ -7,7 +7,11 @@
 //
 
 import UIKit
-
+protocol pepole_TableViewCellDelegate {
+    func go_to_profile_user_vc(user_id : String)
+    
+    
+}
 class pepole_TableViewCell: UITableViewCell {
 
     var user : User?{
@@ -17,13 +21,26 @@ class pepole_TableViewCell: UITableViewCell {
     }
     
     
-    
+    //var peopleVC : PeopleViewController?
+    var delegate : pepole_TableViewCellDelegate?
     @IBOutlet weak var name_label: UILabel!
     @IBOutlet weak var profile_image: UIImageView!
     @IBOutlet weak var follow_button: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.name_Tocuch))
+        name_label.isUserInteractionEnabled = true
+        name_label.addGestureRecognizer(tapGestureRecognizer)
         // Initialization code
+    }
+    
+    @objc func name_Tocuch(){
+        if let id = user?.id{
+            
+            delegate?.go_to_profile_user_vc(user_id : id)
+            //peopleVC?.performSegue(withIdentifier: "ProfileSegue", sender: id)
+        }
+        
     }
     func configure_follow_button(){
         follow_button.backgroundColor = UIColor.green
@@ -99,5 +116,7 @@ class pepole_TableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
+    
+    
 
 }

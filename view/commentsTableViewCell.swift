@@ -7,6 +7,10 @@
 //
 
 import UIKit
+protocol commentsTableViewCellDelegate {
+   
+    func to_profile_user_vc(userid :String)
+}
 
 class commentsTableViewCell: UITableViewCell {
 
@@ -22,7 +26,7 @@ class commentsTableViewCell: UITableViewCell {
             updateView()
         }
     }
-    
+    var delegate : commentsTableViewCellDelegate?
     
     @IBOutlet weak var profile_image_view: UIImageView!
     
@@ -33,9 +37,19 @@ class commentsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       // username_label.text = ""
-        //comment_label.text = ""
-        // Initialization code
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.profile_user_Touch))
+        username_label.isUserInteractionEnabled = true
+        username_label.addGestureRecognizer(tapGestureRecognizer)
+      
+    }
+    
+    @objc func profile_user_Touch(){
+        print("helloworld")
+        if let user_id = user?.id{
+            
+            delegate?.to_profile_user_vc(userid: user_id)
+        }
+        
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {

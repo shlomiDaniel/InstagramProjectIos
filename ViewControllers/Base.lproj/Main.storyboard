@@ -508,7 +508,7 @@
                     <viewLayoutGuide key="safeArea" id="Dx2-LB-WIP"/>
                 </collectionReusableView>
             </objects>
-            <point key="canvasLocation" x="1196" y="2389.6551724137935"/>
+            <point key="canvasLocation" x="1193" y="2398"/>
         </scene>
         <!--People View Controller-->
         <scene sceneID="VBP-wj-b2b">
@@ -566,6 +566,7 @@
                     </view>
                     <connections>
                         <outlet property="table_view" destination="EaT-Eb-k5v" id="Jby-j8-3fR"/>
+                        <segue destination="eff-IV-0Ln" kind="show" identifier="ProfileSegue" id="iy3-Lb-HKI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="h1k-FA-f8l" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -675,11 +676,12 @@
                         <outlet property="logOut_button" destination="GMq-dy-aJl" id="1bc-lz-NoQ"/>
                         <outlet property="table_view" destination="Ysf-i8-rU9" id="wQW-7e-lR6"/>
                         <segue destination="kMh-Qx-lcx" kind="show" identifier="commentSegue" id="8cW-rD-C4h"/>
+                        <segue destination="eff-IV-0Ln" kind="show" identifier="home_to_profile_segue" id="9rb-yb-WR6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wTW-te-Seg" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1205.5999999999999" y="-416.0419790104948"/>
+            <point key="canvasLocation" x="1207" y="-420"/>
         </scene>
         <!--Comments View Controller-->
         <scene sceneID="EUd-uk-YXk">
@@ -901,7 +903,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZMX-G8-lY8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="268" y="-407.0464767616192"/>
+            <point key="canvasLocation" x="268" y="-419"/>
         </scene>
         <!--Discover-->
         <scene sceneID="BHk-Ts-oMv">
@@ -979,23 +981,168 @@
             </objects>
             <point key="canvasLocation" x="256.80000000000001" y="2389.6551724137935"/>
         </scene>
+        <!--Profile-->
+        <scene sceneID="UOD-oW-FAI">
+            <objects>
+                <viewController storyboardIdentifier="ProfileUserViewController" id="eff-IV-0Ln" customClass="ProfileUserViewController" customModule="InstagramApplication" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="xLA-xc-ohU">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="V8U-7F-VtF">
+                                <rect key="frame" x="0.0" y="64" width="375" height="587"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dpk-J8-bZl">
+                                    <size key="itemSize" width="119" height="129"/>
+                                    <size key="headerReferenceSize" width="50" height="146"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photo_CollectionViewCell" id="V2X-ry-9Qb" customClass="photo_CollectionViewCell" customModule="InstagramApplication" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="146" width="119" height="129"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="119" height="129"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zdL-Hh-RXW">
+                                                    <rect key="frame" x="0.0" y="0.0" width="134" height="144"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="photo" destination="zdL-Hh-RXW" id="Lga-hM-c1M"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="headerProfileCollectionReusableView" id="7W3-uA-K4f" customClass="headerProfileCollectionReusableView" customModule="InstagramApplication" customModuleProvider="target">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="146"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MLX-LN-B9O">
+                                            <rect key="frame" x="8" y="8" width="88" height="75"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRdius">
+                                                    <integer key="value" value="50"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="shlomi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gqj-YH-ujs">
+                                            <rect key="frame" x="20" y="102" width="194" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                            <nil key="textColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MgO-fl-xmA">
+                                            <rect key="frame" x="118" y="8" width="240" height="83"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ec-9D-h94">
+                                                    <rect key="frame" x="-10" y="51" width="250" height="38"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <color key="backgroundColor" red="0.15686274510000001" green="0.66666666669999997" blue="0.75294117650000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                                    <state key="normal" title="Edit Pofile">
+                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="titleShadowColor" red="0.15686274510000001" green="0.66666666669999997" blue="0.75294117650000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                                    </state>
+                                                </button>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EEM-s2-laO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="29" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="posts" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w0D-JQ-B8v">
+                                                    <rect key="frame" x="-2" y="19" width="32" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xnt-11-Di9">
+                                                    <rect key="frame" x="181" y="-2" width="29" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="100" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OwN-0J-Rxj">
+                                                    <rect key="frame" x="95" y="-2" width="29" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="followers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LPJ-75-Ued">
+                                                    <rect key="frame" x="90" y="19" width="51" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="folowing" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4dH-0u-ZXW">
+                                                    <rect key="frame" x="181" y="18" width="48" height="15"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </view>
+                                    </subviews>
+                                    <connections>
+                                        <outlet property="followers_count_label" destination="OwN-0J-Rxj" id="Nnh-sS-PCH"/>
+                                        <outlet property="folowing_count_label" destination="Xnt-11-Di9" id="Q7c-rh-4ds"/>
+                                        <outlet property="my_post_count_label" destination="MgO-fl-xmA" id="H8f-b4-W64"/>
+                                        <outlet property="name_label" destination="Gqj-YH-ujs" id="y15-ju-pGY"/>
+                                        <outlet property="profile_image" destination="MLX-LN-B9O" id="rXv-9X-hUB"/>
+                                    </connections>
+                                </collectionReusableView>
+                            </collectionView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="Duo-fo-6B0"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Profile" id="5X9-ka-ety"/>
+                    <connections>
+                        <outlet property="collection_view" destination="V8U-7F-VtF" id="mMd-8h-8qk"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="x9j-wy-HjX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="X27-Wx-8G6">
+                    <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <viewLayoutGuide key="safeArea" id="pTv-fe-geG"/>
+                </collectionReusableView>
+            </objects>
+            <point key="canvasLocation" x="2751" y="2390"/>
+        </scene>
     </scenes>
     <resources>
         <image name="download" width="225" height="225"/>
-        <image name="icons8-forward-arrow-35" width="26.25" height="26.25"/>
-        <image name="icons8-heart-outline-35" width="26.25" height="26.25"/>
-        <image name="icons8-heart-outline-filled-35" width="26.25" height="26.25"/>
-        <image name="icons8-home-page-35 (1)" width="26.25" height="26.25"/>
-        <image name="icons8-home-page-filled-35" width="26.25" height="26.25"/>
-        <image name="icons8-instagram-35" width="26.25" height="26.25"/>
-        <image name="icons8-instagram-filled-35" width="26.25" height="26.25"/>
-        <image name="icons8-picture-100" width="75" height="75"/>
-        <image name="icons8-search-35" width="26.25" height="26.25"/>
-        <image name="icons8-speech-bubble-35" width="26.25" height="26.25"/>
-        <image name="icons8-user-35" width="26.25" height="26.25"/>
-        <image name="icons8-user-filled-35" width="26.25" height="26.25"/>
+        <image name="icons8-forward-arrow-35" width="35" height="35"/>
+        <image name="icons8-heart-outline-35" width="35" height="35"/>
+        <image name="icons8-heart-outline-filled-35" width="35" height="35"/>
+        <image name="icons8-home-page-35 (1)" width="35" height="35"/>
+        <image name="icons8-home-page-filled-35" width="35" height="35"/>
+        <image name="icons8-instagram-35" width="35" height="35"/>
+        <image name="icons8-instagram-filled-35" width="35" height="35"/>
+        <image name="icons8-picture-100" width="100" height="100"/>
+        <image name="icons8-search-35" width="35" height="35"/>
+        <image name="icons8-speech-bubble-35" width="35" height="35"/>
+        <image name="icons8-user-35" width="35" height="35"/>
+        <image name="icons8-user-filled-35" width="35" height="35"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="9rb-yb-WR6"/>
         <segue reference="kOW-1r-Sl1"/>
     </inferredMetricsTieBreakers>
 </document>
