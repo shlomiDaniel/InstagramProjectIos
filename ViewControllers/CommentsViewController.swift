@@ -55,6 +55,7 @@ class CommentsViewController: UIViewController {
         })
     
     }
+    
         
     func hadle_text_filed(){
         comment_text.addTarget(self, action: #selector(self.textfiled_did_changed), for: UIControl.Event.editingChanged)
@@ -106,9 +107,10 @@ class CommentsViewController: UIViewController {
                 if error != nil{
                     SVProgressHUD.showError(withStatus: error?.localizedDescription)
                 }
+                     self.empty()
             })
            
-            self.empty()
+           
         }
     }
     func empty(){
@@ -121,6 +123,10 @@ class CommentsViewController: UIViewController {
         super.viewDidAppear(animated)
         self.tabBarController?.tabBar.isHidden = true
         
+    }
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        self.tabBarController?.tabBar.isHidden = false
     }
     
 

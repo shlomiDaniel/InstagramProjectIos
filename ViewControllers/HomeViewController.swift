@@ -35,6 +35,9 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //   Model.instance.modelFirebase.users.removeAll()
+        //check it may cases crashed ///////////////////
+        Model.instance.modelFirebase.posts.removeAll()
          table_view.dataSource = self
         table_view.estimatedRowHeight = 521
         table_view.rowHeight = UITableView.automaticDimension
@@ -49,7 +52,10 @@ class HomeViewController: UIViewController {
             
         }
    }
-
+    override func viewDidAppear(_ animated: Bool) {
+     //   Model.instance.modelFirebase.users.removeAll()
+        //Model.instance.modelFirebase.posts.removeAll()
+    }
     
    
    
@@ -68,6 +74,7 @@ extension HomeViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Model.instance.modelFirebase.posts.count
     }
+    
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
@@ -80,7 +87,7 @@ extension HomeViewController : UITableViewDataSource {
         cell.user = user
         cell.post = post
         cell.homeVc = self
-
+        
         return cell
     }
 

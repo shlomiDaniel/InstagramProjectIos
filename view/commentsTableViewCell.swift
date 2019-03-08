@@ -33,9 +33,13 @@ class commentsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-       // username_label.text = ""
-        //comment_label.text = ""
+        username_label.text = ""
+        comment_label.text = ""
         // Initialization code
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        profile_image_view.image = UIImage(named: "download")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
