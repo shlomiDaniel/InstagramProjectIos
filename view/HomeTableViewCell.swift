@@ -178,7 +178,7 @@ class HomeTableViewCell: UITableViewCell {
                     var user = User.transformUserInfo(dict: dictionary,key: snapshot.key)
                     self.name_label.text = user.userName
 
-                     print("im here")
+                     //print("im here")
                      print(self.name_label.text)
                    // self.name_label.text = user.userName
                     if let photo_url_string = user.profile_image_url

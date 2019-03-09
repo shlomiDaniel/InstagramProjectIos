@@ -112,10 +112,12 @@ class ModelFireBase{
                 if child == "profile_image"{
                    //self.sendDataToDataBase(photo_url: the_url)
                     self.sendImageProfie(photo_url: the_url)
+                    return
                 }
                 if child == "posts"{
                     
                     self.sendDataToDataBase_posts_image_and_text(photo_url: the_url,text : text)
+                    return
                 }
                 
                 
@@ -143,6 +145,8 @@ class ModelFireBase{
         
     }
         func sendDataToDataBase_posts_image_and_text(photo_url : String, text : String) {
+        //posts.removeAll()
+             //posts.removeAll()
         let post_ref = ref.child("posts")
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
@@ -156,7 +160,7 @@ class ModelFireBase{
                 SVProgressHUD.showSuccess(withStatus: "shared succes")
             }
             //ref.child("feed").child(Api.User.current_user!.uid).child(new_post_id!).setValue(true)
-            Api.feed.ref_feed.child(Api.User.current_user!.uid).child(new_post_id!).setValue(true)
+            //Api.feed.ref_feed.child(Api.User.current_user!.uid).child(new_post_id!).setValue(true)
             let my_post_ref = Api.my_posts.REF_POSTS.child(self.getUserId()).child(new_post_id!)
             my_post_ref.setValue(true, withCompletionBlock: { (error, ref) in
                 if error != nil{
@@ -188,6 +192,8 @@ class ModelFireBase{
     
     
     func sendDataToDataBase(photo_url : String){
+        //check it may casues crasheed!!!!
+        posts.removeAll()
         let post_ref = ref.child("posts")
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
@@ -228,6 +234,50 @@ class ModelFireBase{
     }
     
     func loadPost(table_view: UITableView) {
+
+//        Api.feed.observeFeed(withid: Api.User.current_user!.uid) { (post) in
+//                        guard let post_id = post.uid else {
+//                            return
+//                        }
+//            self.fetchUser(uid : post_id, completed :{
+//
+//                            self.posts.append(post)
+//                            table_view.reloadData()
+//                        })
+//
+//            }
+//        Api.feed.observe_feed_removed(withid: Model.instance.modelFirebase.getUserId()) { (post) in
+//
+//
+//           self.posts = self.posts.filter{$0.id != post.id}
+//           self.users = self.users.filter{$0.id != post.uid}
+//
+//            table_view.reloadData()
+//        }
+//        Api.post.observePosts { (post) in
+//            self.fetchUser(uid: post.uid!, completed: {
+//                self.posts.append(post)
+//
+//                table_view.reloadData()
+//
+//            })
+        //posts.removeAll()
+            Api.post.REF_POSTS.observe(.childAdded, with: { (snapshot) in
+                if let dict = snapshot.value as? [String : Any]{
+                    let newpost = Post.transformPostPhoto(dictionary: dict, key: snapshot.key)
+                    self.fetchUser(uid: newpost.uid!, completed: {
+                        self.posts.append(newpost)
+                    table_view.reloadData()
+                        
+                    })
+
+                }
+            })
+
+       // }
+//        Api.post.observePost(withId: post) { (post) in
+//            <#code#>
+
         Model.instance.modelFirebase.posts.removeAll()
         Model.instance.modelFirebase.users.removeAll()
         table_view.reloadData()
@@ -257,6 +307,7 @@ class ModelFireBase{
 //        Api.post.observePosts { (post) in
 //            self.posts.append(post)
 //            table_view.reloadData()
+
 //        }
     }
     func fetchUser(uid : String, completed : @escaping()->Void){

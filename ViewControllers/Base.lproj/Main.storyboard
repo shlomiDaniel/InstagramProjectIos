@@ -235,16 +235,9 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hU6-VP-bEe">
-                                                    <rect key="frame" x="262" y="11" width="98" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <state key="normal" title="follow"/>
-                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="follow_button" destination="hU6-VP-bEe" id="Bkq-Ka-oi2"/>
                                             <outlet property="name_label" destination="EbO-M4-Xum" id="wH2-ZT-gb6"/>
                                             <outlet property="profile_image" destination="RLo-li-EZP" id="ysH-XK-WVE"/>
                                         </connections>
@@ -541,16 +534,9 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sEI-Iu-vI4">
-                                                    <rect key="frame" x="262" y="11" width="98" height="43"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                                    <state key="normal" title="follow"/>
-                                                </button>
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="follow_button" destination="sEI-Iu-vI4" id="oo1-pi-s9K"/>
                                             <outlet property="name_label" destination="VQo-Dp-cFM" id="hxR-lH-GWq"/>
                                             <outlet property="profile_image" destination="wU4-Ik-iZm" id="tz1-ef-6dl"/>
                                         </connections>

@@ -37,6 +37,11 @@ class commentsTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+
+        username_label.text = ""
+        comment_label.text = ""
+        // Initialization code
+
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.profile_user_Touch))
         username_label.isUserInteractionEnabled = true
         username_label.addGestureRecognizer(tapGestureRecognizer)
@@ -50,6 +55,11 @@ class commentsTableViewCell: UITableViewCell {
             delegate?.to_profile_user_vc(userid: user_id)
         }
         
+
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        profile_image_view.image = UIImage(named: "download")
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
