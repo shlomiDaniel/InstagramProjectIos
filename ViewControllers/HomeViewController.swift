@@ -47,6 +47,9 @@ class HomeViewController: UIViewController {
             let alert = UIAlertController(title: "Welcome", message: "Welcome " + name!, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
             self.present(alert, animated: true, completion: nil)
+            
+            
+            
             Model.instance.modelFirebase.loadPost(table_view: table_view)
           
             
@@ -68,6 +71,14 @@ class HomeViewController: UIViewController {
             let post_id = sender as! String
             comment_vc.post_id = post_id
         }
+        //check
+        if segue.identifier == "home_to_profile_segue"
+        {
+            let profile_vc = segue.destination as! ProfileUserViewController
+            let user_id = sender as! String
+            
+            profile_vc.user_id = user_id
+        }
     }
 
 }
@@ -81,7 +92,23 @@ extension HomeViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
         var cell = table_view.dequeueReusableCell(withIdentifier: "post_cell", for: indexPath) as! HomeTableViewCell
+        print(indexPath.row)
+      
         
+        
+//                let post = Model.instance.modelFirebase.posts[indexPath.row]
+//                let user = Model.instance.modelFirebase.users[indexPath.row]
+//                table_view.rowHeight = 450
+//                cell.text_post_label.numberOfLines = 0
+//
+//                    cell.user = user
+//                    cell.post = post
+//                    cell.delegate = self
+        
+               // cell.delegate = self
+                
+        
+
         let post = Model.instance.modelFirebase.posts[indexPath.row]
         let user = Model.instance.modelFirebase.users[indexPath.row]
         table_view.rowHeight = 450
@@ -90,10 +117,24 @@ extension HomeViewController : UITableViewDataSource {
         cell.post = post
         cell.homeVc = self
         
+
         return cell
     }
 
 
     
+//    override func viewDidAppear(_ animated: Bool) {
+//
+//    }
+}
+extension HomeViewController : HomeTableViewCellDelegate{
+    func to_profile_user_vc(userid: String) {
+       performSegue(withIdentifier: "home_to_profile_segue", sender: userid)
+    }
+    
+    
+    func go_to_comment_vc(post_id: String) {
+         performSegue(withIdentifier: "commentSegue", sender: post_id)
+    }
     
 }

@@ -232,6 +232,7 @@ class ModelFireBase{
     }
     
     func loadPost(table_view: UITableView) {
+
 //        Api.feed.observeFeed(withid: Api.User.current_user!.uid) { (post) in
 //                        guard let post_id = post.uid else {
 //                            return
@@ -274,6 +275,37 @@ class ModelFireBase{
        // }
 //        Api.post.observePost(withId: post) { (post) in
 //            <#code#>
+
+        Model.instance.modelFirebase.posts.removeAll()
+        Model.instance.modelFirebase.users.removeAll()
+        table_view.reloadData()
+        Api.feed.observeFeed(withid: Api.User.current_user!.uid) { (post) in
+                        guard let post_id = post.uid else {
+                            return
+                        }
+            self.fetchUser(uid : post.uid!, completed :{
+
+                            self.posts.append(post)
+                            table_view.reloadData()
+                        })
+
+            }
+        Api.feed.observe_feed_removed(withid: Api.User.current_user!.uid) { (post) in
+
+
+           self.posts = self.posts.filter{$0.id != post.id}
+           self.users = self.users.filter{$0.id != post.uid}
+
+            table_view.reloadData()
+        }
+//        Api.post.observePost(withId: Api.User.current_user!.uid) { (post) in
+//            self.posts.append(post)
+//            table_view.reloadData()
+//        }
+//        Api.post.observePosts { (post) in
+//            self.posts.append(post)
+//            table_view.reloadData()
+
 //        }
     }
     func fetchUser(uid : String, completed : @escaping()->Void){

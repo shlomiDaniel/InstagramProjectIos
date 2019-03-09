@@ -55,13 +55,6 @@ class ProfileViewController: UIViewController {
 }
 
 
-    
-    //self.user = user
-  //  self.collec
-        
-    
-    
-    
 }
 
 extension ProfileViewController : UICollectionViewDataSource{

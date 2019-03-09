@@ -32,6 +32,7 @@ class SignInViewController: UIViewController {
         if Model.instance.modelFirebase.checkIfSignIn() == true{
             self.performSegue(withIdentifier: "signInToTabBar", sender: self)
         }
+        ModelSql.init();
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
