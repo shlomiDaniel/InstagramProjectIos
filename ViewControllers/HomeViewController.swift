@@ -96,26 +96,26 @@ extension HomeViewController : UITableViewDataSource {
       
         
         
-//                let post = Model.instance.modelFirebase.posts[indexPath.row]
-//                let user = Model.instance.modelFirebase.users[indexPath.row]
-//                table_view.rowHeight = 450
-//                cell.text_post_label.numberOfLines = 0
-//
-//                    cell.user = user
-//                    cell.post = post
-//                    cell.delegate = self
+                let post = Model.instance.modelFirebase.posts[indexPath.row]
+                let user = Model.instance.modelFirebase.users[indexPath.row]
+                table_view.rowHeight = 450
+                cell.text_post_label.numberOfLines = 0
+
+                    cell.user = user
+                    cell.post = post
+                    cell.delegate = self
         
                // cell.delegate = self
                 
         
 
-        let post = Model.instance.modelFirebase.posts[indexPath.row]
-        let user = Model.instance.modelFirebase.users[indexPath.row]
-        table_view.rowHeight = 450
-        cell.text_post_label.numberOfLines = 0
-        cell.user = user
-        cell.post = post
-        cell.homeVc = self
+//        let post = Model.instance.modelFirebase.posts[indexPath.row]
+//        let user = Model.instance.modelFirebase.users[indexPath.row]
+//        table_view.rowHeight = 450
+//        cell.text_post_label.numberOfLines = 0
+//        cell.user = user
+//        cell.post = post
+//        cell.homeVc = self
         
 
         return cell
