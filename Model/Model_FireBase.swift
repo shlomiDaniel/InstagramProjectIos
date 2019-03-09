@@ -22,7 +22,7 @@ class ModelFireBase{
     init(){
         FirebaseApp.configure()
         ref = Database.database().reference()
-        
+       
     }
     
     func regiser_new_user(mail : String  ,pass : String, callback : @escaping (Bool?)->Void)
@@ -213,6 +213,8 @@ class ModelFireBase{
     }
     
     func checkIfSignIn()->Bool{
+        //print("FB: Check if SignIn...")
+        //print (Auth.auth().currentUser != nil)
         return (Auth.auth().currentUser != nil)
     }
     
