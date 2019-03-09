@@ -24,11 +24,12 @@ class searchViewController: UIViewController {
         let search_item = UIBarButtonItem(customView: search_bar)
         self.navigationItem.rightBarButtonItem = search_item
         self.table_view.dataSource = self
+         // Model.instance.modelFirebase.users.removeAll()
         search()
     }
     
     func search(){
-        
+        Model.instance.modelFirebase.users.removeAll()
         if let search_text = search_bar.text?.lowercased(){
             Model.instance.modelFirebase.users.removeAll()
             self.table_view.reloadData()
@@ -53,11 +54,12 @@ class searchViewController: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        Model.instance.modelFirebase.users.removeAll()
+       // Model.instance.modelFirebase.users.removeAll()
         
         table_view.clearsContextBeforeDrawing = true
         // self.table_view.reloadData()
         table_view.reloadData()
+          //Model.instance.modelFirebase.users.removeAll()
 
     }
     

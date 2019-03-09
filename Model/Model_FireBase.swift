@@ -112,10 +112,12 @@ class ModelFireBase{
                 if child == "profile_image"{
                    //self.sendDataToDataBase(photo_url: the_url)
                     self.sendImageProfie(photo_url: the_url)
+                    return
                 }
                 if child == "posts"{
                     
                     self.sendDataToDataBase_posts_image_and_text(photo_url: the_url,text : text)
+                    return
                 }
                 
                 
@@ -143,6 +145,8 @@ class ModelFireBase{
         
     }
         func sendDataToDataBase_posts_image_and_text(photo_url : String, text : String) {
+        //posts.removeAll()
+             //posts.removeAll()
         let post_ref = ref.child("posts")
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
@@ -254,7 +258,7 @@ class ModelFireBase{
 //                table_view.reloadData()
 //
 //            })
-        
+        //posts.removeAll()
             Api.post.REF_POSTS.observe(.childAdded, with: { (snapshot) in
                 if let dict = snapshot.value as? [String : Any]{
                     let newpost = Post.transformPostPhoto(dictionary: dict, key: snapshot.key)

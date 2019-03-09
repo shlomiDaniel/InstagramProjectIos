@@ -53,7 +53,9 @@ class HomeViewController: UIViewController {
         }
    }
     override func viewDidAppear(_ animated: Bool) {
-     //   Model.instance.modelFirebase.users.removeAll()
+        Model.instance.modelFirebase.users.removeAll()
+         Model.instance.modelFirebase.posts.removeAll()
+        Model.instance.modelFirebase.loadPost(table_view: table_view)
         //Model.instance.modelFirebase.posts.removeAll()
     }
     

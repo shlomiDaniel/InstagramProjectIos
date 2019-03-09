@@ -26,26 +26,26 @@ class pepole_TableViewCell: UITableViewCell {
         // Initialization code
     }
     func configure_follow_button(){
-        follow_button.backgroundColor = UIColor.green
-        follow_button.layer.borderColor = UIColor.white.cgColor
-        follow_button.layer.borderWidth = 1.0
-        follow_button.layer.cornerRadius = 5.0
-        follow_button.tintColor = UIColor.black
-         follow_button.addTarget(self, action: #selector(self.follow_presset), for: UIControl.Event.touchUpInside)
+       // follow_button.backgroundColor = UIColor.green
+      //  follow_button.layer.borderColor = UIColor.white.cgColor
+       // follow_button.layer.borderWidth = 1.0
+      //  follow_button.layer.cornerRadius = 5.0
+      //  follow_button.tintColor = UIColor.black
+      //   follow_button.addTarget(self, action: #selector(self.follow_presset), for: UIControl.Event.touchUpInside)
 
-        self.follow_button.setTitle("Follow", for: UIControl.State.normal)
+     //   self.follow_button.setTitle("Follow", for: UIControl.State.normal)
 
         
     }
     func configure_unfollow_button(){
-        follow_button.backgroundColor = UIColor.green
-        follow_button.layer.borderColor = UIColor.white.cgColor
-        follow_button.layer.borderWidth = 1.0
-        follow_button.layer.cornerRadius = 5.0
-        follow_button.tintColor = UIColor.black
-        follow_button.addTarget(self, action: #selector(self.unfollow_presset), for: UIControl.Event.touchUpInside)
+      //  follow_button.backgroundColor = UIColor.green
+      //  follow_button.layer.borderColor = UIColor.white.cgColor
+     //   follow_button.layer.borderWidth = 1.0
+      //  follow_button.layer.cornerRadius = 5.0
+     //   follow_button.tintColor = UIColor.black
+    //    follow_button.addTarget(self, action: #selector(self.unfollow_presset), for: UIControl.Event.touchUpInside)
 
-        self.follow_button.setTitle("Following", for: UIControl.State.normal)
+   //     self.follow_button.setTitle("Following", for: UIControl.State.normal)
 
         
     }
