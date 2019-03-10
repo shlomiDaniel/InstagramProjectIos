@@ -28,6 +28,13 @@ class Post{
         //self.videoUrl = nil
     }
     
+    init (_id: String,  _likeCount: Int, _image_url: String, _text_share: String) {
+        self.id = _id;
+        self.numberOfLikes = _likeCount;
+        self.image_url = _image_url;
+        self.text_share = _text_share;
+    }
+    
 
         
     

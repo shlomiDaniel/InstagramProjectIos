@@ -21,7 +21,8 @@ class NewUserViewController: UIViewController {
     @IBOutlet weak var nametxt: UITextField!
     
     @IBAction func saveButtonTxt(_ sender: Any) {
-       let us = User(_id: idTxt.text!, _name: nametxt.text!, _userName: userNameTxt.text!, _password: passwordTxt.text!)
+       //let us = User(_id: idTxt.text!, _name: nametxt.text!, _userName: userNameTxt.text!, _password: passwordTxt.text!)
+        let us = User(_id: idTxt.text!, _userName: nametxt.text!, _password: passwordTxt.text!, _email: userNameTxt.text!);
         Model.instance.modelFirebase.addNewUser(user: us)
         self.navigationController?.popViewController(animated: true)
         

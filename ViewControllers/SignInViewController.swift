@@ -24,15 +24,18 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ModelSql.init();
 
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
         if Model.instance.modelFirebase.checkIfSignIn() == true{
-            self.performSegue(withIdentifier: "signInToTabBar", sender: self)
+            self.performSegue(withIdentifier: "signInToTabBar", sender: self);
         }
-        ModelSql.init();
+        
+
     }
     
     override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
