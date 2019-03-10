@@ -24,6 +24,7 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         ModelSql.init();
 
         // Do any additional setup after loading the view.
