@@ -147,6 +147,7 @@ class ModelFireBase{
         func sendDataToDataBase_posts_image_and_text(photo_url : String, text : String) {
         //posts.removeAll()
              //posts.removeAll()
+            print("1 here")
         let post_ref = ref.child("posts")
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
@@ -170,6 +171,11 @@ class ModelFireBase{
             
         })
       }
+             
+//            users.removeAll()
+//            posts.removeAll()
+            
+        
     }
     /////
     func updatePhoto_profile(text: String) {
@@ -194,6 +200,7 @@ class ModelFireBase{
     func sendDataToDataBase(photo_url : String){
         //check it may casues crasheed!!!!
         posts.removeAll()
+        print("2 here")
         let post_ref = ref.child("posts")
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
@@ -207,6 +214,7 @@ class ModelFireBase{
                 SVProgressHUD.showSuccess(withStatus: "shared succes")
             }
     }
+         posts.removeAll()
     }
     
     func signInByEmailAndPass(email : String, pass : String, callback : @escaping (Bool?)->Void){
@@ -259,7 +267,7 @@ class ModelFireBase{
 //                table_view.reloadData()
 //
 //            })
-        //posts.removeAll()
+        posts.removeAll()
             Api.post.REF_POSTS.observe(.childAdded, with: { (snapshot) in
                 if let dict = snapshot.value as? [String : Any]{
                     let newpost = Post.transformPostPhoto(dictionary: dict, key: snapshot.key)
