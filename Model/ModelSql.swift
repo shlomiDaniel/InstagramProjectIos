@@ -27,6 +27,7 @@ class ModelSql{
 
             CreateDatabaseStructure()
             CopyTablesFromFirebaseDBIntoSQLiteDB();
+            DownLoadFBStorageFiles();
         }
     } //init
   
@@ -404,9 +405,15 @@ class ModelSql{
     } //AddMyPostToSQLiteDB
 
     
+    
     func dropTable(){
         
     } //dropTable
+    
+    func DownLoadFBStorageFiles() {
+    
+    
+    }
     
     
 } // class

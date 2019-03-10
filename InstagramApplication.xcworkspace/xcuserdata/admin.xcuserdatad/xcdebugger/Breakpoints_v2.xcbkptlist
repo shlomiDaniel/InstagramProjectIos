@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Model/ModelSql.swift"
-            timestampString = "573929193.893083"
+            timestampString = "573934729.678545"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
             landmarkName = "CopyUsersTable()"
             landmarkType = "7">
          </BreakpointContent>
