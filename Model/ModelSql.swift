@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Firebase
 
 class ModelSql{
    
@@ -25,9 +26,11 @@ class ModelSql{
                 print ("SQLITE3: Database path: \(path.absoluteString)");
             }
 
-            CreateDatabaseStructure()
+            CreateDatabaseStructure();
             CopyTablesFromFirebaseDBIntoSQLiteDB();
-            DownLoadFBStorageFiles();
+            DownLoadUsersFBStorageFiles();
+            DownLoadPostsFBStorageFiles();
+            
         }
     } //init
   
@@ -42,7 +45,9 @@ class ModelSql{
         pass CHAR(255),
         url_profile_image CHAR(255),
         userName CHAR(255),
-        user_name_lower_case CHAR(255)
+        user_name_lower_case CHAR(255),
+        localImageFile CHAR(255),
+        UNIQUE(FB_id)
         );
         """;
         
@@ -62,7 +67,9 @@ class ModelSql{
         FB_id CHAR(255),
         likeCount INT,
         photo_url CHAR(255),
-        text_share CHAR(255)
+        text_share CHAR(255),
+        localImageFile CHAR(255),
+        UNIQUE(FB_id)
         );
         """;
         
@@ -81,7 +88,8 @@ class ModelSql{
         let createCommentsTableString = """
         CREATE TABLE IF NOT EXISTS comments(
         FB_id CHAR(255),
-        comment_text CHAR(255)
+        comment_text CHAR(255),
+        UNIQUE(FB_id)
         );
         """;
         
@@ -99,7 +107,8 @@ class ModelSql{
         let createPost_CommentsTableString = """
         CREATE TABLE IF NOT EXISTS post_comments(
         post_id CHAR(255),
-        comment_id CHAR(255)
+        comment_id CHAR(255),
+        UNIQUE(post_id, comment_id)
         );
         """;
         
@@ -117,7 +126,8 @@ class ModelSql{
         let createMyPostsTableString = """
         CREATE TABLE IF NOT EXISTS myPosts(
         user_id CHAR(255),
-        post_id CHAR(255)
+        post_id CHAR(255),
+        UNIQUE(user_id, post_id)
         );
         """;
         
@@ -248,7 +258,7 @@ class ModelSql{
         
         //print("DEBUG: user for adding: FB_id = \(user.id), email = \(String(describing: user.email)), pass = \(user.Password), url = \(String(describing: user.profile_image_url)), username = \(user.userName!), userName_lowercase = \(String(describing: user.userName?.lowercased()))"  );
         
-        if(sqlite3_prepare_v2(sqliteDB, "INSERT OR REPLACE INTO users (FB_id, email, pass, url_profile_image, userName, user_name_lower_case) VALUES(?,?,?,?,?,?);", -1, &sqlite3_stmt, nil)==SQLITE_OK){
+        if(sqlite3_prepare_v2(sqliteDB, "INSERT OR REPLACE INTO users (FB_id, email, pass, url_profile_image, userName, user_name_lower_case, localImageFile) VALUES(?,?,?,?,?,?,?);", -1, &sqlite3_stmt, nil)==SQLITE_OK){
             let user_id = user.id.cString(using: .utf8)
             let email = user.email!.cString(using: .utf8)
             let pass = user.Password.cString(using: .utf8)
@@ -256,6 +266,10 @@ class ModelSql{
             let user_name = user.userName?.cString(using: .utf8)
             let user_name_lower_case = user.userName?.lowercased().cString(using: .utf8)
             
+            let localImageFile0 = "/Documents/Users/" + user.profile_image_url!.dropFirst(120);
+            let localImageFile = localImageFile0.cString(using: .utf8);
+            
+            //print ("DEBUG: SQLITE3: users \(localImageFile!)");
             //print("\(user_id!), \(email), \(pass), \(url), \(user_name), \(user_name_lower_case)");
             
             sqlite3_bind_text(sqlite3_stmt, 1, user_id, -1, nil)
@@ -264,6 +278,7 @@ class ModelSql{
             sqlite3_bind_text(sqlite3_stmt, 4, url, -1, nil)
             sqlite3_bind_text(sqlite3_stmt, 5, user_name, -1, nil)
             sqlite3_bind_text(sqlite3_stmt, 6, user_name_lower_case, -1, nil)
+            sqlite3_bind_text(sqlite3_stmt, 7, localImageFile, -1, nil)
             if(sqlite3_step(sqlite3_stmt)==SQLITE_DONE){
                 //print("New user row added seccefully")
             }
@@ -285,12 +300,16 @@ class ModelSql{
         
         //print("DEBUG: post for adding: FB_id = \(String(describing: post.id)), likeCount = \(String(describing: post.numberOfLikes)), photo_url = \(String(describing: post.image_url)), text_share = \(String(describing: post.text_share))");
         
-        if(sqlite3_prepare_v2(sqliteDB, "INSERT OR REPLACE INTO posts (FB_id, likeCount, photo_url, text_share) VALUES(?,?,?,?);", -1, &sqlite3_stmt, nil)==SQLITE_OK){
+        if(sqlite3_prepare_v2(sqliteDB, "INSERT OR REPLACE INTO posts (FB_id, likeCount, photo_url, text_share, localImageFile) VALUES(?,?,?,?,?);", -1, &sqlite3_stmt, nil)==SQLITE_OK){
             let post_id = post.id!.cString(using: .utf8);
             //let likeCount = post.numberOfLikes as! Int32;
             let likeCount = Int32(post.numberOfLikes!);
             let photo_url = post.image_url!.cString(using: .utf8);
             let text_share = post.text_share!.cString(using: .utf8);
+            
+            let localImageFile0 = "/Documents/Posts/" + post.image_url!.dropFirst(111);
+            let localImageFile = localImageFile0.cString(using: .utf8);
+
             
             //print("DEBUG: \(post_id!), \(String(describing: likeCount)), \(String(describing: photo_url)), \(String(describing: text_share))");
             
@@ -298,6 +317,7 @@ class ModelSql{
             sqlite3_bind_int(sqlite3_stmt, 2, likeCount);
             sqlite3_bind_text(sqlite3_stmt, 3, photo_url, -1, nil)
             sqlite3_bind_text(sqlite3_stmt, 4, text_share, -1, nil)
+            sqlite3_bind_text(sqlite3_stmt, 5, localImageFile, -1, nil);
             if(sqlite3_step(sqlite3_stmt)==SQLITE_DONE){
                 //print("new post row added seccefully")
             }
@@ -381,7 +401,8 @@ class ModelSql{
         
         //print("DEBUG: post for adding: FB_id = \(String(describing: post.id)), likeCount = \(String(describing: post.numberOfLikes)), photo_url = \(String(describing: post.image_url)), text_share = \(String(describing: post.text_share))");
         
-        if(sqlite3_prepare_v2(sqliteDB, "INSERT OR REPLACE INTO myPosts (user_id, post_id) VALUES(?,?);", -1, &sqlite3_stmt, nil)==SQLITE_OK){
+        let ReturnCode = sqlite3_prepare_v2(sqliteDB, "INSERT OR REPLACE INTO myPosts (user_id, post_id) VALUES(?,?);", -1, &sqlite3_stmt, nil);
+        if(ReturnCode == SQLITE_OK){
             let user_id = _user_id.cString(using: .utf8);
             let post_id = _post_id.cString(using: .utf8);
             
@@ -393,7 +414,8 @@ class ModelSql{
                 //print("new MyPosts row added seccefully")
             }
             else {
-                print ("Error adding myPosts row \(String(describing: post_id))")
+                let errmsg = String(cString: sqlite3_errmsg(sqliteDB));
+                print ("Error adding myPosts row \(post_id) with error \(errmsg)");
             }
             
         } //
@@ -409,11 +431,254 @@ class ModelSql{
     func dropTable(){
         
     } //dropTable
+    // DOWNLOAD SECTION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
     
-    func DownLoadFBStorageFiles() {
+    
+    func DownLoadUsersFBStorageFiles() {
+        
+        let sqlite3_query = "SELECT url_profile_image, localImageFile FROM users";
+        var sqlite3_stmt : OpaquePointer? = nil
+        
+        if sqlite3_prepare(sqliteDB, sqlite3_query, -1, &sqlite3_stmt, nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(sqliteDB)!)
+            print("SQLITE3: Error preparing select distinct url_profile from USERS: \(errmsg)");
+            return;
+        }
+        
+        while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW) {
+            let photo_url = String(cString: sqlite3_column_text(sqlite3_stmt, 0));
+            let localFileName0 = String(cString: sqlite3_column_text(sqlite3_stmt, 1)) as String?;
+            if localFileName0 != nil {
+                let localFileName = localFileName0!.dropFirst(11);
+            
+                //print ("DEBUG: Select result: \(photo_url)");
+            
+                let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String;
+                let LocalFileURL = NSURL(fileURLWithPath: path);
+                if let pathComponent = LocalFileURL.appendingPathComponent(String(localFileName)) {
+                    let filePath = pathComponent.path;
+                    let fileManager = FileManager.default;
+                    if fileManager.fileExists(atPath: filePath) {
+                        print ("DEBUG: Users FILE \(filePath) exists locally. Not downloading it from FireBase Storage...");
+                    } else {
+                        print ("DEBUG: Users FILE \(filePath) doesn't exist locally. Downloading it from FireBase Storage... ");
+                        self.DownloadUsersFileFromFBStorage(_url: photo_url);
+                    }
+                } // if
+                else {
+                    print ("DEBUG: FILEL PATH NOT AVAILABLE OF FILE: \(localFileName)");
+                }
+            } else {
+                // There is no localFileName path in the local DB
+                self.DownloadUsersFileFromFBStorage(_url: photo_url);
+            }
+        } // while
+    }//DownLoadUsersFBStorageFiles()
+
+    
+    func DownLoadPostsFBStorageFiles() {
+        
+        let sqlite3_query = "SELECT DISTINCT photo_url, localImageFile FROM posts";
+        var sqlite3_stmt : OpaquePointer? = nil
+        
+        if sqlite3_prepare(sqliteDB, sqlite3_query, -1, &sqlite3_stmt, nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(sqliteDB)!)
+            print("SQLITE3: Error preparing select distinct photo_url from POSTS: \(errmsg)");
+            return;
+        }
+        
+        while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW) {
+            let photo_url = String(cString: sqlite3_column_text(sqlite3_stmt, 0));
+            let localFileName0 = String(cString: sqlite3_column_text(sqlite3_stmt, 1)) as String?;
+            if localFileName0 != nil {
+                let localFileName = localFileName0!.dropFirst(11);
+                
+                //print ("DEBUG: Select result: \(photo_url)");
+                
+                let path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String;
+                let LocalFileURL = NSURL(fileURLWithPath: path);
+                if let pathComponent = LocalFileURL.appendingPathComponent(String(localFileName)) {
+                    let filePath = pathComponent.path;
+                    let fileManager = FileManager.default;
+                    if fileManager.fileExists(atPath: filePath) {
+                        print ("DEBUG: Users FILE \(filePath) exists locally. Not downloading it from FireBase Storage...");
+                    } else {
+                        print ("DEBUG: Users FILE \(filePath) doesn't exist locally. Downloading it from FireBase Storage... ");
+                        self.DownloadPostsFileFromFBStorage(_url: photo_url);
+                    }
+                } // if
+                else {
+                    print ("DEBUG: FILEL PATH NOT AVAILABLE OF FILE: \(localFileName)");
+                }
+            } else {
+                // There is no localFileName path in the local DB
+                self.DownloadUsersFileFromFBStorage(_url: photo_url);
+            }
+        } // while
+    }//DownLoadPostsFBStorageFiles()
+
+    
+    func DownloadUsersFileFromFBStorage(_url: String) {
+        
+        let ref = Storage.storage().reference(forURL: _url)
+        ref.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
+            if error != nil{
+                print ("DEBUG: FILE FAIL - Error = \(error!)")
+            }else{
+                let image = UIImage(data : data!)
+                //print ("DEBUG: SUCCESS Getting the following file from Firebase - \(_url)")
+                //var localFileName1 = _url;
+                //var localFileName = localFileName1.dropFirst(111);
+                let localFileName = _url.dropFirst(120);
+                print ("DEUG: localFileName = \(localFileName)");
+                let localFullFileName = self.saveUsersImageToDocumentDirectory(image!, localFileName: String(localFileName));
+                print ("DEBUG: image saved locally as: \(localFullFileName)");
+                self.updateUsersTableWithLocalFileName(_url: _url, localFileName: String(localFullFileName));
+                //self.updatePostsTableWithLocalFileName(_url: _url, localFileName: String(localFullFileName));
+                }
+        }
+    }//DownloadUsersFileFromFBStorage
     
     
-    }
+    func DownloadPostsFileFromFBStorage(_url: String) {
+        
+        let ref = Storage.storage().reference(forURL: _url)
+        ref.getData(maxSize: 10 * 1024 * 1024) { (data, error) in
+            if error != nil{
+                print ("DEBUG: FILE FAIL - Error = \(error!)")
+            }else{
+                let image = UIImage(data : data!)
+                //print ("DEBUG: SUCCESS Getting the following file from Firebase - \(_url)")
+                //var localFileName1 = _url;
+                //var localFileName = localFileName1.dropFirst(111);
+                let localFileName = _url.dropFirst(111);
+                print ("DEUG: localFileName = \(localFileName)");
+                let localFullFileName = self.savePostsImageToDocumentDirectory(image!, localFileName: String(localFileName));
+                print ("DEBUG: image saved locally as: \(localFullFileName)");
+                self.updatePostsTableWithLocalFileName(_url: _url, localFileName: String(localFullFileName));
+                //self.updatePostsTableWithLocalFileName(_url: _url, localFileName: String(localFullFileName));
+            }
+        }
+    }//DownloadPostsFileFromFBStorage
+
+
+    func saveUsersImageToDocumentDirectory(_ chosenImage: UIImage, localFileName: String) -> String {
+        let directoryPath =  NSHomeDirectory().appending("/Documents/Users/")
+        if !FileManager.default.fileExists(atPath: directoryPath) {
+            do {
+                try FileManager.default.createDirectory(at: NSURL.fileURL(withPath: directoryPath), withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error)
+            }
+        }
+        //let filename = localFileName.appending(".jpg")
+        let filename = localFileName;
+        let filepath = directoryPath.appending(filename)
+        let url = NSURL.fileURL(withPath: filepath)
+        do {
+            try
+                //UIImageJPEGRepresentation(chosenImage, 1.0)?.write(to: url, options: .atomic)
+                chosenImage.jpegData(compressionQuality: 100)?.write(to: url, options: Data.WritingOptions.atomic)
+            return String.init("/Documents/Users/\(filename)")
+            
+        } catch {
+            print(error)
+            print("DEBUG: file cant not be saved at path \(filepath), with error : \(error)");
+            return filepath
+        }
+    } //saveUsersImageToDocumentDirectory
+    
+    
+    func savePostsImageToDocumentDirectory(_ chosenImage: UIImage, localFileName: String) -> String {
+        let directoryPath =  NSHomeDirectory().appending("/Documents/Posts/")
+        if !FileManager.default.fileExists(atPath: directoryPath) {
+            do {
+                try FileManager.default.createDirectory(at: NSURL.fileURL(withPath: directoryPath), withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error)
+            }
+        }
+        //let filename = localFileName.appending(".jpg")
+        let filename = localFileName;
+        let filepath = directoryPath.appending(filename)
+        let url = NSURL.fileURL(withPath: filepath)
+        do {
+            try
+                //UIImageJPEGRepresentation(chosenImage, 1.0)?.write(to: url, options: .atomic)
+                chosenImage.jpegData(compressionQuality: 100)?.write(to: url, options: Data.WritingOptions.atomic)
+            return String.init("/Documents/Posts/\(filename)")
+            
+        } catch {
+            print(error)
+            print("DEBUG: file cant not be saved at path \(filepath), with error : \(error)");
+            return filepath
+        }
+    } //savePostsImageToDocumentDirectory
+
+/*
+    func savePostsImageToDocumentDirectory(_ chosenImage: UIImage, localFileName: String) -> String {
+        let directoryPath =  NSHomeDirectory().appending("/Documents/Posts/")
+        if !FileManager.default.fileExists(atPath: directoryPath) {
+            do {
+                try FileManager.default.createDirectory(at: NSURL.fileURL(withPath: directoryPath), withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print(error)
+            }
+        }
+        //let filename = localFileName.appending(".jpg")
+        let filename = localFileName;
+        let filepath = directoryPath.appending(filename)
+        let url = NSURL.fileURL(withPath: filepath)
+        do {
+            try
+                //UIImageJPEGRepresentation(chosenImage, 1.0)?.write(to: url, options: .atomic)
+                chosenImage.jpegData(compressionQuality: 100)?.write(to: url, options: Data.WritingOptions.atomic)
+            return String.init("/Documents/Posts/\(filename)")
+            
+        } catch {
+            print(error)
+            print("DEBUG: file cant not be saved at path \(filepath), with error : \(error)");
+            return filepath
+        }
+    } //savePostsImageToDocumentDirectory
+ */
+    
+    
+    func updateUsersTableWithLocalFileName(_url: String, localFileName: String) {
+        let updateStatementString = "UPDATE users set localImageFile = '" + localFileName + "' WHERE url_profile_image = '" + _url + "';";
+        var updateStatement: OpaquePointer? = nil;
+        print ("DEBUG: UPDATE statement: \(updateStatementString)");
+        
+        if sqlite3_prepare(sqliteDB, updateStatementString, -1, &updateStatement, nil) == SQLITE_OK {
+            if sqlite3_step(updateStatement) == SQLITE_DONE {
+                print ("DEBUG: SQLITE3: Successfully update row in USERS with  \(localFileName)");
+            }  else {
+                print ("DEBUG: SQLITE3: could not update row \(localFileName)")
+            }
+        }   else {
+                print ("DEBUG: SQLITE3: UPDATE Statement could not be prepared");
+            }
+        
+    } //updateUsersTableWithLocalFileName
+    
+    func updatePostsTableWithLocalFileName(_url: String, localFileName: String) {
+        let updateStatementString = "UPDATE posts set localImageFile = '" + localFileName + "' WHERE photo_url = '" + _url + "';";
+        var updateStatement: OpaquePointer? = nil;
+        print ("DEBUG: UPDATE statement: \(updateStatementString)");
+        
+        if sqlite3_prepare(sqliteDB, updateStatementString, -1, &updateStatement, nil) == SQLITE_OK {
+            if sqlite3_step(updateStatement) == SQLITE_DONE {
+                print ("DEBUG: SQLITE3: Successfully update row \(localFileName)");
+            }  else {
+                print ("DEBUG: SQLITE3: could not update row in POSTS with \(localFileName)")
+            }
+        }   else {
+            print ("DEBUG: SQLITE3: UPDATE Statement could not be prepared");
+        }
+    } //updateUsersTableWithLocalFileName
+    
+    
+    
     
     
 } // class
