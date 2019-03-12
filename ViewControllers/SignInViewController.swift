@@ -12,7 +12,6 @@ import SVProgressHUD
 class SignInViewController: UIViewController {
 
     var isLogin : Bool = false
-    //var model = Model.instance.modelFireBase
     
     @IBOutlet weak var emailtxt: UITextField!
    

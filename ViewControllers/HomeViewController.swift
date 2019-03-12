@@ -36,9 +36,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
          self.tabBarController?.tabBar.isHidden = false
-        //   Model.instance.modelFirebase.users.removeAll()
-        //check it may cases crashed ///////////////////
-        Model.instance.modelFirebase.posts.removeAll()
+      
          table_view.dataSource = self
         table_view.estimatedRowHeight = 521
         table_view.rowHeight = UITableView.automaticDimension
@@ -50,8 +48,9 @@ class HomeViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             
             
-            
-          //  Model.instance.modelFirebase.loadPost(table_view: table_view)
+             Model.instance.modelFirebase.users.removeAll()
+            Model.instance.modelFirebase.posts.removeAll()
+          
           
             
         }
@@ -64,7 +63,7 @@ class HomeViewController: UIViewController {
         self.tabBarController?.tabBar.isHidden = false
         //Model.instance.modelFirebase.posts.removeAll()
     }
-    
+   
    
    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -79,7 +78,6 @@ class HomeViewController: UIViewController {
         {
             let profile_vc = segue.destination as! ProfileUserViewController
             let user_id = sender as! String
-            print("333333")
             profile_vc.user_id = user_id
         }
     }
@@ -95,9 +93,6 @@ extension HomeViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
        
         var cell = table_view.dequeueReusableCell(withIdentifier: "post_cell", for: indexPath) as! HomeTableViewCell
-        print(indexPath.row)
-      
-        
         
                 let post = Model.instance.modelFirebase.posts[indexPath.row]
                 let user = Model.instance.modelFirebase.users[indexPath.row]
@@ -108,27 +103,10 @@ extension HomeViewController : UITableViewDataSource {
                     cell.post = post
                     cell.delegate = self
         
-               // cell.delegate = self
-                
-        
-
-//        let post = Model.instance.modelFirebase.posts[indexPath.row]
-//        let user = Model.instance.modelFirebase.users[indexPath.row]
-//        table_view.rowHeight = 450
-//        cell.text_post_label.numberOfLines = 0
-//        cell.user = user
-//        cell.post = post
-//        cell.homeVc = self
-        
-
-        return cell
+                return cell
     }
 
 
-    
-//    override func viewDidAppear(_ animated: Bool) {
-//
-//    }
 }
 extension HomeViewController : HomeTableViewCellDelegate{
     func to_profile_user_vc(userid: String) {

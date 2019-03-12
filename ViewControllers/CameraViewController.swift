@@ -24,7 +24,8 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate , 
         super.viewDidLoad()
         text = textView.text
         //imagePicker.delegate = self
-        
+        Model.instance.modelFirebase.users.removeAll()
+        Model.instance.modelFirebase.posts.removeAll()
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         photo.isUserInteractionEnabled = true
         photo.addGestureRecognizer(tapGestureRecognizer)
@@ -99,5 +100,15 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate , 
         self.photo.image = UIImage(named: "icons8-picture-100")
         self.selectedImage = nil
     }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "commentSegue"
+//        {
+//            let comment_vc = segue.destination as! CommentsViewController
+//            let post_id = sender as! String
+//            comment_vc.post_id = post_id
+//        }
+//
+//    }
 
 }

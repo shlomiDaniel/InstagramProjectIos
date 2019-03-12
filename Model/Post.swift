@@ -50,7 +50,7 @@ extension Post{
         post.uid = dictionary["uid"] as? String
         post.numberOfLikes = dictionary["likeCount"] as? Int
         post.likes = dictionary["likes"] as? Dictionary<String,Any>
-        var uid = Auth.auth().currentUser?.uid
+       // var uid = Auth.auth().currentUser?.uid
         if let currentUserId = Auth.auth().currentUser?.uid{
             if(post.likes != nil){
                 post.isLike = post.likes![currentUserId] != nil

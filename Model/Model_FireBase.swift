@@ -87,6 +87,10 @@ class ModelFireBase{
             print(data)
         })
     }
+//    func getUser()->User{
+//    
+//    return Auth.auth().currentUser
+//    }
     
     
     lazy var storageRef = Storage.storage().reference(forURL: "gs://instagramfirebase-6b380.appspot.com")
@@ -151,7 +155,11 @@ class ModelFireBase{
         let post_ref = ref.child("posts")
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
-        let uid = getUserId()
+        
+            guard let curent_user_id = Auth.auth().currentUser else {
+                return
+            }
+            let uid = curent_user_id.uid
             new_post_ref.setValue(["uid": uid,"photo_url": photo_url,"text_share" : text,"likeCount" : 0]) { (error, ref) in
             if error != nil
             {
@@ -243,34 +251,10 @@ class ModelFireBase{
     
     func loadPost(table_view: UITableView) {
 
-//        Api.feed.observeFeed(withid: Api.User.current_user!.uid) { (post) in
-//                        guard let post_id = post.uid else {
-//                            return
-//                        }
-//            self.fetchUser(uid : post_id, completed :{
-//
-//                            self.posts.append(post)
-//                            table_view.reloadData()
-//                        })
-//
-//            }
-//        Api.feed.observe_feed_removed(withid: Model.instance.modelFirebase.getUserId()) { (post) in
-//
-//
-//           self.posts = self.posts.filter{$0.id != post.id}
-//           self.users = self.users.filter{$0.id != post.uid}
-//
-//            table_view.reloadData()
-//        }
-//        Api.post.observePosts { (post) in
-//            self.fetchUser(uid: post.uid!, completed: {
-//                self.posts.append(post)
-//
-//                table_view.reloadData()
-//
-//            })
         posts.removeAll()
+        table_view.reloadData()
             Api.post.REF_POSTS.observe(.childAdded, with: { (snapshot) in
+                
                 if let dict = snapshot.value as? [String : Any]{
                     let newpost = Post.transformPostPhoto(dictionary: dict, key: snapshot.key)
                     self.fetchUser(uid: newpost.uid!, completed: {
@@ -281,42 +265,23 @@ class ModelFireBase{
 
                 }
             })
-
-       // }
-//        Api.post.observePost(withId: post) { (post) in
-//            <#code#>
+//        Api.post.REF_POSTS.observeSingleEvent(of: .childAdded) { (snapshot) in
+//            if let dict = snapshot.value as? [String : Any]{
+//                let newpost = Post.transformPostPhoto(dictionary: dict, key: snapshot.key)
+//                self.fetchUser(uid: newpost.uid!, completed: {
+//                    self.posts.append(newpost)
+//                    table_view.reloadData()
+//
+//                })
+//
+//            }
+//        }
 
         Model.instance.modelFirebase.posts.removeAll()
         Model.instance.modelFirebase.users.removeAll()
         table_view.reloadData()
-        Api.feed.observeFeed(withid: Api.User.current_user!.uid) { (post) in
-                        guard let post_id = post.uid else {
-                            return
-                        }
-            self.fetchUser(uid : post.uid!, completed :{
-
-                            self.posts.append(post)
-                            table_view.reloadData()
-                        })
-
-            }
-        Api.feed.observe_feed_removed(withid: Api.User.current_user!.uid) { (post) in
 
 
-           self.posts = self.posts.filter{$0.id != post.id}
-           self.users = self.users.filter{$0.id != post.uid}
-
-            table_view.reloadData()
-        }
-//        Api.post.observePost(withId: Api.User.current_user!.uid) { (post) in
-//            self.posts.append(post)
-//            table_view.reloadData()
-//        }
-//        Api.post.observePosts { (post) in
-//            self.posts.append(post)
-//            table_view.reloadData()
-
-//        }
     }
     func fetchUser(uid : String, completed : @escaping()->Void){
         

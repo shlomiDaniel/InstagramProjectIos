@@ -7,8 +7,8 @@
 //
 
 import UIKit
-import Firebase
-import FirebaseAuth
+//import Firebase
+//import FirebaseAuth
 
 class ProfileViewController: UIViewController {
 
@@ -36,7 +36,7 @@ class ProfileViewController: UIViewController {
         
     }
     func feth_my_post(){
-        guard let user  = Auth.auth().currentUser else{
+        guard let user  = Api.User.current_user else{
             return
         }
         Api.my_posts.REF_POSTS.child(user.uid).observe(.childAdded) { (snapshot) in
@@ -78,8 +78,7 @@ extension ProfileViewController : UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         let header_cell = collectionView.dequeueReusableSupplementaryView(ofKind : UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerProfileCollectionReusableView", for: indexPath)
             as! headerProfileCollectionReusableView
-       // header_cell.backgroundColor = UIColor.red
-        //header_cell.update_view()
+       
         if let user = self.user{
             header_cell.user = user
         }

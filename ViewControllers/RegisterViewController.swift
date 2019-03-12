@@ -9,7 +9,6 @@
 import UIKit
 import Firebase
 import SVProgressHUD
-import FirebaseDatabase
 
 class RegisterViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -70,13 +69,7 @@ class RegisterViewController: UIViewController, UIImagePickerControllerDelegate,
                     self.performSegue(withIdentifier: "registerToTabBar", sender: self)
                     SVProgressHUD.show(withStatus: "just a momment")
                 
-                    //var uid = Auth.auth().currentUser?.uid
-                    
-                    //let strorage = Storage.storage().reference(forURL: "gs://instagramfirebase-6b380.appspot.com").child("profile_image").child(uid!)
-                    
-                    
-                    
-                    
+
                     
                     var image_url = self.model.saveImage(image: self.image_selected!, name: "image", child: "profile_image", text: "", callback: { (url) in
                         
