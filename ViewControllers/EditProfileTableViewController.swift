@@ -73,7 +73,8 @@ class EditProfileTableViewController: UITableViewController {
         storage_ref.putData(image_data, metadata: nil, completion: ({ (metadata, error) in
             if error != nil {return}
             
-            let profile_img = storage_ref.downloadURL(completion: { (url, error) in
+
+            var profile_img = storage_ref.downloadURL(completion: { (url, error) in
                 self.set_user_info(profile_imag_url: url!.absoluteString, username: user_name, email: email, uid: uid!, on_success: on_success, on_erroe: on_erroe)
                 self.update_data_base(profile_img : url!.absoluteString,user_name : user_name,email: email,on_success : on_success , on_erroe : on_erroe)
             })

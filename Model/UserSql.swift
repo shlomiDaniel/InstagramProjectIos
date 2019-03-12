@@ -9,6 +9,8 @@
 import Foundation
 
 extension User{
+    
+    /*
     //init ( _id : String , _name : String , _phone : String , _url : String , _userName : String , _password : String){
     static func createTable (database : OpaquePointer?){
         var errorMsg : UnsafeMutablePointer<Int8>? = nil
@@ -18,10 +20,11 @@ extension User{
             print("error creating table");
             return
         }
-            
-        
     }
-
+    */
+    
+    
+    /*
     
     static func getAllUsers(database : OpaquePointer?)->[User]
     {
@@ -45,6 +48,9 @@ extension User{
         
         
     }
+ 
+     */
+
     /*
     static func addNew(database : OpaquePointer? , user : User){
         var sqlite3_stmt : OpaquePointer? = nil
@@ -71,10 +77,12 @@ extension User{
         
     }
  */
+    
+    /*
     static func get(database : OpaquePointer?, byId : String)->User?{
         return nil
     }
-   
+   */
     
     
     
