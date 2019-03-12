@@ -13,5 +13,6 @@ class Api{
     static var Comment = CommentApi()
     static var post_Comments = Post_Comments()
     static var my_posts = UserPostApi()
-   
+    static var internetApi = InternetApi()
+    
 }

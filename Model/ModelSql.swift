@@ -25,14 +25,28 @@ class ModelSql{
             else {
                 print ("SQLITE3: Successfully connected to SQLite database...");
                 print ("SQLITE3: Local Cache Database path: \(path.absoluteString)");
-                }
             }
-    }
+        }
+    } // init
     
     
     func getUserInfo(userId:String, callback:@escaping ([User])->Void){
- 
-    }
+        
+        
+        
+        /*
+         ref.child("users").observe(.value, with:
+         {
+         (snapshot) in
+         var data = [User]()
+         let value = snapshot.value as! [String : Any]
+         for(_ , json) in value {
+         data.append(User(jason: json as! [String : Any]))
+         }
+         callback(data)
+         })
+         */
+    } //getUserInfo
     
     
     
@@ -50,15 +64,17 @@ class ModelSql{
         
         while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW) {
             FB_id = String(cString: sqlite3_column_text(sqlite3_stmt, 0));
-        }
+        } // while
         
         return FB_id;
-    }
-   
+        
+        //return Auth.auth().currentUser!.uid
+    } // getUserID
+    
     
     
     func getUserName()->String?{
-
+        
         var email: String = "";
         let sqlite3_query = "SELECT email FROM users where IsCurrentUser = 1;";
         var sqlite3_stmt : OpaquePointer? = nil
@@ -71,11 +87,13 @@ class ModelSql{
         
         while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW) {
             email = String(cString: sqlite3_column_text(sqlite3_stmt, 0));
-        }
+        } // while
         
-         return email;
-    }
-   
+        return email;
+        //return Auth.auth().currentUser!.uid
+        //return Auth.auth().currentUser?.email
+    } //getUserName()
+    
     
     
     func getUser()->User{
@@ -103,13 +121,20 @@ class ModelSql{
             Password = String(cString: sqlite3_column_text(sqlite3_stmt, 2));
             profile_image_url = String(cString: sqlite3_column_text(sqlite3_stmt, 3));
             userName = String(cString: sqlite3_column_text(sqlite3_stmt, 4));
-        }
+        } // while
         
         user = User(_id: FB_id, _userName: userName, _password: Password, _email: email, profile_image_url: profile_image_url);
         return user;
-    }
+        
+        //FireBase
+        /*
+         getUserInfo(userId: byId, callback: { (data) in
+         print(data)
+         })
+         */
+    } //getUser
     
- 
+    
     func sign_Out() -> Bool {
         
         return true;
@@ -122,13 +147,35 @@ class ModelSql{
     }
     
     func checkIfSignIn() -> Bool {
-       
-        return true;
+        
+        var count: Int = 0;
+        
+        let sqlite3_query = "SELECT COUNT (*) FROM users where IsCurrentUser = 1";
+        var sqlite3_stmt : OpaquePointer? = nil
+        
+        if sqlite3_prepare(sqliteDB, sqlite3_query, -1, &sqlite3_stmt, nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(sqliteDB)!)
+            print("SQLITE3: Error preparing -=SELECT FB_id FROM users where IsCurrentUser = 1=- with error: \(errmsg)");
+            return false;
+        }
+        
+        while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW) {
+            count = Int(sqlite3_column_int(sqlite3_stmt, 0));
+        } // while
+        
+        if count == 1 {
+            return true
+        } else
+        {
+            return false;
+        }
     } //checkIfSignIn
     
-    func signInByEmailAndPass(email: String, pass: String, callback: @escaping (Bool?)->Void) {
     
-        callback (true);
+    
+    func signInByEmailAndPass(email: String, pass: String, callback: @escaping (Bool?)->Void) {
+        
+        callback (false);
         callback (false);
     }
     

@@ -17,55 +17,80 @@ class HomeViewController: UIViewController {
     var data = [User]()
     var selectedId : String?
     
-  
+    
     
     @IBAction func log_out_button_action(_ sender: Any) {
         SVProgressHUD.show(withStatus: "just a moment")
-        if (Model.instance.modelFirebase.sign_Out()){
-            SVProgressHUD.showSuccess(withStatus: "signing out success")
+        if Api.internetApi.IsInternet == true {
+            if (Model.instance.modelFirebase.sign_Out()){
+                SVProgressHUD.showSuccess(withStatus: "signing out success")
+                
+                let story_board = UIStoryboard(name: "Main" , bundle : nil)
+                let sign_in_vc =  story_board.instantiateViewController(withIdentifier: "SignInView")
+                self.present(sign_in_vc, animated: true, completion: nil)
+            }else{
+                print("error signing out the user")
+                SVProgressHUD.showError(withStatus: "error in signing out")
+            }
+        } // if IsInternet
+        else {
+            // sql.signOut - disconnects a user
+            //do the same
             
-            let story_board = UIStoryboard(name: "Main" , bundle : nil)
-            let sign_in_vc =  story_board.instantiateViewController(withIdentifier: "SignInView")
-            self.present(sign_in_vc, animated: true, completion: nil)
-        }else{
-            print("error signing out the user")
-            SVProgressHUD.showError(withStatus: "error in signing out")
-        }
-    }
+        } // else
+        
+    }//log_out_button_action
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.tabBarController?.tabBar.isHidden = false
-      
-         table_view.dataSource = self
+        self.tabBarController?.tabBar.isHidden = false
+        
+        table_view.dataSource = self
         table_view.estimatedRowHeight = 521
         table_view.rowHeight = UITableView.automaticDimension
         
-        let name = Model.instance.modelFirebase.getUserName()
+        
+        var name: String? = "";
+        
+        if Api.internetApi.IsInternet == true {
+            name = Model.instance.modelFirebase.getUserName()
+        } else
+        {
+            //sql.getUserName
+            name = "";
+        }
+        
         if name != nil{
             let alert = UIAlertController(title: "Welcome", message: "Welcome " + name!, preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
             self.present(alert, animated: true, completion: nil)
             
             
-             Model.instance.modelFirebase.users.removeAll()
+            Model.instance.modelFirebase.users.removeAll()
             Model.instance.modelFirebase.posts.removeAll()
-          
-          
-            
         }
-   }
+    }//viewDidLoad
+    
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         Model.instance.modelFirebase.users.removeAll()
         Model.instance.modelFirebase.posts.removeAll()
-        Model.instance.modelFirebase.loadPost(table_view: table_view)
+        
+        if Api.internetApi.IsInternet == true {
+            Model.instance.modelFirebase.loadPost(table_view: table_view)
+        } else
+        {
+            //sql loadPost() with the same table view
+            // after each append of a new pos to posts array execute:
+            //table_view.reloadData()
+        }
         self.tabBarController?.tabBar.isHidden = false
         //Model.instance.modelFirebase.posts.removeAll()
-    }
-   
-   
-   
+    } //viewDidAppear
+    
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "commentSegue"
         {
@@ -81,7 +106,7 @@ class HomeViewController: UIViewController {
             profile_vc.user_id = user_id
         }
     }
-
+    
 }
 
 extension HomeViewController : UITableViewDataSource {
@@ -89,33 +114,33 @@ extension HomeViewController : UITableViewDataSource {
         return Model.instance.modelFirebase.posts.count
     }
     
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-       
-        var cell = table_view.dequeueReusableCell(withIdentifier: "post_cell", for: indexPath) as! HomeTableViewCell
         
-                let post = Model.instance.modelFirebase.posts[indexPath.row]
-                let user = Model.instance.modelFirebase.users[indexPath.row]
-                table_view.rowHeight = 450
-                cell.text_post_label.numberOfLines = 0
-
-                    cell.user = user
-                    cell.post = post
-                    cell.delegate = self
+        let cell = table_view.dequeueReusableCell(withIdentifier: "post_cell", for: indexPath) as! HomeTableViewCell
         
-                return cell
-    }
-
-
+        let post = Model.instance.modelFirebase.posts[indexPath.row]
+        let user = Model.instance.modelFirebase.users[indexPath.row]
+        table_view.rowHeight = 450
+        cell.text_post_label.numberOfLines = 0
+        
+        cell.user = user
+        cell.post = post
+        cell.delegate = self
+        
+        return cell
+    }//tableView
+    
+    
 }
 extension HomeViewController : HomeTableViewCellDelegate{
     func to_profile_user_vc(userid: String) {
-       performSegue(withIdentifier: "home_to_profile_segue", sender: userid)
+        performSegue(withIdentifier: "home_to_profile_segue", sender: userid)
     }
     
     
     func go_to_comment_vc(post_id: String) {
-         performSegue(withIdentifier: "commentSegue", sender: post_id)
+        performSegue(withIdentifier: "commentSegue", sender: post_id)
     }
     
 }

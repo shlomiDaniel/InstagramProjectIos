@@ -11,7 +11,7 @@ import Firebase
 
 class CreateLocalCache{
     
-    public var IsInternet: Bool = true;
+    //public var IsInternet: Bool = true;
     var sqliteDB: OpaquePointer? = nil
     
     init() {
@@ -28,9 +28,9 @@ class CreateLocalCache{
                 print ("SQLITE3: Local Cache Database path: \(path.absoluteString)");
             }
             
-            IsInternet = true;
+            //IsInternet = true;
             
-            if (IsInternet) // Create chcle only if IsUnternet
+            if Api.internetApi.IsInternet == true // Create chcle only if IsUnternet
             {
                 CreateDatabaseStructure();
                 CopyTablesFromFirebaseDBIntoSQLiteDB();

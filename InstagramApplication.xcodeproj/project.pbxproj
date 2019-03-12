@@ -37,6 +37,7 @@
 		8416EFCB221596390057F53D /* Api.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416EFCA221596390057F53D /* Api.swift */; };
 		8416EFCD2215969C0057F53D /* CommentApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416EFCC2215969C0057F53D /* CommentApi.swift */; };
 		8416EFCF22159AA90057F53D /* Post_Comments.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8416EFCE22159AA90057F53D /* Post_Comments.swift */; };
+		841B7C4F2238388F00E9F4D7 /* InternetApi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 841B7C4E2238388F00E9F4D7 /* InternetApi.swift */; };
 		842BAC982237E8BE0021909B /* CreateLocalCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BAC972237E8BE0021909B /* CreateLocalCache.swift */; };
 		849B3AE421CBA14A00E7C94C /* UserTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B3AE321CBA14A00E7C94C /* UserTableViewController.swift */; };
 		849B3AE621CBAB9E00E7C94C /* UserTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 849B3AE521CBAB9E00E7C94C /* UserTableViewCell.swift */; };
@@ -85,6 +86,7 @@
 		8416EFCA221596390057F53D /* Api.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Api.swift; sourceTree = "<group>"; };
 		8416EFCC2215969C0057F53D /* CommentApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentApi.swift; sourceTree = "<group>"; };
 		8416EFCE22159AA90057F53D /* Post_Comments.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post_Comments.swift; sourceTree = "<group>"; };
+		841B7C4E2238388F00E9F4D7 /* InternetApi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InternetApi.swift; sourceTree = "<group>"; };
 		842BAC972237E8BE0021909B /* CreateLocalCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateLocalCache.swift; sourceTree = "<group>"; };
 		849B3AE321CBA14A00E7C94C /* UserTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewController.swift; sourceTree = "<group>"; };
 		849B3AE521CBAB9E00E7C94C /* UserTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserTableViewCell.swift; sourceTree = "<group>"; };
@@ -226,6 +228,7 @@
 				8416EFCC2215969C0057F53D /* CommentApi.swift */,
 				8416EFCE22159AA90057F53D /* Post_Comments.swift */,
 				0958737C221DD7590065C90D /* UserPostApi.swift */,
+				841B7C4E2238388F00E9F4D7 /* InternetApi.swift */,
 			);
 			path = Api;
 			sourceTree = "<group>";
@@ -367,6 +370,7 @@
 				842BAC982237E8BE0021909B /* CreateLocalCache.swift in Sources */,
 				84B82F2321CB057E00712E19 /* Model.swift in Sources */,
 				09058F3A21BF20D3001DE7E6 /* AppDelegate.swift in Sources */,
+				841B7C4F2238388F00E9F4D7 /* InternetApi.swift in Sources */,
 				0958737D221DD7590065C90D /* UserPostApi.swift in Sources */,
 				84B82F2121CAEEE600712E19 /* ModelSql.swift in Sources */,
 				09153D3F21BF36DB00D68B86 /* ActivityViewController.swift in Sources */,
