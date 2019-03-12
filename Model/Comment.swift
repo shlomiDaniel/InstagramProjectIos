@@ -22,8 +22,6 @@ class Comment{
     }
     
 }
-
-
 extension Comment{
     static func transformCommet(dictionary : [String : Any]) -> Comment {
         let comment = Comment()
@@ -32,6 +30,4 @@ extension Comment{
         return comment
         
     }
-   
-    
 }

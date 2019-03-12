@@ -10,7 +10,6 @@ import UIKit
 protocol pepole_TableViewCellDelegate {
     func go_to_profile_user_vc(user_id : String)
     
-    
 }
 class pepole_TableViewCell: UITableViewCell {
 
@@ -19,9 +18,7 @@ class pepole_TableViewCell: UITableViewCell {
            update_view()
         }
     }
-    
-    
-    //var peopleVC : PeopleViewController?
+ 
     var delegate : pepole_TableViewCellDelegate?
     @IBOutlet weak var name_label: UILabel!
     @IBOutlet weak var profile_image: UIImageView!
@@ -31,43 +28,15 @@ class pepole_TableViewCell: UITableViewCell {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.name_Tocuch))
         name_label.isUserInteractionEnabled = true
         name_label.addGestureRecognizer(tapGestureRecognizer)
-        // Initialization code
     }
     
     @objc func name_Tocuch(){
         if let id = user?.id{
-            
             delegate?.go_to_profile_user_vc(user_id : id)
-            //peopleVC?.performSegue(withIdentifier: "ProfileSegue", sender: id)
         }
         
     }
-    func configure_follow_button(){
-       // follow_button.backgroundColor = UIColor.green
-      //  follow_button.layer.borderColor = UIColor.white.cgColor
-       // follow_button.layer.borderWidth = 1.0
-      //  follow_button.layer.cornerRadius = 5.0
-      //  follow_button.tintColor = UIColor.black
-      //   follow_button.addTarget(self, action: #selector(self.follow_presset), for: UIControl.Event.touchUpInside)
-
-     //   self.follow_button.setTitle("Follow", for: UIControl.State.normal)
-
-        
-    }
-    func configure_unfollow_button(){
-      //  follow_button.backgroundColor = UIColor.green
-      //  follow_button.layer.borderColor = UIColor.white.cgColor
-     //   follow_button.layer.borderWidth = 1.0
-      //  follow_button.layer.cornerRadius = 5.0
-     //   follow_button.tintColor = UIColor.black
-    //    follow_button.addTarget(self, action: #selector(self.unfollow_presset), for: UIControl.Event.touchUpInside)
-
-   //     self.follow_button.setTitle("Following", for: UIControl.State.normal)
-
-        
-    }
-    
-    
+  
     func update_view(){
         name_label.text = user?.userName
         if let photo_url_string = user?.profile_image_url
@@ -76,45 +45,11 @@ class pepole_TableViewCell: UITableViewCell {
             
             self.profile_image.sd_setImage(with: photo_url)
         }
-        
-        Api.follow.is_following(user_id: user!.id) { (value) in
-            if (value){
-                self.configure_unfollow_button()
-            }else{
-                self.configure_follow_button()
-            }
-            
-        }
-        
     }
 
- /*
-    @objc func follow_presset(){
-        if user!.is_following == false{
-            Api.follow.follow_action(with_user: user!.id)
-            configure_unfollow_button()
-            user!.is_following = true
-        }
-        //Api.follow.follow_action(with_user: user!.id)
- //user!.is_following = true
-        
-    }
-    @objc func unfollow_presset(){
-        if user!.is_following == true{
-            Api.follow.unfollow_action(with_user: user!.id)
-            configure_follow_button()
-            user!.is_following = false
-
-        }
-      //  user!.is_following == false
-              //     Api.follow.unfollow_action(with_user: user!.id)
-
-    }
-  */
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
     

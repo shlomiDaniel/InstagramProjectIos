@@ -9,8 +9,7 @@
 import UIKit
 
 class headerProfileCollectionReusableView: UICollectionReusableView {
-    
-    
+  
     var user : User?{
         
         didSet{
@@ -18,9 +17,6 @@ class headerProfileCollectionReusableView: UICollectionReusableView {
         }
     }
     
-    
-    @IBOutlet weak var folowing_count_label: UILabel!
-    @IBOutlet weak var followers_count_label: UILabel!
     @IBOutlet weak var my_post_count_label: UIView!
     @IBOutlet weak var name_label: UILabel!
     @IBOutlet weak var profile_image: UIImageView!

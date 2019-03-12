@@ -14,8 +14,6 @@ protocol commentsTableViewCellDelegate {
 
 class commentsTableViewCell: UITableViewCell {
 
-
-    
     var user : User?{
         didSet {
             setUserInfo()
@@ -40,7 +38,6 @@ class commentsTableViewCell: UITableViewCell {
 
         username_label.text = ""
         comment_label.text = ""
-        // Initialization code
 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.profile_user_Touch))
         username_label.isUserInteractionEnabled = true
@@ -65,13 +62,11 @@ class commentsTableViewCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
-        // Configure the view for the selected state
     }
     
     
     func updateView(){
         comment_label.text = comment?.comment_text
-        //username_label.text = comment?.
         
     }
     func setUserInfo(){

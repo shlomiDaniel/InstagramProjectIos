@@ -25,7 +25,6 @@ class Post{
         self.image_url = nil
         self.text_share = nil
         self.numberOfLikes = 0
-        //self.videoUrl = nil
     }
     
     init (_id: String,  _likeCount: Int, _image_url: String, _text_share: String) {
@@ -35,11 +34,7 @@ class Post{
         self.text_share = _text_share;
     }
     
-
-        
-    
 }
-    
 
 extension Post{
     static func transformPostPhoto(dictionary : [String : Any], key : String) -> Post {
@@ -50,21 +45,14 @@ extension Post{
         post.uid = dictionary["uid"] as? String
         post.numberOfLikes = dictionary["likeCount"] as? Int
         post.likes = dictionary["likes"] as? Dictionary<String,Any>
-       // var uid = Auth.auth().currentUser?.uid
         if let currentUserId = Auth.auth().currentUser?.uid{
             if(post.likes != nil){
                 post.isLike = post.likes![currentUserId] != nil
-
-                
             }
         }
        
         return post
         
     }
-     func transformPostVideo(){
-       
-        
-    }
-    
+  
 }

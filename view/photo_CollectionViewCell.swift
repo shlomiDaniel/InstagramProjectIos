@@ -10,9 +10,6 @@ import UIKit
 
 class photo_CollectionViewCell: UICollectionViewCell {
     
-    
-    
-    
     @IBOutlet weak var photo: UIImageView!
     var post : Post?{
     didSet{
@@ -25,9 +22,8 @@ class photo_CollectionViewCell: UICollectionViewCell {
         if let photo_url_string = post?.image_url
         {
             let photo_url = URL(string: photo_url_string)
-            //self.photo_
+            
             self.photo.sd_setImage(with: photo_url, placeholderImage: UIImage())
-           // self.i.sd_setImage(with: photo_url, placeholderImage: UIImage())
         }
     }
 }

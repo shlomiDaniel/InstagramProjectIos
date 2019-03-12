@@ -70,12 +70,10 @@ class Model {
     
     func getAllUsers(callback:@escaping ([User])->Void){
         modelFirebase.getAllUsers(callback: callback);
-        //return Student.getAll(database: modelSql!.database);
     }
     
     func addNewStudent(user : User){
         modelFirebase.addNewUser(user: user)
-        //Student.addNew(database: modelSql!.database, student: student)
     }
        
     

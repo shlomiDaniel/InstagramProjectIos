@@ -20,13 +20,10 @@ class HomeTableViewCell: UITableViewCell {
     @IBOutlet weak var name_label: UILabel!
     @IBOutlet weak var profile_image: UIImageView!
     @IBOutlet weak var post_image: UIImageView!
-    //@IBOutlet weak var profile_image: UIImageView!
-    //@IBOutlet weak var name_label: UILabel!
     @IBOutlet weak var like_image: UIImageView!
     @IBOutlet weak var comment_image: UIImageView!
     @IBOutlet weak var like_button: UIButton!
     @IBOutlet weak var text_post_label: UILabel!
-    //check
     @IBOutlet weak var num_of_likes_label: UILabel!
     var delegate : HomeTableViewCellDelegate?
     var postRef : DatabaseReference!
@@ -67,10 +64,7 @@ class HomeTableViewCell: UITableViewCell {
         print("helloworld")
         if let id = post?.id{
            delegate?.go_to_comment_vc(post_id: id)
-          //]
-            
-            //homeVc?.performSegue(withIdentifier: "commentSegue", sender: id)
-            //performSegue(withIdentifier: "commentSegue", sender: id)
+   
         }
         
     }
@@ -78,7 +72,6 @@ class HomeTableViewCell: UITableViewCell {
     @objc func profile_user_Touch(){
         print("helloworld")
         if let user_id = user?.id{
-        //homeVc?.performSegue(withIdentifier: "home_to_profile_segue", sender: user_id)
             delegate?.to_profile_user_vc(userid: user_id)
         }
         
@@ -97,20 +90,15 @@ class HomeTableViewCell: UITableViewCell {
                 likes = post["likes"] as? [String : Bool] ?? [:]
                 var likeCount = post["likeCount"] as? Int ?? 0
                 if let _ = likes[uid] {
-                    // Unstar the post and remove self from stars
                     likeCount -= 1
                     likes.removeValue(forKey: uid)
                 } else {
-                    // Star the post and add self to stars
                     likeCount += 1
                     likes[uid] = true
                 }
                 post["likeCount"] = likeCount as AnyObject?
                 post["likes"] = likes as AnyObject?
-                
-                // Set value and report transaction success
                 currentData.value = post
-                
                 return TransactionResult.success(withValue: currentData)
             }
             return TransactionResult.success(withValue: currentData)
@@ -129,9 +117,7 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     func updateView(){
-        //Model.instance.modelFirebase.posts.removeAll()
-
-    text_post_label.text = post?.text_share
+     text_post_label.text = post?.text_share
        
         if let photo_url_string = post?.image_url
         {
@@ -146,27 +132,20 @@ class HomeTableViewCell: UITableViewCell {
         }
         self.updateLike(post: post!)
  
-        
     }
     
     func updateLike(post : Post){
-        //post.numberOfLikes = 1
        let image_name = post.likes == nil || !post.isLike! ? "icons8-heart-outline-35" : "icons8-heart-outline-3S5"
-
            like_image.image = UIImage(named: image_name)
         print(post.numberOfLikes)
         if let count  = post.numberOfLikes , count != 0{
             print("like")
             print(count)
             like_button.setTitle("\(count) likes", for: UIControl.State.normal)
-            
         }else if post.numberOfLikes == 0{
             print("not like")
-            
-           // print(count)
             like_button.setTitle("be first to like", for: UIControl.State.normal)
         }
-        
         
     }
     
@@ -178,31 +157,22 @@ class HomeTableViewCell: UITableViewCell {
                 if let dictionary = snapshot.value as? [String : Any]{
                     var user = User.transformUserInfo(dict: dictionary,key: snapshot.key)
                     self.name_label.text = user.userName
-
-                     //print("im here")
                      print(self.name_label.text)
-                   // self.name_label.text = user.userName
                     if let photo_url_string = user.profile_image_url
                     {
                         let photo_url = URL(string: photo_url_string)
-
                         self.profile_image.sd_setImage(with: photo_url)
-                   }
-                  
+                    }
                 }
             })
         }
       
-        
-        
     }
     @IBOutlet weak var share_image: UIImageView!
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-
     }
-    
     override func prepareForReuse() {
         super.prepareForReuse()
         profile_image.image = UIImage(named: "download")

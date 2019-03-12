@@ -65,7 +65,7 @@ class searchViewController: UIViewController {
     
     func is_following(user_id : String,completed : @escaping (Bool)->Void){
         
-        Api.follow.is_following(user_id: user_id, completed: completed)
+       // Api.follow.is_following(user_id: user_id, completed: completed)
     }
 
 

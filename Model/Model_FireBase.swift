@@ -36,7 +36,6 @@ class ModelFireBase{
         }
     }
     
-    
     func getAllUsers(callback:@escaping ([User])->Void){
         ref.child("users").observe(.value, with:
             {
@@ -62,15 +61,13 @@ class ModelFireBase{
                 callback(data)
         })
     }
-    
-    
-    
+   
     func addNewUser(user : User){
         ref.child("users").child(user.id).setValue(user.toJson())
         print("")
     }
     func add_new_user(email : String , pass : String , userName : String , url : String){
-        var id = getUserId()
+        let id = getUserId()
         ref.child("users").child(id).setValue(["email" : email , "pass" : pass , "userName" : userName,"user_name_lower_case" : userName.lowercased() , "url_profile_image" : url])
     }
     
@@ -87,18 +84,12 @@ class ModelFireBase{
             print(data)
         })
     }
-//    func getUser()->User{
-//    
-//    return Auth.auth().currentUser
-//    }
-    
-    
+
     lazy var storageRef = Storage.storage().reference(forURL: "gs://instagramfirebase-6b380.appspot.com")
     
     func saveImage(image : UIImage , name : (String),child : String,text : String,callback : @escaping(String?)->Void)->String{
         let data = image.jpegData(compressionQuality: 0.8)
         let imageRef = storageRef.child(child).child(name)
-        //let image_storage_posts = storageRef.child(child).child(name)
         let metaData = StorageMetadata()
         metaData.contentType = "image/jpeg"
         var the_url = ""
@@ -114,7 +105,6 @@ class ModelFireBase{
                 callback(downloadURL.absoluteString)
                 the_url = downloadURL.absoluteString
                 if child == "profile_image"{
-                   //self.sendDataToDataBase(photo_url: the_url)
                     self.sendImageProfie(photo_url: the_url)
                     return
                 }
@@ -124,12 +114,9 @@ class ModelFireBase{
                     return
                 }
                 
-                
             })
-            
         }
-        
-        
+       
         return the_url
     }
     
@@ -149,9 +136,7 @@ class ModelFireBase{
         
     }
         func sendDataToDataBase_posts_image_and_text(photo_url : String, text : String) {
-        //posts.removeAll()
-             //posts.removeAll()
-            print("1 here")
+
         let post_ref = ref.child("posts")
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
@@ -168,24 +153,17 @@ class ModelFireBase{
             }else{
                 SVProgressHUD.showSuccess(withStatus: "shared succes")
             }
-            //ref.child("feed").child(Api.User.current_user!.uid).child(new_post_id!).setValue(true)
-            //Api.feed.ref_feed.child(Api.User.current_user!.uid).child(new_post_id!).setValue(true)
+
             let my_post_ref = Api.my_posts.REF_POSTS.child(self.getUserId()).child(new_post_id!)
             my_post_ref.setValue(true, withCompletionBlock: { (error, ref) in
                 if error != nil{
                     SVProgressHUD.showError(withStatus: error?.localizedDescription)
                 }
             
-            
         })
       }
-             
-//            users.removeAll()
-//            posts.removeAll()
-            
-        
     }
-    /////
+    
     func updatePhoto_profile(text: String) {
         let user_info = Database.database().reference().child("users").child(Auth.auth().currentUser?.uid ?? "")
         let values = ["url_profile_image": text]
@@ -204,11 +182,8 @@ class ModelFireBase{
         
     }
     
-    
     func sendDataToDataBase(photo_url : String){
-        //check it may casues crasheed!!!!
         posts.removeAll()
-        print("2 here")
         let post_ref = ref.child("posts")
         let new_post_id  = post_ref.childByAutoId().key
         let new_post_ref = post_ref.child(new_post_id!)
@@ -235,8 +210,7 @@ class ModelFireBase{
     }
     
     func checkIfSignIn()->Bool{
-        //print("FB: Check if SignIn...")
-        //print (Auth.auth().currentUser != nil)
+  
         return (Auth.auth().currentUser != nil)
     }
     
@@ -250,7 +224,6 @@ class ModelFireBase{
     }
     
     func loadPost(table_view: UITableView) {
-
         posts.removeAll()
         table_view.reloadData()
             Api.post.REF_POSTS.observe(.childAdded, with: { (snapshot) in
@@ -265,17 +238,6 @@ class ModelFireBase{
 
                 }
             })
-//        Api.post.REF_POSTS.observeSingleEvent(of: .childAdded) { (snapshot) in
-//            if let dict = snapshot.value as? [String : Any]{
-//                let newpost = Post.transformPostPhoto(dictionary: dict, key: snapshot.key)
-//                self.fetchUser(uid: newpost.uid!, completed: {
-//                    self.posts.append(newpost)
-//                    table_view.reloadData()
-//
-//                })
-//
-//            }
-//        }
 
         Model.instance.modelFirebase.posts.removeAll()
         Model.instance.modelFirebase.users.removeAll()
@@ -283,6 +245,7 @@ class ModelFireBase{
 
 
     }
+    
     func fetchUser(uid : String, completed : @escaping()->Void){
         
         UserApi().observeUser(withId: uid, complition: {
@@ -290,15 +253,6 @@ class ModelFireBase{
             self.users.append(user)
             completed()
         })
-        
-
-        
-        
-    }
-    
-    func fetchUser(uid : String){
-     
-        
         
     }
 }

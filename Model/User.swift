@@ -54,33 +54,19 @@ class User{
     
     init(){
         self.id = ""
-        //self.name = ""
-        //self.phone = ""
-        //self.url = ""
+     
         self.userName = ""
         self.Password = ""
         self.email = ""
-        //self.profile_image_url = ""
     }
-    //from jason
     init ( jason : [String : Any]){
         self.id = jason["id"] as! String
-        //self.id = jason["snapshot.key"] as! String
         self.email = jason["email"] as! String
         self.Password = jason["pass"] as! String
         self.profile_image_url = jason["url_profile_image"] as! String
         self.userName =  jason["userName"] as! String
-        
-        //self.name = jason["userName"] as! String
-        //self.phone = "1234567"
-        //self.url = jason["url"] as! String
-        
- 
-        
-        
-    }
-    //to jason
     
+    }
     func toJson() -> [String : Any]{
         var jason = [String : Any]()
          jason["id"] = self.id
