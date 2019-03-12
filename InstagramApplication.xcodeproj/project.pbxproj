@@ -125,7 +125,6 @@
 				8416EFC9221593440057F53D /* Api */,
 				09631DAA21D19C07008DA929 /* view */,
 				09153D4721BF531900D68B86 /* Model */,
-				09153D4521BF51AB00D68B86 /* ViewControllers */,
 				09058F3821BF20D3001DE7E6 /* InstagramApplication */,
 				09058F3721BF20D3001DE7E6 /* Products */,
 				52D303A014DDB341DB37068F /* Pods */,
@@ -190,6 +189,7 @@
 				84B82F2221CB057E00712E19 /* Model.swift */,
 				849B3AE521CBAB9E00E7C94C /* UserTableViewCell.swift */,
 				842BAC972237E8BE0021909B /* CreateLocalCache.swift */,
+				09153D4521BF51AB00D68B86 /* ViewControllers */,
 			);
 			path = Model;
 			sourceTree = "<group>";

@@ -12,6 +12,7 @@ import SVProgressHUD
 class SignInViewController: UIViewController {
 
     var isLogin : Bool = false
+    var cache = CreateLocalCache();
     
     @IBOutlet weak var emailtxt: UITextField!
    
@@ -23,15 +24,19 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        CreateLocalCache.init();
 
         // Do any additional setup after loading the view.
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        if Model.instance.modelFirebase.checkIfSignIn() == true{
-            self.performSegue(withIdentifier: "signInToTabBar", sender: self);
+        
+        if cache.IsInternet {
+            if Model.instance.modelFirebase.checkIfSignIn() == true{
+                self.performSegue(withIdentifier: "signInToTabBar", sender: self);
+            }
+        }
+        else {
+            // sql.checkIfSignIn();
         }
         
 
@@ -51,19 +56,25 @@ class SignInViewController: UIViewController {
             
             // Async operation
              SVProgressHUD.show(withStatus: "waiting..")
-            Model.instance.modelFirebase.signInByEmailAndPass(email: emailtxt.text!, pass: password_txt.text!) { (success) in
-                if(success!){
-                   SVProgressHUD.showSuccess(withStatus: "success")
-                    self.performSegue(withIdentifier: "signInToTabBar", sender: self)
-                }else{
-                    let alert = UIAlertController(title: "Error Login", message: "User email or password are incorrect", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
-                    self.present(alert, animated: true, completion: nil)
-                }
-            }
+            if cache.IsInternet {
+                Model.instance.modelFirebase.signInByEmailAndPass(email: emailtxt.text!, pass: password_txt.text!) { (success) in
+                    if(success!){
+                        SVProgressHUD.showSuccess(withStatus: "success")
+                        self.performSegue(withIdentifier: "signInToTabBar", sender: self)
+                    }else{
+                        let alert = UIAlertController(title: "Error Login", message: "User email or password are incorrect", preferredStyle: .alert)
+                        alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }//(success)
+            } //IsInternet
+            else {
+                //SQL: signInByEmaiLAndPass ()
+            } // else
+            
         }
         
-        return false
+        return false //identifier == "signInToTabBar"
     }
 }
 

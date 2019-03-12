@@ -11,7 +11,9 @@ import Firebase
 
 class CreateLocalCache{
     
+    public var IsInternet: Bool = true;
     var sqliteDB: OpaquePointer? = nil
+    
     init() {
         let dbFileName = "database2.db"
         if let dir = FileManager.default.urls(for: .documentDirectory, in:
@@ -26,10 +28,15 @@ class CreateLocalCache{
                 print ("SQLITE3: Local Cache Database path: \(path.absoluteString)");
             }
             
-            CreateDatabaseStructure();
-            CopyTablesFromFirebaseDBIntoSQLiteDB();
-            DownLoadUsersFBStorageFiles();
-            DownLoadPostsFBStorageFiles();
+            IsInternet = true;
+            
+            if (IsInternet) // Create chcle only if IsUnternet
+            {
+                CreateDatabaseStructure();
+                CopyTablesFromFirebaseDBIntoSQLiteDB();
+                DownLoadUsersFBStorageFiles();
+                DownLoadPostsFBStorageFiles();
+            }
             
         }
     } //init
