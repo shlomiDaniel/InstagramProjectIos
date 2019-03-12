@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 //import Firebase
 //import FirebaseAuth
 
@@ -30,7 +31,16 @@ class ProfileViewController: UIViewController {
     
     
     @IBAction func edit_profile(_ sender: Any) {
-        performSegue(withIdentifier: "profile_setting_segue", sender: nil)
+        //Api.internetApi.IsInternet = false
+        if Api.internetApi.IsInternet == true{
+              performSegue(withIdentifier: "profile_setting_segue", sender: nil)
+        }else{
+            let alert = UIAlertController(title: "Error Registering", message: "No internet,please connect to the internet to edit profie", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: NSLocalizedString("OK", comment: "Default action"), style: .default))
+            SVProgressHUD.showError(withStatus: "Error Registering")
+            self.present(alert, animated: true, completion: nil)
+        }
+      
     }
     
     @IBAction func discover(_ sender: Any) {

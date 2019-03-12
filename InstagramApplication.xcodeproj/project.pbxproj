@@ -16,7 +16,6 @@
 		090F3A9521C85AA200CD4D2C /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 090F3A9421C85AA200CD4D2C /* Post.swift */; };
 		09153D3D21BF36DB00D68B86 /* DiscoverViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09153D3821BF36DB00D68B86 /* DiscoverViewController.swift */; };
 		09153D3E21BF36DB00D68B86 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09153D3921BF36DB00D68B86 /* CameraViewController.swift */; };
-		09153D3F21BF36DB00D68B86 /* ActivityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09153D3A21BF36DB00D68B86 /* ActivityViewController.swift */; };
 		09153D4021BF36DB00D68B86 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09153D3B21BF36DB00D68B86 /* HomeViewController.swift */; };
 		09153D4121BF36DB00D68B86 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09153D3C21BF36DB00D68B86 /* ProfileViewController.swift */; };
 		09153D4321BF450E00D68B86 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09153D4221BF450E00D68B86 /* GoogleService-Info.plist */; };
@@ -64,7 +63,6 @@
 		090F3A9421C85AA200CD4D2C /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		09153D3821BF36DB00D68B86 /* DiscoverViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoverViewController.swift; sourceTree = "<group>"; };
 		09153D3921BF36DB00D68B86 /* CameraViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
-		09153D3A21BF36DB00D68B86 /* ActivityViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityViewController.swift; sourceTree = "<group>"; };
 		09153D3B21BF36DB00D68B86 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		09153D3C21BF36DB00D68B86 /* ProfileViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		09153D4221BF450E00D68B86 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -155,7 +153,6 @@
 				09153D3C21BF36DB00D68B86 /* ProfileViewController.swift */,
 				09058F4B21BF240E001DE7E6 /* SignInViewController.swift */,
 				09058F4D21BF2421001DE7E6 /* RegisterViewController.swift */,
-				09153D3A21BF36DB00D68B86 /* ActivityViewController.swift */,
 				09153D3921BF36DB00D68B86 /* CameraViewController.swift */,
 				09FC0869221112430064AA80 /* CommentsViewController.swift */,
 				849B3AE721CBC64900E7C94C /* UserDetailsViewController.swift */,
@@ -373,7 +370,6 @@
 				841B7C4F2238388F00E9F4D7 /* InternetApi.swift in Sources */,
 				0958737D221DD7590065C90D /* UserPostApi.swift in Sources */,
 				84B82F2121CAEEE600712E19 /* ModelSql.swift in Sources */,
-				09153D3F21BF36DB00D68B86 /* ActivityViewController.swift in Sources */,
 				097875642218D88400CBE43B /* headerProfileCollectionReusableView.swift in Sources */,
 				09FC086C221112810064AA80 /* commentsTableViewCell.swift in Sources */,
 				0958737F221DE2BB0065C90D /* photo_CollectionViewCell.swift in Sources */,
