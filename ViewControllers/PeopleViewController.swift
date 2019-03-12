@@ -34,7 +34,7 @@ class PeopleViewController: UIViewController {
         Api.User.observeUser_with_child_added_event { (user) in
             self.is_following(user_id : user.id, completed: {
                 (value) in
-                user.is_following = value
+                //user.is_following = value
                 Model.instance.modelFirebase.users.append(user)
                 self.table_view.reloadData()
             })

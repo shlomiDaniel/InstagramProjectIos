@@ -469,7 +469,7 @@ class CreateLocalCache{
                     }
                 } // if
                 else {
-                    print ("DEBUG: FILEL PATH NOT AVAILABLE OF FILE: \(localFileName)");
+                    print ("DEBUG: FILE PATH NOT AVAILABLE of file: \(localFileName)");
                 }
             } else {
                 // There is no localFileName path in the local DB
@@ -533,9 +533,9 @@ class CreateLocalCache{
                 //var localFileName1 = _url;
                 //var localFileName = localFileName1.dropFirst(111);
                 let localFileName = _url.dropFirst(120);
-                print ("DEUG: localFileName = \(localFileName)");
+                //print ("DEBUG: localFileName = \(localFileName)");
                 let localFullFileName = self.saveUsersImageToDocumentDirectory(image!, localFileName: String(localFileName));
-                print ("DEBUG: image saved locally as: \(localFullFileName)");
+                //print ("DEBUG: image saved locally as: \(localFullFileName)");
                 self.updateUsersTableWithLocalFileName(_url: _url, localFileName: String(localFullFileName));
                 //self.updatePostsTableWithLocalFileName(_url: _url, localFileName: String(localFullFileName));
             }
@@ -555,9 +555,9 @@ class CreateLocalCache{
                 //var localFileName1 = _url;
                 //var localFileName = localFileName1.dropFirst(111);
                 let localFileName = _url.dropFirst(111);
-                print ("DEUG: localFileName = \(localFileName)");
+                //print ("DEUG: localFileName = \(localFileName)");
                 let localFullFileName = self.savePostsImageToDocumentDirectory(image!, localFileName: String(localFileName));
-                print ("DEBUG: image saved locally as: \(localFullFileName)");
+                //print ("DEBUG: image saved locally as: \(localFullFileName)");
                 self.updatePostsTableWithLocalFileName(_url: _url, localFileName: String(localFullFileName));
                 //self.updatePostsTableWithLocalFileName(_url: _url, localFileName: String(localFullFileName));
             }
@@ -622,11 +622,11 @@ class CreateLocalCache{
     func updateUsersTableWithLocalFileName(_url: String, localFileName: String) {
         let updateStatementString = "UPDATE users set localImageFile = '" + localFileName + "' WHERE url_profile_image = '" + _url + "';";
         var updateStatement: OpaquePointer? = nil;
-        print ("DEBUG: UPDATE statement: \(updateStatementString)");
+        //print ("DEBUG: UPDATE statement: \(updateStatementString)");
         
         if sqlite3_prepare(sqliteDB, updateStatementString, -1, &updateStatement, nil) == SQLITE_OK {
             if sqlite3_step(updateStatement) == SQLITE_DONE {
-                print ("DEBUG: SQLITE3: Successfully update row in USERS with  \(localFileName)");
+                //print ("DEBUG: SQLITE3: Successfully update row in USERS with  \(localFileName)");
             }  else {
                 print ("DEBUG: SQLITE3: could not update row \(localFileName)")
             }
@@ -639,11 +639,11 @@ class CreateLocalCache{
     func updatePostsTableWithLocalFileName(_url: String, localFileName: String) {
         let updateStatementString = "UPDATE posts set localImageFile = '" + localFileName + "' WHERE photo_url = '" + _url + "';";
         var updateStatement: OpaquePointer? = nil;
-        print ("DEBUG: UPDATE statement: \(updateStatementString)");
+        //print ("DEBUG: UPDATE statement: \(updateStatementString)");
         
         if sqlite3_prepare(sqliteDB, updateStatementString, -1, &updateStatement, nil) == SQLITE_OK {
             if sqlite3_step(updateStatement) == SQLITE_DONE {
-                print ("DEBUG: SQLITE3: Successfully update row \(localFileName)");
+                //print ("DEBUG: SQLITE3: Successfully update row \(localFileName)");
             }  else {
                 print ("DEBUG: SQLITE3: could not update row in POSTS with \(localFileName)")
             }

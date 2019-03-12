@@ -17,7 +17,7 @@ class User{
     let Password : String
     var profile_image_url : String?
     var email : String?
-    var is_following : Bool? 
+    //var is_following : Bool?
     // userName : String?
     
     init ( _id : String , _userName : String, _password : String,_email : String ,profile_image_url : String){

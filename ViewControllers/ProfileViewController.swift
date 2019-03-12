@@ -19,8 +19,11 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         collection_view.dataSource = self
         collection_view.delegate = self
-        fetch_user()
-        feth_my_post()
+        
+            fetch_user()
+            feth_my_post()
+ 
+        
         //self.title = ""
     }
     

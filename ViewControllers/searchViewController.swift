@@ -37,7 +37,7 @@ class searchViewController: UIViewController {
             Api.User.query_users(withtext: search_text) { (user) in
                 self.is_following(user_id : user.id, completed: {
                     (value) in
-                    user.is_following = value
+                    //user.is_following = value
                     Model.instance.modelFirebase.users.append(user)
                     self.table_view.reloadData()
                     

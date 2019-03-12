@@ -88,7 +88,7 @@ class pepole_TableViewCell: UITableViewCell {
         
     }
 
-    
+ /*
     @objc func follow_presset(){
         if user!.is_following == false{
             Api.follow.follow_action(with_user: user!.id)
@@ -110,7 +110,7 @@ class pepole_TableViewCell: UITableViewCell {
               //     Api.follow.unfollow_action(with_user: user!.id)
 
     }
-    
+  */
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
 
