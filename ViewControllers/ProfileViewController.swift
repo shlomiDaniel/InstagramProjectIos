@@ -24,6 +24,12 @@ class ProfileViewController: UIViewController {
         //self.title = ""
     }
     
+    
+    
+    @IBAction func edit_profile(_ sender: Any) {
+        performSegue(withIdentifier: "profile_setting_segue", sender: nil)
+    }
+    
     @IBAction func discover(_ sender: Any) {
         
         performSegue(withIdentifier: "to_discover", sender: nil)

@@ -35,6 +35,7 @@ class HomeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         self.tabBarController?.tabBar.isHidden = false
         //   Model.instance.modelFirebase.users.removeAll()
         //check it may cases crashed ///////////////////
         Model.instance.modelFirebase.posts.removeAll()
@@ -50,15 +51,17 @@ class HomeViewController: UIViewController {
             
             
             
-            Model.instance.modelFirebase.loadPost(table_view: table_view)
+          //  Model.instance.modelFirebase.loadPost(table_view: table_view)
           
             
         }
    }
     override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
         Model.instance.modelFirebase.users.removeAll()
-         Model.instance.modelFirebase.posts.removeAll()
+        Model.instance.modelFirebase.posts.removeAll()
         Model.instance.modelFirebase.loadPost(table_view: table_view)
+        self.tabBarController?.tabBar.isHidden = false
         //Model.instance.modelFirebase.posts.removeAll()
     }
     
@@ -76,7 +79,7 @@ class HomeViewController: UIViewController {
         {
             let profile_vc = segue.destination as! ProfileUserViewController
             let user_id = sender as! String
-            
+            print("333333")
             profile_vc.user_id = user_id
         }
     }

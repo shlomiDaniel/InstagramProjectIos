@@ -25,6 +25,7 @@ class CommentsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+         self.tabBarController?.tabBar.isHidden = true
         title = "Comments"
         table_view.dataSource = self
         table_view.estimatedRowHeight = 80

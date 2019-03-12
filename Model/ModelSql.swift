@@ -164,17 +164,17 @@ class ModelSql{
         Model.instance.modelFirebase.ref.child("users").observe(.childAdded, with: {(snapshot) in
             
             //print ("DEBUG: snapshot: \(snapshot)");
-            let id = snapshot.key;
-            let proObject = snapshot.value as! NSDictionary;
-            let email = proObject["email"] as! String;
-            let pass = proObject["pass"] as! String;
-            let url = proObject["url_profile_image"] as! String;
-            let userName = proObject["userName"] as! String;
-            
-            //print ("DEBUG: id = \(id), email = \(email), pass = \(pass), url = \(url), userName = \(userName)");
-            
-            let user = User(_id: id, _userName: userName, _password: pass, _email: email, profile_image_url: url);
-            self.AddUserToSQLiteDB(user: user);
+//            let id = snapshot.key;
+//            let proObject = snapshot.value as! NSDictionary;
+//            let email = proObject["email"] as! String;
+//            //let pass = proObject["pass"] as! String;
+//            let url = proObject["url_profile_image"] as! String;
+//            let userName = proObject["userName"] as! String;
+//            
+//            //print ("DEBUG: id = \(id), email = \(email), pass = \(pass), url = \(url), userName = \(userName)");
+//            
+//            let user = User(_id: id, _userName: userName, _password: pass, _email: email, profile_image_url: url);
+//            self.AddUserToSQLiteDB(user: user);
         })
      
     } //CopyUsersTable

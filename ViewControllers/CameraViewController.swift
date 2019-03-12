@@ -71,16 +71,21 @@ class CameraViewController: UIViewController, UIImagePickerControllerDelegate , 
     }
 //////////////////////////////////////
     @IBAction func shareButtonClick(_ sender: Any) {
-         SVProgressHUD.show(withStatus: "waiting..")
+        
+       
         
        
         let photo_id_string = NSUUID().uuidString
         Model.instance.saveImage(image: selectedImage!, name: "post", child: "posts", text: textView.text!) { (url) in
             
         }
-        SVProgressHUD.showSuccess(withStatus: "upload success")
+         SVProgressHUD.show(withStatus: "waiting..")
+        //SVProgressHUD.showSuccess(withStatus: "upload success")
         cleanScrean()
         self.tabBarController?.selectedIndex = 0
+        
+//        Model.instance.modelFirebase.users.removeAll()
+//        Model.instance.modelFirebase.posts.removeAll()
         
         
     }
