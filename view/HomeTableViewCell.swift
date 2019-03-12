@@ -129,7 +129,8 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     func updateView(){
-       
+        //Model.instance.modelFirebase.posts.removeAll()
+
     text_post_label.text = post?.text_share
        
         if let photo_url_string = post?.image_url

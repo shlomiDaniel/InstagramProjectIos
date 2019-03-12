@@ -16,6 +16,8 @@ class DiscoverViewController: UIViewController {
         super.viewDidLoad()
        collection_view.dataSource = self
         collection_view.delegate = self
+        
+        self.posts.removeAll()
         // Do any additional setup after loading the view.
     }
     func load_top_posts(){
@@ -28,18 +30,13 @@ class DiscoverViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        self.posts.removeAll()
+        
+
         load_top_posts()
 
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+ 
 
 }
 

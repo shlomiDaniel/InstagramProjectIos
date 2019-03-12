@@ -22,10 +22,8 @@ class UserApi{
         REF_USER.child(uid).observeSingleEvent(of: .value) { (snapshot) in
             if let dict = snapshot.value as? [String : Any]{
                 let user = User.transformUserInfo(dict: dict,key : snapshot.key)
-//                if user.id != Api.User.current_user!.uid{
-//                    complition(user)
-//
-//                }
+
+
                 complition(user)
             }
         }

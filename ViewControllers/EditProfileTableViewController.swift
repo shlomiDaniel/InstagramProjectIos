@@ -5,7 +5,7 @@
 //  Created by SHLOMI on 3 Adar II 5779.
 //  Copyright © 5779 SHLOMI. All rights reserved.
 //
-import FirebaseAuth
+
 
 import UIKit
 import SVProgressHUD
@@ -19,11 +19,7 @@ class EditProfileTableViewController: UITableViewController {
         super.viewDidLoad()
        navigationItem.title = "Edit Profile"
         fetch_user()
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+       
     }
     @IBAction func change_profile_image_button(_ sender: Any) {
         
@@ -55,15 +51,15 @@ class EditProfileTableViewController: UITableViewController {
     func update_user(user_name : String , email : String , image_data : Data,
                      on_success : @escaping() -> Void,on_erroe : @escaping(_ error_messesge : String?)->Void){
         
-        let currentUser = Auth.auth().currentUser
+       // let currentUser = Auth.auth().currentUser
         
-        currentUser?.updateEmail(to: self.email.text!) { error in
+        Api.User.current_user?.updateEmail(to: self.email.text!) { error in
             if let error = error {
                 print(error)
             } else {
                 print("CHANGED")
-                let uid = Auth.auth().currentUser!.uid
-                let thisUserRef = Model.instance.modelFirebase.ref.child("users").child(uid)
+                let uid = Api.User.current_user?.uid
+                let thisUserRef = Model.instance.modelFirebase.ref.child("users").child(uid!)
                 let thisUserEmailRef = thisUserRef.child("email")
                 thisUserEmailRef.setValue(self.email.text!)
             }

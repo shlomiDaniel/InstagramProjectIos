@@ -7,9 +7,7 @@
 //
 
 import UIKit
-import Firebase
 import SVProgressHUD
-import FirebaseAuth
 
 class CommentsViewController: UIViewController {
 
@@ -107,7 +105,7 @@ class CommentsViewController: UIViewController {
         let comment_ref = Api.Comment.REF_COMMENT
         let new_commet_id  = comment_ref.childByAutoId().key
         let new_comment_ref = comment_ref.child(new_commet_id!)
-        var uid  = Auth.auth().currentUser?.uid
+        var uid  = Model.instance.modelFirebase.getUserId()
         
         new_comment_ref.setValue(["uid" : uid,"comment_text" : comment_text.text! ]) { (error, ref) in
             if error != nil
