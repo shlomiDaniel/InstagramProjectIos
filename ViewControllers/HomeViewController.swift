@@ -17,6 +17,8 @@ class HomeViewController: UIViewController {
     var data = [User]()
     var selectedId : String?
     
+    var sql = ModelSql();
+    
     
     
     @IBAction func log_out_button_action(_ sender: Any) {
@@ -34,12 +36,23 @@ class HomeViewController: UIViewController {
             }
         } // if IsInternet
         else {
-            // sql.signOut - disconnects a user
-            //do the same
-            
-        } // else
+                if sql.sign_Out() == true
+                {
+                    SVProgressHUD.showSuccess(withStatus: "signing out success")
+                
+                    let story_board = UIStoryboard(name: "Main" , bundle : nil)
+                    let sign_in_vc =  story_board.instantiateViewController(withIdentifier: "SignInView")
+                    self.present(sign_in_vc, animated: true, completion: nil)
+                }
+                else
+                {
+                    print("error signing out the user")
+                    SVProgressHUD.showError(withStatus: "error in signing out")
+                }
+            } // else
         
     }//log_out_button_action
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,8 +69,7 @@ class HomeViewController: UIViewController {
             name = Model.instance.modelFirebase.getUserName()
         } else
         {
-            //sql.getUserName
-            name = "";
+            name = sql.getUserName();
         }
         
         if name != nil{
@@ -81,9 +93,8 @@ class HomeViewController: UIViewController {
             Model.instance.modelFirebase.loadPost(table_view: table_view)
         } else
         {
-            //sql loadPost() with the same table view
-            // after each append of a new pos to posts array execute:
-            //table_view.reloadData()
+            sql.loadUser();
+            sql.loadPost(table_view: table_view);
         }
         self.tabBarController?.tabBar.isHidden = false
         //Model.instance.modelFirebase.posts.removeAll()

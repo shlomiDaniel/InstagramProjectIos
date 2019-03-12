@@ -126,26 +126,31 @@ class ModelSql{
         user = User(_id: FB_id, _userName: userName, _password: Password, _email: email, profile_image_url: profile_image_url);
         return user;
         
-        //FireBase
-        /*
-         getUserInfo(userId: byId, callback: { (data) in
-         print(data)
-         })
-         */
     } //getUser
     
     
     func sign_Out() -> Bool {
+       //update IsCurrentUser = 0 return true else return false
         
-        return true;
+        let updateStatementString = "UPDATE users set isCurrentUser = 0 WHERE isCurrentUser = 1;";
+        var updateStatement: OpaquePointer? = nil;
+        //print ("DEBUG: UPDATE statement: \(updateStatementString)");
+        
+        if sqlite3_prepare(sqliteDB, updateStatementString, -1, &updateStatement, nil) == SQLITE_OK {
+            if sqlite3_step(updateStatement) == SQLITE_DONE {
+                //print ("DEBUG: SQLITE3: Successfully update row in USERS with  \(localFileName)");
+                return(true);
+            }  else {
+                print ("DEBUG: SQLITE3: could not update row -= UPDATE users set isCurrentUser = 0 WHERE isCurrentUser = 1; =-")
+                return false;
+            }
+        }   else {
+            print ("DEBUG: SQLITE3: UPDATE Statement could not be prepared");
+            return false;
+        }
     } //sign_Out
     
-    
-    //Model Firebase has 2 arrays: Users and Posts
-    func loadPost () {
-        
-    }
-    
+
     func checkIfSignIn() -> Bool {
         
         var count: Int = 0;
@@ -175,12 +180,114 @@ class ModelSql{
     
     func signInByEmailAndPass(email: String, pass: String, callback: @escaping (Bool?)->Void) {
         
-        callback (false);
-        callback (false);
-    }
+        // check user and password
+        //if correct, update this user as signed\
+        //callback true or false
+
+        let sqlite3_query = "SELECT pass FROM users where email = '" + email + "'";
+        var sqlite3_stmt : OpaquePointer? = nil
+        
+        if sqlite3_prepare(sqliteDB, sqlite3_query, -1, &sqlite3_stmt, nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(sqliteDB)!)
+            print("SQLITE3: Error preparing -=SELECT FB_id FROM users where IsCurrentUser = 1=- with error: \(errmsg)");
+            callback(false);
+        }
+        
+        while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW) {
+            let DBPassword = String(cString: sqlite3_column_text(sqlite3_stmt, 0));
+            if ((DBPassword.elementsEqual(pass)) == true)
+            {
+                let updateStatementString = "UPDATE users set isCurrentUser = 1 WHERE email = '" + email + "';";
+                print ("Debug: \(updateStatementString)");
+                var updateStatement: OpaquePointer? = nil;
+                //print ("DEBUG: UPDATE statement: \(updateStatementString)");
+                
+                if sqlite3_prepare(sqliteDB, updateStatementString, -1, &updateStatement, nil) == SQLITE_OK {
+                    if sqlite3_step(updateStatement) == SQLITE_DONE {
+                        //print ("DEBUG: SQLITE3: Successfully update row in USERS with  \(localFileName)");
+                        callback(true);
+                    }  else {
+                        print ("DEBUG: SQLITE3: could not update row \(email)")
+                        callback(false);
+                    }
+                }   else {
+                    print ("DEBUG: SQLITE3: UPDATE Statement could not be prepared");
+                    callback(false);
+                }
+            }
+            else
+            {
+                callback(false)
+            }
+        } // while
+    }//signInByEmailAndPass
     
     
     
+    func loadPost(table_view: UITableView) {
+        
+        Model.instance.modelFirebase.posts.removeAll();
+        
+        var id: String = "";
+        var likeCount: Int = 0;
+        var image_url: String = "";
+        var text_share: String = "";
+        
+        let sqlite3_query = "SELECT FB_id, likeCount, localImageFile, text_share FROM posts";
+        print ("DEBUG: POSTS: \(sqlite3_query)");
+        var sqlite3_stmt : OpaquePointer? = nil
+        
+        if sqlite3_prepare(sqliteDB, sqlite3_query, -1, &sqlite3_stmt, nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(sqliteDB)!)
+            print("SQLITE3: Error preparing -=SELECT FB_id, likeCount, localImageFile, text_share FROM posts=- with error: \(errmsg)");
+            //return false;
+        }
+        
+        while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW) {
+            id = String(cString: sqlite3_column_text(sqlite3_stmt, 0));
+            likeCount = Int(sqlite3_column_int(sqlite3_stmt, 1));
+            image_url = String(cString: sqlite3_column_text(sqlite3_stmt, 2));
+            text_share = String(cString: sqlite3_column_text(sqlite3_stmt, 3));
+            let post = Post(_id: id, _likeCount: likeCount, _image_url: image_url, _text_share: text_share);
+            Model.instance.modelFirebase.posts.append(post);
+        } // while
+        table_view.reloadData();
+
+    }//loadPost
+    
+    
+    func loadUser() {
+        
+        Model.instance.modelFirebase.users.removeAll();
+        
+        var id: String = "";
+        var email: String = "";
+        var pass: String = "";
+        var url_profile_image: String = "";
+        var userName: String = "";
+        
+        let sqlite3_query = "SELECT FB_id, email, pass, localImageFile, userName  FROM users";
+        print ("DEBUG: POSTS: \(sqlite3_query)");
+        var sqlite3_stmt : OpaquePointer? = nil
+        
+        if sqlite3_prepare(sqliteDB, sqlite3_query, -1, &sqlite3_stmt, nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(sqliteDB)!)
+            print("SQLITE3: Error preparing -=SELECT FB_id, email, pass, localImageFile, userName  FROM users=- with error: \(errmsg)");
+            //return false;
+        }
+        
+        while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW) {
+            id = String(cString: sqlite3_column_text(sqlite3_stmt, 0));
+            email = String(cString: sqlite3_column_text(sqlite3_stmt, 1));
+            pass = String(cString: sqlite3_column_text(sqlite3_stmt, 2));
+            url_profile_image = String(cString: sqlite3_column_text(sqlite3_stmt, 3));
+            userName = String(cString: sqlite3_column_text(sqlite3_stmt, 4));
+            
+            let user = User(_id: id, _userName: userName, _password: pass, _email: email, profile_image_url: url_profile_image);
+            Model.instance.modelFirebase.users.append(user);
+        } // while
+        
+    }//loadUser
     
     
 } //class

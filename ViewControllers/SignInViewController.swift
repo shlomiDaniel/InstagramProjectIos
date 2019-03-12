@@ -12,7 +12,7 @@ import SVProgressHUD
 class SignInViewController: UIViewController {
     
     var isLogin : Bool = false
-    var cache = CreateLocalCache();
+    //var cache = CreateLocalCache();
     var sql = ModelSql();
     
     @IBOutlet weak var emailtxt: UITextField!
@@ -25,6 +25,7 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        CreateLocalCache.init();
         
         // Do any additional setup after loading the view.
     }
