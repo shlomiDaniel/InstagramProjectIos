@@ -24,7 +24,7 @@ class CreateLocalCache{
                 return
             }
             else {
-                print ("SQLITE3: Successfully connected to SQLite database...");
+                //print ("SQLITE3: Successfully connected to SQLite database...");
                 print ("SQLITE3: Local Cache Database path: \(path.absoluteString)");
             }
             
@@ -98,6 +98,7 @@ class CreateLocalCache{
         CREATE TABLE IF NOT EXISTS comments(
         FB_id CHAR(255),
         comment_text CHAR(255),
+        uid CHAR (255),
         UNIQUE(FB_id)
         );
         """;
@@ -213,10 +214,12 @@ class CreateLocalCache{
             let id = snapshot.key;
             let proObject = snapshot.value as! NSDictionary;
             let comment_text = proObject["comment_text"] as! String;
+            let uid = proObject["uid"] as! String;
             
             //print ("DEBUG: id = \(id), comment_text = \(comment_text)");
             
-            let comment = Comment(_uid: id, _comment_text: comment_text);
+            let comment = Comment(_FB_id: id, _comment_text: comment_text, _uid: uid);
+            //print ("DEBUG: Comment: \(id), \(comment_text), \(uid)");
             self.AddCommentToSQLiteDB(comment: comment);
         })
     } //CopyCommentsTable
@@ -354,14 +357,16 @@ class CreateLocalCache{
         
         //print("DEBUG: post for adding: FB_id = \(String(describing: post.id)), likeCount = \(String(describing: post.numberOfLikes)), photo_url = \(String(describing: post.image_url)), text_share = \(String(describing: post.text_share))");
         
-        if(sqlite3_prepare_v2(sqliteDB, "INSERT OR REPLACE INTO comments (FB_id, comment_text) VALUES(?,?);", -1, &sqlite3_stmt, nil)==SQLITE_OK){
-            let comment_id = comment.uid!.cString(using: .utf8);
+        if(sqlite3_prepare_v2(sqliteDB, "INSERT OR REPLACE INTO comments (FB_id, comment_text, uid) VALUES(?,?,?);", -1, &sqlite3_stmt, nil)==SQLITE_OK){
+            let comment_id = comment.FB_id!.cString(using: .utf8);
             let comment_text = comment.comment_text!.cString(using: .utf8);
+            let comment_uid = comment.uid!.cString(using: .utf8);
             
             //print("DEBUG: comment: \(comment_id!), \(comment_text)");
             
             sqlite3_bind_text(sqlite3_stmt, 1, comment_id, -1, nil)
             sqlite3_bind_text(sqlite3_stmt, 2, comment_text, -1, nil)
+            sqlite3_bind_text(sqlite3_stmt, 3, comment_uid, -1, nil)
             if(sqlite3_step(sqlite3_stmt)==SQLITE_DONE){
                 //print("new comment row added seccefully")
             }

@@ -62,12 +62,15 @@ class HomeTableViewCell: UITableViewCell {
     }
     
     @objc func commentImageView_Tocuch(){
-        print("DEBUG: HomeTableViewCell.commentImageView_Tocuch")
-        if let id = post?.id{
-           delegate?.go_to_comment_vc(post_id: id)
-   
+        if Api.internetApi.IsInternet == true {
+            //print("DEBUG: HomeTableViewCell.commentImageView_Tocuch")
+            if let id = post?.id{
+               delegate?.go_to_comment_vc(post_id: id)
+            }
         }
-        
+        else{
+            print ("Comments are not shown while internet is not awailable...")
+        }
     }
     
     @objc func profile_user_Touch(){
@@ -148,7 +151,7 @@ class HomeTableViewCell: UITableViewCell {
                 let fileURL = documentsUrl.appendingPathComponent(String(photo_url_string.dropFirst(11)));
                 do {
                     let imageData = try Data(contentsOf: fileURL)
-                    print ("DEBUG: fileURL = \(fileURL)")
+                    //print ("DEBUG: fileURL = \(fileURL)")
                     self.post_image.image =  UIImage(data: imageData)
                 } catch {
                     print("Error loading image : \(error)")

@@ -15,6 +15,8 @@ class ProfileUserViewController: UIViewController {
     var posts :  [Post] = []
     var user : User!
     var user_id = ""
+    var sql = ModelSql();
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         collection_view.dataSource = self
@@ -24,16 +26,20 @@ class ProfileUserViewController: UIViewController {
     }
     
     func fetch_user(){
-        Api.User.observeUser(withId: user_id) { (user) in
-            self.user = user
-            self.title = user.userName
-            self.collection_view.reloadData()
+        if Api.internetApi.IsInternet == true {
+            Api.User.observeUser(withId: user_id) { (user) in
+                self.user = user
+            }
         }
-       
+        else {
+            user = sql.getUser();
+        }
+        self.title = user.userName
+        self.collection_view.reloadData()
     }
         
         func feth_my_post(){
-           
+           if Api.internetApi.IsInternet == true {
             Api.my_posts.REF_POSTS.child(user_id).observe(.childAdded) { (snapshot) in
                 Api.post.observePost(withId: snapshot.key, complition: {
                     (post) in
@@ -42,8 +48,8 @@ class ProfileUserViewController: UIViewController {
                     self.collection_view.reloadData()
                 })
             }
-            
-        }
+            }
+        } // fetch_my_post
 
 
 }

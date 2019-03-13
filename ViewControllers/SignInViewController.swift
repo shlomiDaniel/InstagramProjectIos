@@ -25,6 +25,14 @@ class SignInViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if Reachability.isConnectedToNetwork(){
+            print("Internet Connection Available!")
+            Api.internetApi.IsInternet = true;
+        }else{
+            print("Internet Connection not Available!")
+            Api.internetApi.IsInternet = false;
+        }
+        
         CreateLocalCache.init();
         
         // Do any additional setup after loading the view.

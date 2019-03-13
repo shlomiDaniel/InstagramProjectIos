@@ -8,6 +8,7 @@
 import Foundation
 class Comment{
     
+    var FB_id: String?;
     var comment_text : String?
     var uid : String?
     
@@ -17,6 +18,12 @@ class Comment{
     }
     
     init (_uid: String, _comment_text: String)  {
+        self.uid = _uid;
+        self.comment_text = _comment_text;
+    }
+    
+    init (_FB_id: String, _comment_text: String, _uid: String){
+        self.FB_id = _FB_id;
         self.uid = _uid;
         self.comment_text = _comment_text;
     }

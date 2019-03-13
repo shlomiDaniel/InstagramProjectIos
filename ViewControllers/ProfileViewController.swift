@@ -15,6 +15,8 @@ class ProfileViewController: UIViewController {
 
     var posts :  [Post] = []
     var user : User!
+    var sql = ModelSql();
+    
     @IBOutlet weak var collection_view: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -65,13 +67,24 @@ class ProfileViewController: UIViewController {
     }
 
     func fetch_user(){
-        Api.User.observe_currect_user { (user) in
+        if Api.internetApi.IsInternet == true {
+            Api.User.observe_currect_user { (user) in
+                self.user = user
+            }
+        }
+        else {
+            self.user = sql.getUser();
+        }
+        self.title = user.userName
+        self.collection_view.reloadData()
+        
+        /*
+            Api.User.observe_currect_user { (user) in
             self.user = user
             self.title = user.userName
             self.collection_view.reloadData()
-            
         }
-
+        */
 }
 
 

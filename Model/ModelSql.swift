@@ -23,31 +23,13 @@ class ModelSql{
                 return
             }
             else {
-                print ("SQLITE3: Successfully connected to SQLite database...");
-                print ("SQLITE3: Local Cache Database path: \(path.absoluteString)");
+                //print ("SQLITE3: Successfully connected to SQLite database...");
+                //print ("SQLITE3: Local Cache Database path: \(path.absoluteString)");
             }
         }
     } // init
     
-    
-    func getUserInfo(userId:String, callback:@escaping ([User])->Void){
-        
-        
-        
-        /*
-         ref.child("users").observe(.value, with:
-         {
-         (snapshot) in
-         var data = [User]()
-         let value = snapshot.value as! [String : Any]
-         for(_ , json) in value {
-         data.append(User(jason: json as! [String : Any]))
-         }
-         callback(data)
-         })
-         */
-    } //getUserInfo
-    
+  
     func getUser(uid: String) -> User {
         
         var user = User();
@@ -323,6 +305,34 @@ class ModelSql{
         
     }//loadUser
     
+    func getPostComments(post_id: String) -> [Comment] {
+        var comments = [Comment]();
+        var FB_id: String = "";
+        var uid: String = "";
+        var comment_text: String = "";
+        
+        
+        let sqlite3_query = "select FB_id, comment_text, uid from comments where Fb_id  in (select comment_id from post_comments where post_id = '" + post_id + "')";
+        
+        print ("DEBUG: POSTS: \(sqlite3_query)");
+        var sqlite3_stmt : OpaquePointer? = nil
+        
+        if sqlite3_prepare(sqliteDB, sqlite3_query, -1, &sqlite3_stmt, nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(sqliteDB)!)
+            print("SQLITE3: Error preparing \(sqlite3_query) with error: \(errmsg)");
+            //return false;
+        }
+        
+        while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW) {
+            FB_id = String(cString: sqlite3_column_text(sqlite3_stmt, 0));
+            comment_text = String(cString: sqlite3_column_text(sqlite3_stmt, 1));
+            uid = String(cString: sqlite3_column_text(sqlite3_stmt, 2));
+            print ("DEBUG: Comment = \(FB_id), \(comment_text), \(uid)");
+            let comment = Comment(_FB_id: FB_id, _comment_text: comment_text, _uid: uid);
+            comments.append(comment);
+        } // while
+        return comments;
+    }
     
 } //class
 

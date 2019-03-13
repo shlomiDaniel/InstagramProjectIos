@@ -18,24 +18,26 @@ class CommentsViewController: UIViewController {
     var post_id : String!
     
     
-    var commets = [Comment]()
+    var comments = [Comment]()
     var users = [User]()
+    
+    let sql = ModelSql();
     
     override func viewDidLoad() {
         super.viewDidLoad()
-         self.tabBarController?.tabBar.isHidden = true
+        
+        self.tabBarController?.tabBar.isHidden = true
         title = "Comments"
         table_view.dataSource = self
         table_view.estimatedRowHeight = 80
         table_view.rowHeight = UITableView.automaticDimension
         
-      send_button_iboutlet.isEnabled = false
+        send_button_iboutlet.isEnabled = false
+        
         loadComments()
         empty()
         hadle_text_filed()
-        
-        
-    }
+    } // viewDidLoad
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "commentSegue"
@@ -49,24 +51,31 @@ class CommentsViewController: UIViewController {
 }
     
     func loadComments(){
-        print(print("tryenewcomment"))
-        Api.post_Comments.REF_Post_Comments.child(self.post_id)
-        .observe(.childAdded, with: {
-            snapshot in
-            
-            Api.Comment.observeComments(withPostId: snapshot.key, complition: {
-                comment in
-                self.fetchUser(uid: comment.uid!,completed:{
-                    self.commets.append(comment)
-                    print("newcomment")
-                    self.table_view.reloadData()
-                    
-                })
+        
+        if Api.internetApi.IsInternet == true {
+            //print(print("tryenewcomment"))
+            Api.post_Comments.REF_Post_Comments.child(self.post_id)
+            .observe(.childAdded, with: {
+                snapshot in
                 
+                Api.Comment.observeComments(withPostId: snapshot.key, complition: {
+                    comment in
+                    self.fetchUser(uid: comment.uid!,completed:{
+                        self.comments.append(comment)
+                        //print("newcomment")
+                        self.table_view.reloadData()
+                    })
+                })
             })
-        })
-    
-    }
+        } else { // no internet
+            print ("DEBUG: post_id = \(post_id!)");
+            comments = sql.getPostComments(post_id: post_id);
+            print (comments);
+            self.table_view.reloadData();
+            
+            
+        } // else NoInternet
+    } //loadNewComments
     
         
     func hadle_text_filed(){
@@ -148,8 +157,8 @@ class CommentsViewController: UIViewController {
 
 extension CommentsViewController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(commets.count)
-        return commets.count
+        print(comments.count)
+        return comments.count
        
     }
     
@@ -157,7 +166,7 @@ extension CommentsViewController : UITableViewDataSource {
         
         let cell = table_view.dequeueReusableCell(withIdentifier: "commentCell", for: indexPath) as! commentsTableViewCell
       
-        let comment = commets[indexPath.row]
+        let comment = comments[indexPath.row]
         let user = users[indexPath.row]
         table_view.rowHeight = 80
         cell.comment_label.numberOfLines = 0
