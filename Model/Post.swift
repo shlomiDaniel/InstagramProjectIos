@@ -27,11 +27,12 @@ class Post{
         self.numberOfLikes = 0
     }
     
-    init (_id: String,  _likeCount: Int, _image_url: String, _text_share: String) {
+    init (_id: String,  _likeCount: Int, _image_url: String, _text_share: String, _uid: String) {
         self.id = _id;
         self.numberOfLikes = _likeCount;
         self.image_url = _image_url;
         self.text_share = _text_share;
+        self.uid = _uid;
     }
     
 }

@@ -1,5 +1,5 @@
 //
-//  ModelSql.swift
+//  CreateLocalCache.swift
 //  InstagramApplication
 //
 //  Created by admin on 19/12/2018.
@@ -77,6 +77,7 @@ class CreateLocalCache{
         photo_url CHAR(255),
         text_share CHAR(255),
         localImageFile CHAR(255),
+        uid CHAR(255),
         UNIQUE(FB_id)
         );
         """;
@@ -196,10 +197,11 @@ class CreateLocalCache{
             let likeCount = proObject["likeCount"] as! Int;
             let photo_url = proObject["photo_url"] as! String;
             let text_share = proObject["text_share"] as! String;
+            let uid = proObject["uid"] as! String;
             
-            //print ("DEBUG: id = \(id), likeCount = \(likeCount), photo_url = \(photo_url), url = \(text_share)");
+            //print ("DEBUG: id = \(id), likeCount = \(likeCount), photo_url = \(photo_url), url = \(text_share), uid = \(userRef)");
             
-            let post = Post(_id: id, _likeCount: likeCount, _image_url: photo_url, _text_share: text_share);
+            let post = Post(_id: id, _likeCount: likeCount, _image_url: photo_url, _text_share: text_share, _uid: uid);
             self.AddPostToSQLiteDB(post: post);
         })
     } //CopyPostsTable
@@ -310,7 +312,7 @@ class CreateLocalCache{
         
         //print("DEBUG: post for adding: FB_id = \(String(describing: post.id)), likeCount = \(String(describing: post.numberOfLikes)), photo_url = \(String(describing: post.image_url)), text_share = \(String(describing: post.text_share))");
         
-        if(sqlite3_prepare_v2(sqliteDB, "INSERT OR REPLACE INTO posts (FB_id, likeCount, photo_url, text_share, localImageFile) VALUES(?,?,?,?,?);", -1, &sqlite3_stmt, nil)==SQLITE_OK){
+        if(sqlite3_prepare_v2(sqliteDB, "INSERT OR REPLACE INTO posts (FB_id, likeCount, photo_url, text_share, localImageFile, uid) VALUES(?,?,?,?,?,?);", -1, &sqlite3_stmt, nil)==SQLITE_OK){
             let post_id = post.id!.cString(using: .utf8);
             //let likeCount = post.numberOfLikes as! Int32;
             let likeCount = Int32(post.numberOfLikes!);
@@ -319,6 +321,7 @@ class CreateLocalCache{
             
             let localImageFile0 = "/Documents/Posts/" + post.image_url!.dropFirst(111);
             let localImageFile = localImageFile0.cString(using: .utf8);
+            let uid = post.uid!.cString(using: .utf8);
             
             
             //print("DEBUG: \(post_id!), \(String(describing: likeCount)), \(String(describing: photo_url)), \(String(describing: text_share))");
@@ -328,6 +331,7 @@ class CreateLocalCache{
             sqlite3_bind_text(sqlite3_stmt, 3, photo_url, -1, nil)
             sqlite3_bind_text(sqlite3_stmt, 4, text_share, -1, nil)
             sqlite3_bind_text(sqlite3_stmt, 5, localImageFile, -1, nil);
+            sqlite3_bind_text(sqlite3_stmt, 6, uid, -1, nil);
             if(sqlite3_step(sqlite3_stmt)==SQLITE_DONE){
                 //print("new post row added seccefully")
             }

@@ -23,7 +23,9 @@ class photo_CollectionViewCell: UICollectionViewCell {
         {
             let photo_url = URL(string: photo_url_string)
             
+            //print ("DEBUG: photo_CollectionViewCell: photo_url = \(photo_url!)");
             self.photo.sd_setImage(with: photo_url, placeholderImage: UIImage())
+            
         }
     }
 }

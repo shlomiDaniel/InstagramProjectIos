@@ -28,6 +28,8 @@ class headerProfileCollectionReusableView: UICollectionReusableView {
         {
             let photo_url = URL(string: photo_url_string)
             
+            //print ("DEBUG: headerProfileCollectionReusableView: photo_url = \(photo_url!)");
+            //print ("DEBUG: headerProfileCollectionReusableView: \(name_label.text!)");
             self.profile_image.sd_setImage(with: photo_url, placeholderImage: UIImage(named: "download"))
         }
         }

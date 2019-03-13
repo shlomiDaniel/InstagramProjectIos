@@ -71,10 +71,12 @@ class commentsTableViewCell: UITableViewCell {
     }
     func setUserInfo(){
         username_label.text = user?.userName
+        print ("DEBUG: commentsTableViewCellDelegate: setUserInfo: \(username_label.text!)");
         if let photo_url_string = user?.profile_image_url
         {
-            let photo_url = URL(string: photo_url_string)
+            let photo_url = URL(string: photo_url_string);
             
+            print ("DEBUG: commentsTableViewCellDelegate: setUserInfo: \(photo_url!)");
             self.profile_image_view.sd_setImage(with: photo_url, placeholderImage: UIImage(named: "download"))
         }
     }

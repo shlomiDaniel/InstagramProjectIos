@@ -48,6 +48,38 @@ class ModelSql{
          */
     } //getUserInfo
     
+    func getUser(uid: String) -> User {
+        
+        var user = User();
+        var FB_id: String = "";
+        var email: String = "";
+        var Password: String = "";
+        var localImageFile: String = "";
+        var userName: String = "";
+        
+        let sqlite3_query = "SELECT FB_id, email, pass, localImageFile, userName from users where FB_id = '" + uid + "'";
+        var sqlite3_stmt : OpaquePointer? = nil
+        //print (sqlite3_query)
+        
+        if sqlite3_prepare(sqliteDB, sqlite3_query, -1, &sqlite3_stmt, nil) != SQLITE_OK {
+            let errmsg = String(cString: sqlite3_errmsg(sqliteDB)!)
+            print("SQLITE3: Error preparing \(sqlite3_query) with error: \(errmsg)");
+            return user;
+        }
+        
+        while(sqlite3_step(sqlite3_stmt) == SQLITE_ROW) {
+            FB_id = String(cString: sqlite3_column_text(sqlite3_stmt, 0));
+            email = String(cString: sqlite3_column_text(sqlite3_stmt, 1));
+            Password = String(cString: sqlite3_column_text(sqlite3_stmt, 2));
+            localImageFile = String(cString: sqlite3_column_text(sqlite3_stmt, 3));
+            userName = String(cString: sqlite3_column_text(sqlite3_stmt, 4));
+        } // while
+
+        user = User(_id: FB_id, _userName: userName, _password: Password, _email: email, profile_image_url: localImageFile);
+        //print ("DEBUG: 'user = User' : \(user.userName!)");
+        return user;
+    } //getUser
+    
     
     
     func getUserId()->String{
@@ -102,16 +134,16 @@ class ModelSql{
         var FB_id: String = "";
         var email: String = "";
         var Password: String = "";
-        var profile_image_url: String = "";
+        var localImageFile: String = "";
         var userName: String = "";
         
         
-        let sqlite3_query = "SELECT FB_id, email, pass, url_profile_image, userName where IsCurrentUser = 1;";
+        let sqlite3_query = "SELECT FB_id, email, pass, localImageFile, userName from users where IsCurrentUser = 1;";
         var sqlite3_stmt : OpaquePointer? = nil
         
         if sqlite3_prepare(sqliteDB, sqlite3_query, -1, &sqlite3_stmt, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(sqliteDB)!)
-            print("SQLITE3: Error preparing -=SELECT FB_id, email, pass, url_profile_image, userName where IsCurrentUser = 1;=- with error: \(errmsg)");
+            print("SQLITE3: Error preparing \(sqlite3_query) with error: \(errmsg)");
             return user;
         }
         
@@ -119,11 +151,11 @@ class ModelSql{
             FB_id = String(cString: sqlite3_column_text(sqlite3_stmt, 0));
             email = String(cString: sqlite3_column_text(sqlite3_stmt, 1));
             Password = String(cString: sqlite3_column_text(sqlite3_stmt, 2));
-            profile_image_url = String(cString: sqlite3_column_text(sqlite3_stmt, 3));
+            localImageFile = String(cString: sqlite3_column_text(sqlite3_stmt, 3));
             userName = String(cString: sqlite3_column_text(sqlite3_stmt, 4));
         } // while
         
-        user = User(_id: FB_id, _userName: userName, _password: Password, _email: email, profile_image_url: profile_image_url);
+        user = User(_id: FB_id, _userName: userName, _password: Password, _email: email, profile_image_url: localImageFile);
         return user;
         
     } //getUser
@@ -232,14 +264,15 @@ class ModelSql{
         var likeCount: Int = 0;
         var image_url: String = "";
         var text_share: String = "";
+        var uid: String = "";
         
-        let sqlite3_query = "SELECT FB_id, likeCount, localImageFile, text_share FROM posts";
-        print ("DEBUG: POSTS: \(sqlite3_query)");
+        let sqlite3_query = "SELECT FB_id, likeCount, localImageFile, text_share, uid FROM posts";
+        //print ("DEBUG: POSTS: \(sqlite3_query)");
         var sqlite3_stmt : OpaquePointer? = nil
         
         if sqlite3_prepare(sqliteDB, sqlite3_query, -1, &sqlite3_stmt, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(sqliteDB)!)
-            print("SQLITE3: Error preparing -=SELECT FB_id, likeCount, localImageFile, text_share FROM posts=- with error: \(errmsg)");
+            print("SQLITE3: Error preparing \(sqlite3_query) with error: \(errmsg)");
             //return false;
         }
         
@@ -248,7 +281,8 @@ class ModelSql{
             likeCount = Int(sqlite3_column_int(sqlite3_stmt, 1));
             image_url = String(cString: sqlite3_column_text(sqlite3_stmt, 2));
             text_share = String(cString: sqlite3_column_text(sqlite3_stmt, 3));
-            let post = Post(_id: id, _likeCount: likeCount, _image_url: image_url, _text_share: text_share);
+            uid = String(cString: sqlite3_column_text(sqlite3_stmt, 4));
+            let post = Post(_id: id, _likeCount: likeCount, _image_url: image_url, _text_share: text_share, _uid: uid);
             Model.instance.modelFirebase.posts.append(post);
         } // while
         table_view.reloadData();
@@ -263,16 +297,16 @@ class ModelSql{
         var id: String = "";
         var email: String = "";
         var pass: String = "";
-        var url_profile_image: String = "";
+        var localImageFile: String = "";
         var userName: String = "";
         
         let sqlite3_query = "SELECT FB_id, email, pass, localImageFile, userName  FROM users";
-        print ("DEBUG: POSTS: \(sqlite3_query)");
+        //print ("DEBUG: USERS: \(sqlite3_query)");
         var sqlite3_stmt : OpaquePointer? = nil
         
         if sqlite3_prepare(sqliteDB, sqlite3_query, -1, &sqlite3_stmt, nil) != SQLITE_OK {
             let errmsg = String(cString: sqlite3_errmsg(sqliteDB)!)
-            print("SQLITE3: Error preparing -=SELECT FB_id, email, pass, localImageFile, userName  FROM users=- with error: \(errmsg)");
+            print("SQLITE3: Error preparing \(sqlite3_query) with error: \(errmsg)");
             //return false;
         }
         
@@ -280,10 +314,10 @@ class ModelSql{
             id = String(cString: sqlite3_column_text(sqlite3_stmt, 0));
             email = String(cString: sqlite3_column_text(sqlite3_stmt, 1));
             pass = String(cString: sqlite3_column_text(sqlite3_stmt, 2));
-            url_profile_image = String(cString: sqlite3_column_text(sqlite3_stmt, 3));
+            localImageFile = String(cString: sqlite3_column_text(sqlite3_stmt, 3));
             userName = String(cString: sqlite3_column_text(sqlite3_stmt, 4));
             
-            let user = User(_id: id, _userName: userName, _password: pass, _email: email, profile_image_url: url_profile_image);
+            let user = User(_id: id, _userName: userName, _password: pass, _email: email, profile_image_url: localImageFile);
             Model.instance.modelFirebase.users.append(user);
         } // while
         

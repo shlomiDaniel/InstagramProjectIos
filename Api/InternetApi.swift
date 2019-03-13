@@ -10,7 +10,7 @@ import Foundation
 
 class InternetApi {
     
+    //var IsInternet: Bool = true;
     var IsInternet: Bool = false;
-    
     
 }

@@ -20,6 +20,7 @@ class ProfileViewController: UIViewController {
         collection_view.dataSource = self
         collection_view.delegate = self
         
+        
             fetch_user()
             feth_my_post()
  

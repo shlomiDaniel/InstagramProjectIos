@@ -130,10 +130,17 @@ extension HomeViewController : UITableViewDataSource {
         
         let cell = table_view.dequeueReusableCell(withIdentifier: "post_cell", for: indexPath) as! HomeTableViewCell
         
-        let post = Model.instance.modelFirebase.posts[indexPath.row]
-        let user = Model.instance.modelFirebase.users[indexPath.row]
-        table_view.rowHeight = 450
-        cell.text_post_label.numberOfLines = 0
+        let post = Model.instance.modelFirebase.posts[indexPath.row];
+        var user = User();
+        if Api.internetApi.IsInternet == true {
+            user = Model.instance.modelFirebase.users[indexPath.row]
+        } else {
+            //print ("DEBUG: POST: \(post.id), \(post.image_url), \(post.isLike), \(post.numberOfLikes), \(post.text_share), \(post.uid)");
+            user = sql.getUser(uid: post.uid!);
+        } // else
+        
+        table_view.rowHeight = 450;
+        cell.text_post_label.numberOfLines = 0;
         
         cell.user = user
         cell.post = post
