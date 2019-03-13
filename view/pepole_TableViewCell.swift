@@ -22,7 +22,7 @@ class pepole_TableViewCell: UITableViewCell {
     var delegate : pepole_TableViewCellDelegate?
     @IBOutlet weak var name_label: UILabel!
     @IBOutlet weak var profile_image: UIImageView!
-    @IBOutlet weak var follow_button: UIButton!
+   // @IBOutlet weak var follow_button: UIButton!
     override func awakeFromNib() {
         super.awakeFromNib()
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.name_Tocuch))

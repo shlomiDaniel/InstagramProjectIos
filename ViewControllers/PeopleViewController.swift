@@ -32,22 +32,19 @@ class PeopleViewController: UIViewController {
     func loadUsers(){
 
         Api.User.observeUser_with_child_added_event { (user) in
-            self.is_following(user_id : user.id, completed: {
-                (value) in
-                //user.is_following = value
-                Model.instance.modelFirebase.users.append(user)
-                self.table_view.reloadData()
-            })
+//            self.is_following(user_id : user.id, completed: {
+//                (value) in
+//                //user.is_following = value
+//                Model.instance.modelFirebase.users.append(user)
+//                self.table_view.reloadData()
+//            })
             
 //
         }
         
         
     }
-    func is_following(user_id : String,completed : @escaping (Bool)->Void){        
-        
-       // Api.follow.is_following(user_id: user_id, completed: completed)
-    }
+   
 
 }
 
